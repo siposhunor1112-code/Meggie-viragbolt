@@ -9,6 +9,7 @@ Nincs szükség build lépésre: az `index.html` bármilyen tárhelyen (GitHub P
 - `styles.css` – megjelenés (színek a `:root` változókban)
 - `script.js` – elérhetőség, nyitvatartás, termékek és árlista
 - `assets/favicon.svg` – ikon
+- `assets/bolt.jpg` – a bolt fotója az oldal alján (ha nincs, rajzolt kép jelenik meg a helyén)
 
 ## Tartalom szerkesztése
 
