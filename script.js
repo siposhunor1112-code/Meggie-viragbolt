@@ -76,7 +76,7 @@ const PRICELIST = [
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const huf = (n) => n.toLocaleString("hu-HU").replace(/\s/g, " ") + " Ft";
+const huf = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0Ft";
 const toMinutes = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
 
 // Aktuális idő budapesti időzónában, a látogató helyétől függetlenül
@@ -92,7 +92,9 @@ function budapestNow() {
 /* ---------- Termékkártyák ---------- */
 function renderProducts(filter = "all") {
   const wrap = $("#products");
-  const list = PRODUCTS.filter((p) => filter === "all" || p.cat === filter);
+  const list = PRODUCTS
+    .filter((p) => filter === "all" || p.cat === filter)
+    .sort((a, b) => a.price - b.price);
   wrap.innerHTML = list.map((p, i) => `
     <article class="card" style="animation-delay:${i * 60}ms">
       <div class="card__visual" style="background:radial-gradient(120% 90% at 50% 20%, ${p.bg[0]}, ${p.bg[1]}); color:${p.ink}">
@@ -122,8 +124,15 @@ function initFilters() {
 }
 
 /* ---------- Árlista ---------- */
+// Az árszöveg első számát adja vissza ("1 200 Ft / szál" → 1200, "ingyenes" → 0)
+const priceValue = (text) => Number((text.match(/\d[\d\s]*/) || ["0"])[0].replace(/\s/g, ""));
+
 function renderPricelist() {
-  $("#pricelist").innerHTML = PRICELIST.map((g) => `
+  const groups = PRICELIST.map((g) => ({
+    ...g,
+    items: [...g.items].sort((a, b) => priceValue(a[1]) - priceValue(b[1])),
+  }));
+  $("#pricelist").innerHTML = groups.map((g) => `
     <div class="pgroup reveal">
       <h3>${g.group}</h3>
       ${g.items.map(([name, price]) => `
