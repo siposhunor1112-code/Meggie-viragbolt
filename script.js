@@ -345,6 +345,7 @@ function openStatus() {
 }
 
 function updateStatus() {
+  renderHours();
   const s = openStatus();
   $$("[data-open-dot]").forEach((d) => { d.classList.toggle("is-open", s.open); d.classList.toggle("is-closed", !s.open); });
   $$("[data-open-text]").forEach((t) => (t.textContent = s.text));
@@ -359,7 +360,8 @@ function renderContact() {
     $$("[data-phone-text]").forEach((a) => (a.textContent = SHOP.phone));
     $$("[data-phone-text-plain]").forEach((a) => (a.textContent = SHOP.phone));
   } else {
-    $$("[data-phone-text], .bigphone").forEach((a) => a.remove());
+    $$("[data-phone-text], .bigphone, .actionbar [data-phone-link]").forEach((a) => a.remove());
+    $$(".actionbar").forEach((bar) => (bar.style.gridTemplateColumns = "1fr"));
   }
   $$("[data-email-link]").forEach((a) => {
     if (SHOP.email) { a.href = "mailto:" + SHOP.email; a.textContent = SHOP.email; }
@@ -400,16 +402,35 @@ function initNav() {
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  const setMenu = (open) => {
+  const setMenu = (open, restoreFocus = true) => {
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Menü bezárása" : "Menü megnyitása");
     menu.hidden = !open;
+    document.documentElement.classList.toggle("menu-open", open);
     document.body.style.overflow = open ? "hidden" : "";
-    if (open) nav.classList.remove("is-solid", "is-hidden"); else onScroll();
+    if (open) {
+      nav.classList.remove("is-solid", "is-hidden");
+      $("a", menu)?.focus({ preventScroll: true });
+    } else {
+      onScroll();
+      if (restoreFocus) toggle.focus({ preventScroll: true });
+    }
   };
   toggle.addEventListener("click", () => setMenu(menu.hidden));
-  $$("a", menu).forEach((a) => a.addEventListener("click", () => setMenu(false)));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) setMenu(false); });
+  $$("a", menu).forEach((a) => a.addEventListener("click", () => setMenu(false, false)));
+  document.addEventListener("keydown", (e) => {
+    if (menu.hidden) return;
+    if (e.key === "Escape") setMenu(false);
+    // Tab-billentyű a nyitott menün belül marad
+    if (e.key === "Tab") {
+      const items = [toggle, ...$$("a", menu)];
+      const i = items.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+      else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+    }
+  });
+  // Ha a képernyő kiszélesedik (pl. tablet elforgatása), a mobilmenü bezárul
+  window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => { if (e.matches && !menu.hidden) setMenu(false, false); });
 
   // Aktív menüpont kiemelése görgetéskor
   const links = $$(".nav__links a");
@@ -454,10 +475,10 @@ document.documentElement.classList.remove("no-js");
 renderBloomSlots();
 renderProducts();
 renderPricelist();
-renderHours();
 renderContact();
 updateStatus();
 setInterval(updateStatus, 60 * 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) updateStatus(); });
 initCollection();
 initCursorBloom();
 initMap();
