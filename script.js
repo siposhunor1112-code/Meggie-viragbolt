@@ -6,9 +6,9 @@
 
 const SHOP = {
   // TODO: valós adatokra cserélni. Ha null, a weboldal "érdeklődjön a boltban" szöveget mutat.
-  phone: null,            // pl. "+36 30 123 4567"
+  phone: "+36 1 211 4035",
   email: null,            // pl. "hello@meggieviragbolt.hu"
-  address: "Budapest, Blaha Lujza tér – aluljáró",
+  address: "1085 Budapest, Blaha Lujza tér 1–3. (metró aluljáró)",
   // Nyitvatartás: 0 = vasárnap … 6 = szombat. null = zárva.
   hours: {
     1: ["07:00", "20:00"],
