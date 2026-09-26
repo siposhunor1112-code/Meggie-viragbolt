@@ -230,6 +230,19 @@ function initNav() {
   sections.forEach((s) => spy.observe(s));
 }
 
+/* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
+function initMap() {
+  $$(".mapbox__load").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.title = "Meggie Virágbolt helye a térképen – Blaha Lujza tér";
+      f.src = btn.dataset.mapSrc;
+      f.referrerPolicy = "no-referrer-when-downgrade";
+      btn.replaceWith(f);
+    });
+  });
+}
+
 /* ---------- Megjelenési animáció ---------- */
 function initReveal() {
   const io = new IntersectionObserver((entries) => {
@@ -253,4 +266,5 @@ updateStatus();
 setInterval(updateStatus, 60 * 1000);
 initFilters();
 initNav();
+initMap();
 initReveal();

@@ -380,11 +380,21 @@ p { margin: 0; }
 .hours__list li.is-today { font-weight: 600; color: var(--rose-deep); }
 
 .contact__map { position: sticky; top: 110px; display: grid; gap: 14px; }
-.contact__map iframe {
-  width: 100%; aspect-ratio: 4 / 5; border: 0; border-radius: var(--radius);
-  filter: grayscale(.85) sepia(.12) contrast(.95);
-  background: var(--cream);
+.mapbox {
+  position: relative; aspect-ratio: 4 / 5;
+  border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line);
 }
+.mapbox__fallback, .mapbox__fallback svg, .mapbox iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mapbox iframe { border: 0; background: var(--cream); filter: grayscale(.85) sepia(.12) contrast(.95); }
+.mapbox__load {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+  padding: 11px 20px; border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(251, 248, 243, .92); color: var(--ink); cursor: pointer;
+  font: 500 13px var(--sans); white-space: nowrap;
+  box-shadow: 0 10px 24px -14px rgba(31, 43, 36, .5);
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.mapbox__load:hover { background: var(--ink); color: var(--cream); }
 
 /* A bolt fotója */
 .storefront { background: var(--paper); padding: 0 var(--gutter) clamp(70px, 9vw, 120px); }
@@ -467,7 +477,7 @@ p { margin: 0; }
   .pillar, .pillar + .pillar { padding: 28px 0; border-left: 0; }
   .pillar + .pillar { border-top: 1px solid var(--line); }
   .contact__map { position: static; }
-  .contact__map iframe { aspect-ratio: 4 / 3; }
+  .mapbox { aspect-ratio: 4 / 3; }
   .footer__inner { grid-template-columns: 1fr; }
   .footer__links { justify-self: start; text-align: left; }
 }
