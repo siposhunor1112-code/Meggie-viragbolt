@@ -11,13 +11,19 @@ Nincs szükség build lépésre: az `index.html` bármilyen tárhelyen (GitHub P
 - `assets/favicon.svg` – ikon
 - `assets/bolt.jpg` – a bolt fotója az oldal alján (ha nincs, rajzolt kép jelenik meg a helyén)
 
+## Megjelenés
+
+- Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), Google Fonts-ról
+- Márkaszín: meggypiros (`--cherry` a `styles.css` elején)
+- A virágképek kódból készülnek (`makeBloom` a `script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
+
 ## Tartalom szerkesztése
 
 A `script.js` elején található objektumok módosításával frissíthetők az adatok:
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
-- `PRODUCTS` – a Kínálat kártyái (név, leírás, ár, kategória)
+- `PRODUCTS` – a Kollekció kártyái (név, leírás, ár, kategória, virágrajz típusa és színe)
 - `PRICELIST` – az Árlista szekció tételei
 
 > Az árak jelenleg **tájékoztató mintaértékek** – élesítés előtt egyeztesd a bolttal.

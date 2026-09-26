@@ -2,6 +2,7 @@
    Meggie Virágbolt – tartalom és működés
    Az alábbi SHOP, PRODUCTS és PRICELIST objektumok szerkesztésével
    frissíthetők az elérhetőségek, a nyitvatartás és az árak.
+   Az árakat az oldal magától növekvő sorrendbe rendezi.
    ========================================================== */
 
 const SHOP = {
@@ -23,20 +24,20 @@ const SHOP = {
 
 const DAY_NAMES = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
-// Kártyák a Kínálat szekcióban
+// A Kollekció kártyái. bloom: peony | rose | anemone | bud; palette: lásd PALETTES
 const PRODUCTS = [
-  { cat: "csokor",  icon: "peony",  bg: ["#f3dcd4", "#e7c2b9"], ink: "#8e3a4f", title: "Bazsarózsa álom",   desc: "Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.", from: true, price: 14900, unit: "csokor" },
-  { cat: "csokor",  icon: "rose",   bg: ["#efe3d3", "#dcc8ab"], ink: "#7a5a2e", title: "Klasszikus rózsacsokor", desc: "11 szál prémium rózsa zölddel, elegáns csomagolásban.",               from: false, price: 12900, unit: "csokor" },
-  { cat: "csokor",  icon: "tulip",  bg: ["#f7e6c9", "#eed2a0"], ink: "#9a6a1e", title: "Tavaszi tulipán",   desc: "Színes tulipánok friss zölddel – egyszerű, vidám, mindig talál.",   from: true, price: 6900,  unit: "csokor" },
-  { cat: "csokor",  icon: "sprig",  bg: ["#dfe6d9", "#c3d0ba"], ink: "#3f5a45", title: "Meggie válogatás",  desc: "A nap legszebb virágaiból a kötő szabad kezével – minden darab egyedi.", from: true, price: 8900,  unit: "csokor" },
-  { cat: "szalas",  icon: "rose",   bg: ["#f1d4d6", "#e2aeb4"], ink: "#8e3a4f", title: "Rózsa",             desc: "Vörös, fehér, rózsaszín és különleges színekben, szálanként.",    from: true, price: 1200,  unit: "szál" },
-  { cat: "szalas",  icon: "tulip",  bg: ["#f5e0cf", "#ebc3a3"], ink: "#9a5a2e", title: "Tulipán",           desc: "Szezonban, sokféle színben – 10 szálas kötegben kedvezőbb.",       from: true, price: 590,   unit: "szál" },
-  { cat: "szalas",  icon: "peony",  bg: ["#ecdfe6", "#d9c1cf"], ink: "#6e3f5c", title: "Liliom",            desc: "Illatos, nagy virágú liliom – önmagában is látványos.",             from: true, price: 1900,  unit: "szál" },
-  { cat: "noveny",  icon: "orchid", bg: ["#ece3f0", "#d6c6df"], ink: "#5e3f73", title: "Orchidea",          desc: "Lepkeorchidea kaspóban, egy- vagy kétágú kivitelben.",             from: true, price: 6490,  unit: "cserép" },
-  { cat: "noveny",  icon: "pot",    bg: ["#dde6dc", "#bfd0bd"], ink: "#355442", title: "Zöldnövények",      desc: "Könnyen gondozható szobanövények irodába és otthonra.",            from: true, price: 3490,  unit: "cserép" },
-  { cat: "alkalmi", icon: "peony",  bg: ["#f4e2dc", "#e3bfb3"], ink: "#8e3a4f", title: "Virágdoboz",        desc: "Díszdobozba rendezett virágok – ajándéknak a legelegánsabb választás.", from: true, price: 16900, unit: "doboz" },
-  { cat: "alkalmi", icon: "sprig",  bg: ["#e2e2da", "#c9cabb"], ink: "#454a3a", title: "Koszorú",           desc: "Gyászkoszorú élő virágból, méltó és visszafogott kivitelben.",     from: true, price: 14900, unit: "db" },
-  { cat: "alkalmi", icon: "rose",   bg: ["#f6ece4", "#e9d6c5"], ink: "#7a5a2e", title: "Menyasszonyi csokor", desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",   from: true, price: 24900, unit: "db" },
+  { cat: "csokor",  bloom: "peony",   palette: "blush",   seed: 2,  title: "Bazsarózsa álom",       desc: "Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.", from: true,  price: 14900, unit: "csokor" },
+  { cat: "csokor",  bloom: "rose",    palette: "cherry",  seed: 8,  title: "Klasszikus rózsacsokor", desc: "11 szál prémium rózsa zölddel, elegáns csomagolásban.",               from: false, price: 12900, unit: "csokor" },
+  { cat: "csokor",  bloom: "anemone", palette: "apricot", seed: 5,  title: "Tavaszi tulipán",       desc: "Színes tulipánok friss zölddel – egyszerű, vidám, mindig talál.",     from: true,  price: 6900,  unit: "csokor" },
+  { cat: "csokor",  bloom: "peony",   palette: "cream",   seed: 13, title: "Meggie válogatás",      desc: "A nap legszebb virágaiból, a kötő szabad kezével – minden darab egyedi.", from: true, price: 8900, unit: "csokor" },
+  { cat: "szalas",  bloom: "rose",    palette: "blush",   seed: 3,  title: "Rózsa",                 desc: "Vörös, fehér, rózsaszín és különleges színekben, szálanként.",        from: true,  price: 1200,  unit: "szál" },
+  { cat: "szalas",  bloom: "bud",     palette: "apricot", seed: 6,  title: "Tulipán",               desc: "Szezonban, sokféle színben – tíz szálas kötegben kedvezőbb.",         from: true,  price: 590,   unit: "szál" },
+  { cat: "szalas",  bloom: "anemone", palette: "ivory",   seed: 9,  title: "Liliom",                desc: "Illatos, nagy virágú liliom – önmagában is látványos.",               from: true,  price: 1900,  unit: "szál" },
+  { cat: "noveny",  bloom: "anemone", palette: "lilac",   seed: 4,  title: "Orchidea",              desc: "Lepkeorchidea kaspóban, egy- vagy kétágú kivitelben.",                from: true,  price: 6490,  unit: "cserép" },
+  { cat: "noveny",  bloom: "leaf",    palette: "sage",    seed: 12, title: "Zöldnövények",          desc: "Könnyen gondozható szobanövények irodába és otthonra.",               from: true,  price: 3490,  unit: "cserép" },
+  { cat: "alkalmi", bloom: "peony",   palette: "cherry",  seed: 7,  title: "Virágdoboz",            desc: "Díszdobozba rendezett virágok – ajándéknak a legelegánsabb választás.", from: true, price: 16900, unit: "doboz" },
+  { cat: "alkalmi", bloom: "anemone", palette: "ivory",   seed: 17, title: "Koszorú",               desc: "Gyászkoszorú élő virágból, méltó és visszafogott kivitelben.",        from: true,  price: 14900, unit: "db" },
+  { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
 const CATEGORY_LABEL = { csokor: "Csokor", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
@@ -76,9 +77,236 @@ const PRICELIST = [
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const huf = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0Ft";
+const huf = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Ft";
 const toMinutes = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* ==========================================================
+   Festményszerű virágok – kódból generált SVG
+   ========================================================== */
+const PALETTES = {
+  //        legvilágosabb → legsötétebb, közép
+  blush:   { c: ["#fbece7", "#f2cbc2", "#dc9c96", "#a9565f"], mid: "#6d1a28" },
+  cherry:  { c: ["#eeb2b5", "#c9586a", "#93263a", "#5a101e"], mid: "#2a070e" },
+  cream:   { c: ["#fffaf1", "#f3e4c9", "#dcc096", "#a88453"], mid: "#6b5330" },
+  apricot: { c: ["#fdeadb", "#f6c7a4", "#e79c78", "#b5634a"], mid: "#5e2518" },
+  ivory:   { c: ["#fdfbf6", "#eee8dd", "#d2c9b9", "#9f9585"], mid: "#1c1b19" },
+  lilac:   { c: ["#f4ebf5", "#dfcae3", "#b898c2", "#77568b"], mid: "#3a2346" },
+  sage:    { c: ["#d4dccd", "#a5b39e", "#74866d", "#465641"], mid: "#2f3a2b" },
+};
+
+function rng(seed) {
+  let a = seed * 9301 + 49297;
+  return () => {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Felfelé mutató szirom, enyhén bemetszett heggyel
+function petalPath(L, W) {
+  const f = (n) => n.toFixed(1);
+  return `M0 0 C${f(W)} ${f(-.25 * L)} ${f(1.05 * W)} ${f(-.85 * L)} ${f(.45 * W)} ${f(-L)} Q0 ${f(-.9 * L)} ${f(-.45 * W)} ${f(-L)} C${f(-1.05 * W)} ${f(-.85 * L)} ${f(-W)} ${f(-.25 * L)} 0 0Z`;
+}
+function leafPath(L, W) {
+  const f = (n) => n.toFixed(1);
+  return `M0 0 C${f(W)} ${f(-.3 * L)} ${f(W * .6)} ${f(-.8 * L)} 0 ${f(-L)} C${f(-W * .6)} ${f(-.8 * L)} ${f(-W)} ${f(-.3 * L)} 0 0Z`;
+}
+
+let bloomUid = 0;
+function makeBloom(type = "peony", paletteName = "blush", seed = 1) {
+  const P = PALETTES[paletteName] || PALETTES.blush;
+  const r = rng(seed);
+  const id = "b" + (++bloomUid);
+  const [c0, c1, c2, c3] = P.c;
+  const defs = [];
+  const body = [];
+
+  const grad = (gid, stops, radius) => {
+    defs.push(`<radialGradient id="${id}${gid}" cx="0" cy="0" r="${radius}" gradientUnits="userSpaceOnUse">${
+      stops.map(([o, c, op = 1]) => `<stop offset="${o}" stop-color="${c}" stop-opacity="${op}"/>`).join("")}</radialGradient>`);
+    return `url(#${id}${gid})`;
+  };
+
+  const ring = (n, L, W, fill, opts = {}) => {
+    const off = r() * 360;
+    for (let i = 0; i < n; i++) {
+      const a = off + (i * 360) / n + (r() - .5) * (opts.jitter ?? 14);
+      const s = .9 + r() * .18;
+      body.push(`<g transform="rotate(${a.toFixed(1)}) scale(${s.toFixed(2)})"><path d="${petalPath(L, W)}" fill="${fill}" stroke="${c3}" stroke-opacity=".22" stroke-width=".5"/><path d="M0 -4 L0 ${(-L * .62).toFixed(1)}" stroke="${c3}" stroke-opacity=".12" stroke-width=".6"/></g>`);
+    }
+  };
+
+  if (type === "peony") {
+    const rings = [[9, 94, 36], [8, 80, 33], [8, 65, 29], [7, 50, 24], [7, 36, 19], [6, 24, 14], [5, 14, 9]];
+    rings.forEach(([n, L, W], k) => {
+      const t = k / (rings.length - 1);
+      ring(n, L, W, grad("p" + k, [[0, t > .6 ? P.mid : c3], [.45, t > .4 ? c3 : c2], [1, t > .5 ? c1 : c0]], L));
+    });
+  } else if (type === "rose") {
+    const g = grad("r", [[0, P.mid], [.35, c3], [.75, c2], [1, c1]], 96);
+    const g2 = grad("r2", [[0, c3], [.6, c1], [1, c0]], 96);
+    const n = 26;
+    for (let i = 0; i < n; i++) {
+      const t = i / n;
+      const L = 94 * Math.pow(1 - t, .75) + 6;
+      const a = i * 137.5 + (r() - .5) * 10;
+      body.push(`<g transform="rotate(${a.toFixed(1)})"><path d="${petalPath(L, L * .62)}" fill="${i < 8 ? g2 : g}" stroke="${c3}" stroke-opacity=".28" stroke-width=".5"/></g>`);
+    }
+  } else if (type === "anemone") {
+    const g = grad("a", [[0, c3], [.3, c2], [.7, c1], [1, c0]], 96);
+    const n = 6 + Math.floor(r() * 2);
+    ring(n, 94, 58, g, { jitter: 10 });
+    ring(n, 70, 44, grad("a2", [[0, c3], [.5, c1], [1, c0, .85]], 72), { jitter: 18 });
+    body.push(`<circle r="19" fill="${P.mid}"/>`);
+    for (let i = 0; i < 34; i++) {
+      const a = r() * Math.PI * 2, d = 19 + r() * 10;
+      body.push(`<circle cx="${(Math.cos(a) * d).toFixed(1)}" cy="${(Math.sin(a) * d).toFixed(1)}" r="${(1 + r() * 1.6).toFixed(1)}" fill="${P.mid}" opacity="${(.5 + r() * .5).toFixed(2)}"/>`);
+    }
+    body.push(`<circle r="7" fill="${c3}" opacity=".6"/>`);
+  } else if (type === "bud") {
+    const g = grad("u", [[0, P.mid], [.5, c3], [1, c1]], 80);
+    [-24, 22, -8, 10, 0].forEach((a) => body.push(`<g transform="translate(0 50) rotate(${a + (r() - .5) * 6})"><path d="${petalPath(88, 26)}" fill="${g}" stroke="${c3}" stroke-opacity=".25" stroke-width=".5"/></g>`));
+    const s = PALETTES.sage.c;
+    [-50, 50].forEach((a) => body.push(`<g transform="translate(0 52) rotate(${a})"><path d="${leafPath(42, 12)}" fill="${s[2]}"/></g>`));
+  } else if (type === "leaf") {
+    const s = PALETTES.sage.c;
+    const g = `<linearGradient id="${id}l" x1="0" y1="0" x2="0" y2="-1" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="${s[3]}"/><stop offset="1" stop-color="${s[1]}"/></linearGradient>`;
+    defs.push(g);
+    body.push(`<path d="M-10 96 C0 40 10 -20 40 -90" fill="none" stroke="${s[3]}" stroke-width="1.6"/>`);
+    for (let i = 0; i < 7; i++) {
+      const t = i / 7;
+      const x = -10 + 50 * Math.pow(t, 1.3), y = 96 - 186 * t;
+      const side = i % 2 ? 1 : -1;
+      const L = 58 - t * 28;
+      body.push(`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${side * (55 + r() * 15)})"><path d="${leafPath(L, L * .34)}" fill="url(#${id}l)" opacity="${(.85 + r() * .15).toFixed(2)}"/></g>`);
+    }
+  }
+
+  const soft = type === "leaf" ? "" : ` filter="url(#${id}f)"`;
+  defs.push(`<filter id="${id}f" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="${seed}"/><feDisplacementMap in="SourceGraphic" scale="5"/><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity=".22"/></filter>`);
+  const fit = type === "bud" ? ` transform="scale(1.45) translate(0 -6)"` : "";
+  return `<svg viewBox="-110 -110 220 220" aria-hidden="true" focusable="false"><defs>${defs.join("")}</defs><g${fit}><g${soft}>${body.join("")}</g></g></svg>`;
+}
+
+function renderBloomSlots() {
+  $$("[data-bloom]").forEach((el) => {
+    const type = el.dataset.bloom;
+    const spinCls = type === "leaf" || type === "bud" ? "" : ` spin${Number(el.dataset.seed) % 2 ? " rev" : ""}`;
+    el.innerHTML = `<div class="bloom-wrap${spinCls}" style="width:100%;height:100%">${makeBloom(type, el.dataset.palette, Number(el.dataset.seed) || 1)}</div>`;
+  });
+}
+
+/* ---------- Kollekció ---------- */
+function renderProducts(filter = "all") {
+  const list = PRODUCTS
+    .filter((p) => filter === "all" || p.cat === filter)
+    .sort((a, b) => a.price - b.price);
+  $("#products").innerHTML = list.map((p, i) => {
+    const pal = PALETTES[p.palette].c;
+    return `
+    <article class="card" style="animation-delay:${i * 70}ms">
+      <div class="card__art" style="background:radial-gradient(90% 70% at 50% 45%, ${pal[0]}, ${pal[1]} 140%)">
+        <span class="card__cat">${CATEGORY_LABEL[p.cat]}</span>
+        <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
+        <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
+      </div>
+      <div class="card__body">
+        <h3 class="card__title">${p.title}</h3>
+        <span class="card__price">${huf(p.price)}${p.from ? "<small>-tól</small>" : ""}<small> / ${p.unit}</small></span>
+        <p class="card__desc">${p.desc}</p>
+      </div>
+    </article>`;
+  }).join("");
+  $("#products").scrollTo({ left: 0 });
+}
+
+function initCollection() {
+  $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
+    $$(".tabs button").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-selected", "false"); });
+    b.classList.add("is-active"); b.setAttribute("aria-selected", "true");
+    renderProducts(b.dataset.filter);
+  }));
+
+  const rail = $("#products");
+  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
+    const card = $(".card", rail);
+    const step = card ? card.getBoundingClientRect().width + 24 : 320;
+    rail.scrollBy({ left: step * Number(b.dataset.rail), behavior: "smooth" });
+  }));
+
+  // Húzással görgetés egérrel
+  let down = false, startX = 0, startLeft = 0, moved = false;
+  rail.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") return;
+    down = true; moved = false; startX = e.clientX; startLeft = rail.scrollLeft;
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) { moved = true; rail.classList.add("is-drag"); }
+    rail.scrollLeft = startLeft - dx;
+  });
+  window.addEventListener("pointerup", () => {
+    if (!down) return;
+    down = false; rail.classList.remove("is-drag");
+    if (moved) {
+      const card = $(".card", rail);
+      if (card) {
+        const w = card.getBoundingClientRect().width + 24;
+        rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
+      }
+    }
+  });
+}
+
+/* ---------- Árlista ---------- */
+// Az árszöveg első számát adja vissza ("1 200 Ft / szál" → 1200, "ingyenes" → 0)
+const priceValue = (text) => Number((text.match(/\d[\d\s]*/) || ["0"])[0].replace(/\s/g, ""));
+
+function renderPricelist() {
+  $("#pricelist").innerHTML = PRICELIST.map((g) => {
+    const items = [...g.items].sort((a, b) => priceValue(a[1]) - priceValue(b[1]));
+    return `
+    <div class="pgroup reveal">
+      <h3>${g.group}<small>${items.length} tétel</small></h3>
+      ${items.map(([name, price]) => `
+        <div class="prow">
+          <span class="prow__name">${name}</span>
+          <span class="prow__dots" aria-hidden="true"></span>
+          <span class="prow__price">${price.replace(/ (?=\d{3})/g, " ")}</span>
+        </div>`).join("")}
+    </div>`;
+  }).join("");
+}
+
+/* ---------- Alkalmak: egeret követő virág ---------- */
+function initCursorBloom() {
+  const el = $(".cursor-bloom");
+  if (!el || reduceMotion || !window.matchMedia("(hover: hover)").matches) return;
+  const cache = {};
+  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
+  const loop = () => {
+    cx += (x - cx) * .14; cy += (y - cy) * .14;
+    el.style.left = cx + "px"; el.style.top = cy + "px";
+    raf = Math.abs(x - cx) + Math.abs(y - cy) > .5 ? requestAnimationFrame(loop) : null;
+  };
+  $$(".occ").forEach((row, i) => {
+    row.addEventListener("mouseenter", (e) => {
+      const key = row.dataset.bloomPreview + row.dataset.palette;
+      cache[key] ||= makeBloom(row.dataset.bloomPreview, row.dataset.palette, 30 + i);
+      el.innerHTML = `<div class="bloom-wrap spin" style="width:100%;height:100%">${cache[key]}</div>`;
+      if (!el.classList.contains("is-on")) { cx = x = e.clientX; cy = y = e.clientY; }
+      el.classList.add("is-on");
+    });
+    row.addEventListener("mouseleave", () => el.classList.remove("is-on"));
+    row.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; raf ||= requestAnimationFrame(loop); });
+  });
+}
+
+/* ---------- Nyitvatartás ---------- */
 // Aktuális idő budapesti időzónában, a látogató helyétől függetlenül
 function budapestNow() {
   const parts = new Intl.DateTimeFormat("en-GB", {
@@ -89,71 +317,11 @@ function budapestNow() {
   return { day, minutes: (Number(get("hour")) % 24) * 60 + Number(get("minute")) };
 }
 
-/* ---------- Termékkártyák ---------- */
-function renderProducts(filter = "all") {
-  const wrap = $("#products");
-  const list = PRODUCTS
-    .filter((p) => filter === "all" || p.cat === filter)
-    .sort((a, b) => a.price - b.price);
-  wrap.innerHTML = list.map((p, i) => `
-    <article class="card" style="animation-delay:${i * 60}ms">
-      <div class="card__visual" style="background:radial-gradient(120% 90% at 50% 20%, ${p.bg[0]}, ${p.bg[1]}); color:${p.ink}">
-        <span class="card__tag">${CATEGORY_LABEL[p.cat]}</span>
-        <svg aria-hidden="true"><use href="#i-${p.icon}"/></svg>
-      </div>
-      <div class="card__body">
-        <h3 class="card__title">${p.title}</h3>
-        <p class="card__desc">${p.desc}</p>
-        <div class="card__foot">
-          <span class="card__price">${huf(p.price)}${p.from ? "<small>-tól</small>" : ""}</span>
-          <span class="card__unit">/ ${p.unit}</span>
-        </div>
-      </div>
-    </article>`).join("");
-}
-
-function initFilters() {
-  $$(".chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      $$(".chip").forEach((c) => { c.classList.remove("is-active"); c.setAttribute("aria-selected", "false"); });
-      chip.classList.add("is-active");
-      chip.setAttribute("aria-selected", "true");
-      renderProducts(chip.dataset.filter);
-    });
-  });
-}
-
-/* ---------- Árlista ---------- */
-// Az árszöveg első számát adja vissza ("1 200 Ft / szál" → 1200, "ingyenes" → 0)
-const priceValue = (text) => Number((text.match(/\d[\d\s]*/) || ["0"])[0].replace(/\s/g, ""));
-
-function renderPricelist() {
-  const groups = PRICELIST.map((g) => ({
-    ...g,
-    items: [...g.items].sort((a, b) => priceValue(a[1]) - priceValue(b[1])),
-  }));
-  $("#pricelist").innerHTML = groups.map((g) => `
-    <div class="pgroup reveal">
-      <h3>${g.group}</h3>
-      ${g.items.map(([name, price]) => `
-        <div class="prow">
-          <span class="prow__name">${name}</span>
-          <span class="prow__dots" aria-hidden="true"></span>
-          <span class="prow__price">${price.replace(/ (?=\d{3})/g, " ")}</span>
-        </div>`).join("")}
-    </div>`).join("");
-}
-
-/* ---------- Nyitvatartás ---------- */
 function renderHours() {
   const { day } = budapestNow();
-  const order = [1, 2, 3, 4, 5, 6, 0];
-  $("#hours").innerHTML = order.map((d) => {
+  $("#hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map((d) => {
     const h = SHOP.hours[d];
-    return `<li class="${d === day ? "is-today" : ""}">
-      <span>${DAY_NAMES[d]}</span>
-      <span>${h ? `${h[0]} – ${h[1]}` : "Zárva"}</span>
-    </li>`;
+    return `<li class="${d === day ? "is-today" : ""}"><span>${DAY_NAMES[d]}</span><span>${h ? `${h[0]} – ${h[1]}` : "Zárva"}</span></li>`;
   }).join("");
 }
 
@@ -178,42 +346,57 @@ function openStatus() {
 
 function updateStatus() {
   const s = openStatus();
-  $$("[data-open-dot]").forEach((d) => {
-    d.classList.toggle("is-open", s.open);
-    d.classList.toggle("is-closed", !s.open);
-  });
+  $$("[data-open-dot]").forEach((d) => { d.classList.toggle("is-open", s.open); d.classList.toggle("is-closed", !s.open); });
   $$("[data-open-text]").forEach((t) => (t.textContent = s.text));
 }
 
 /* ---------- Elérhetőségek ---------- */
 function renderContact() {
   $$("[data-address]").forEach((el) => (el.textContent = SHOP.address));
-
-  $$("[data-phone-link]").forEach((a) => {
-    if (SHOP.phone) a.href = "tel:" + SHOP.phone.replace(/[^\d+]/g, "");
-  });
-  $$("[data-phone-text]").forEach((a) => {
-    if (SHOP.phone) a.textContent = SHOP.phone;
-    else a.replaceWith(document.createTextNode("Érdeklődjön személyesen a boltban"));
-  });
-  // Telefonszám hiányában a fejléc gomb a térképhez visz
-  if (!SHOP.phone) $$(".nav__cta").forEach((a) => (a.textContent = "Útvonal"));
-
+  if (SHOP.phone) {
+    const tel = "tel:" + SHOP.phone.replace(/[^\d+]/g, "");
+    $$("[data-phone-link]").forEach((a) => (a.href = tel));
+    $$("[data-phone-text]").forEach((a) => (a.textContent = SHOP.phone));
+    $$("[data-phone-text-plain]").forEach((a) => (a.textContent = SHOP.phone));
+  } else {
+    $$("[data-phone-text], .bigphone").forEach((a) => a.remove());
+  }
   $$("[data-email-link]").forEach((a) => {
     if (SHOP.email) { a.href = "mailto:" + SHOP.email; a.textContent = SHOP.email; }
-    else a.closest(".fact").remove();
+    else a.closest("div").remove();
   });
-
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+}
+
+/* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
+function initMap() {
+  $$(".mapbox__load").forEach((btn) => btn.addEventListener("click", () => {
+    const f = document.createElement("iframe");
+    f.title = "Meggie Virágbolt helye a térképen – Blaha Lujza tér";
+    f.src = btn.dataset.mapSrc;
+    f.referrerPolicy = "no-referrer-when-downgrade";
+    btn.replaceWith(f);
+  }));
 }
 
 /* ---------- Navigáció ---------- */
 function initNav() {
   const nav = $(".nav");
   const toggle = $(".nav__toggle");
-  const menu = $("#mobile-menu");
+  const menu = $("#menu");
+  const hero = $(".hero");
+  let lastY = window.scrollY;
 
-  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 20);
+  const onScroll = () => {
+    const y = window.scrollY;
+    const pastHero = y > hero.offsetHeight - 90;
+    if (menu.hidden) {
+      nav.classList.toggle("is-solid", pastHero);
+      nav.classList.toggle("is-hidden", pastHero && y > lastY + 4);
+      if (y < lastY - 4) nav.classList.remove("is-hidden");
+    }
+    lastY = y;
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -221,59 +404,63 @@ function initNav() {
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Menü bezárása" : "Menü megnyitása");
     menu.hidden = !open;
-    nav.classList.toggle("is-scrolled", open || window.scrollY > 20);
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open) nav.classList.remove("is-solid", "is-hidden"); else onScroll();
   };
   toggle.addEventListener("click", () => setMenu(menu.hidden));
   $$("a", menu).forEach((a) => a.addEventListener("click", () => setMenu(false)));
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !menu.hidden) setMenu(false); });
 
   // Aktív menüpont kiemelése görgetéskor
   const links = $$(".nav__links a");
-  const sections = links.map((a) => $(a.getAttribute("href"))).filter(Boolean);
-  const spy = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!e.isIntersecting) return;
-      links.forEach((a) => a.classList.toggle("is-current", a.getAttribute("href") === "#" + e.target.id));
-    });
-  }, { rootMargin: "-45% 0px -50% 0px" });
-  sections.forEach((s) => spy.observe(s));
+  const spy = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) links.forEach((a) => a.classList.toggle("is-current", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  links.map((a) => $(a.getAttribute("href"))).filter(Boolean).forEach((s) => spy.observe(s));
 }
 
-/* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
-function initMap() {
-  $$(".mapbox__load").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const f = document.createElement("iframe");
-      f.title = "Meggie Virágbolt helye a térképen – Blaha Lujza tér";
-      f.src = btn.dataset.mapSrc;
-      f.referrerPolicy = "no-referrer-when-downgrade";
-      btn.replaceWith(f);
-    });
-  });
+/* ---------- Hero parallaxis ---------- */
+function initParallax() {
+  if (reduceMotion) return;
+  const slots = $$(".hero .bloom-slot");
+  const depth = [.35, .6, .2, .8, .5, .45, .25];
+  let ticking = false;
+  const apply = () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight * 1.2) {
+      slots.forEach((s, i) => (s.style.transform = `translate3d(0, ${(-y * depth[i % depth.length]).toFixed(1)}px, 0)${s.classList.contains("b7") ? " scaleX(-1)" : ""}`));
+    }
+    ticking = false;
+  };
+  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
 }
 
-/* ---------- Megjelenési animáció ---------- */
+/* ---------- Megjelenési animációk ---------- */
 function initReveal() {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-  $$(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 4) * 70}ms`;
+  $$(".hero [data-anim]").forEach((el, i) => (el.style.transitionDelay = `${200 + i * 140}ms`));
+  requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add("is-loaded")));
+
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: "0px 0px -60px 0px" });
+  $$(".reveal, .store__photo").forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 3) * 90}ms`;
     io.observe(el);
   });
 }
 
 /* ---------- Indítás ---------- */
 document.documentElement.classList.remove("no-js");
+renderBloomSlots();
 renderProducts();
 renderPricelist();
 renderHours();
 renderContact();
 updateStatus();
 setInterval(updateStatus, 60 * 1000);
-initFilters();
-initNav();
+initCollection();
+initCursorBloom();
 initMap();
+initNav();
+initParallax();
 initReveal();

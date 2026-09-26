@@ -4,16 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Meggie Virágbolt · Blaha Lujza tér, Budapest</title>
-  <meta name="description" content="Meggie Virágbolt a Blaha Lujza téri aluljáróban. Kézzel kötött csokrok, szálas virágok, cserepes növények, esküvői és gyászkötészet – friss virág minden nap, a város szívében.">
-  <meta name="theme-color" content="#1f2b24">
+  <meta name="description" content="Meggie Virágbolt a Blaha Lujza téri metró aluljáróban. Kézzel kötött csokrok, szálas virágok, cserepes növények, esküvői és gyászkötészet – a hét minden napján nyitva.">
+  <meta name="theme-color" content="#161b18">
   <meta property="og:title" content="Meggie Virágbolt · Blaha Lujza tér">
-  <meta property="og:description" content="Kézzel kötött csokrok és friss virágok a Blaha Lujza téri aluljáróban.">
+  <meta property="og:description" content="Kézzel kötött csokrok a város szívében, a Blaha Lujza téri aluljáróban.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="hu_HU">
+  <meta property="og:image" content="assets/bolt.jpg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
   <script type="application/ld+json">
@@ -21,381 +22,320 @@
     "@context": "https://schema.org",
     "@type": "Florist",
     "name": "Meggie Virágbolt",
-    "description": "Virágbolt a Blaha Lujza téri aluljáróban: csokrok, szálas virágok, cserepes növények, esküvői és gyászkötészet.",
+    "description": "Virágbolt a Blaha Lujza téri metró aluljáróban: csokrok, szálas virágok, cserepes növények, esküvői és gyászkötészet.",
+    "image": "assets/bolt.jpg",
+    "telephone": "+36 1 211 4035",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Blaha Lujza tér 1-3. (metró aluljáró)",
-      
       "addressLocality": "Budapest",
       "postalCode": "1085",
       "addressCountry": "HU"
     },
-    "telephone": "+36 1 211 4035",
-    "priceRange": "Ft",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "19:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "17:00" }
+    ],
+    "priceRange": "490 Ft – 24 900 Ft",
     "currenciesAccepted": "HUF"
   }
   </script>
 </head>
 <body>
 
-<!-- Újrahasznosítható botanikus rajzok -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="i-rose" viewBox="0 0 120 160">
-      <path d="M60 150 C60 120 58 100 60 72" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M60 118 C44 112 34 100 32 88 C46 90 56 100 60 112" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M60 104 C74 98 84 88 88 76 C74 78 64 88 60 100" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M60 72 C40 70 32 54 36 40 C40 26 54 20 60 22 C66 20 80 26 84 40 C88 54 80 70 60 72Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M60 60 C50 58 46 50 48 42 C50 34 58 32 62 34 C68 36 72 44 68 50 C64 56 56 54 56 48 C56 44 60 42 62 44" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M36 40 C44 46 52 48 60 46 M84 40 C78 48 70 52 62 52" fill="none" stroke="currentColor" stroke-width="1"/>
-    </symbol>
-    <symbol id="i-tulip" viewBox="0 0 120 160">
-      <path d="M60 150 C60 120 60 96 60 70" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M60 140 C40 126 30 104 34 84 C48 96 58 116 60 134" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M60 70 C44 70 38 56 40 40 C46 46 52 48 56 46 C56 36 58 30 60 26 C62 30 64 36 64 46 C68 48 74 46 80 40 C82 56 76 70 60 70Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M56 46 C56 56 58 64 60 70 M64 46 C64 56 62 64 60 70" fill="none" stroke="currentColor" stroke-width="1"/>
-    </symbol>
-    <symbol id="i-peony" viewBox="0 0 120 160">
-      <path d="M60 150 C62 124 60 104 60 84" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M61 124 C76 118 88 108 92 94 C78 96 66 106 61 118" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M60 84 C36 86 22 72 26 54 C30 40 42 36 48 40 C46 28 56 20 64 24 C72 20 84 28 80 40 C88 36 98 44 96 58 C94 74 80 86 60 84Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M44 62 C44 50 52 44 60 46 C68 44 76 50 76 62 C76 70 68 74 60 72 C52 74 44 70 44 62Z" fill="none" stroke="currentColor" stroke-width="1.1"/>
-      <path d="M54 58 C56 54 64 54 66 58 M52 66 C58 64 62 64 68 66" fill="none" stroke="currentColor" stroke-width="1"/>
-    </symbol>
-    <symbol id="i-sprig" viewBox="0 0 120 160">
-      <path d="M60 152 C58 110 64 70 78 20" fill="none" stroke="currentColor" stroke-width="1.3"/>
-      <g fill="none" stroke="currentColor" stroke-width="1.1">
-        <path d="M60 130 C46 126 38 116 36 104 C48 106 58 116 60 128"/>
-        <path d="M61 110 C74 104 82 94 84 82 C72 84 64 94 61 108"/>
-        <path d="M63 90 C50 86 42 76 40 64 C52 66 62 76 63 88"/>
-        <path d="M67 70 C80 64 86 54 88 42 C76 44 68 54 67 68"/>
-        <path d="M71 50 C60 46 54 38 52 28 C62 30 70 38 71 48"/>
-      </g>
-    </symbol>
-    <symbol id="i-pot" viewBox="0 0 120 160">
-      <path d="M36 110 L84 110 L78 150 L42 150 Z" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M32 104 L88 104 L88 110 L32 110 Z" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <g fill="none" stroke="currentColor" stroke-width="1.2">
-        <path d="M60 104 C60 80 58 60 60 40"/>
-        <path d="M60 60 C44 58 32 44 30 26 C46 30 58 44 60 58"/>
-        <path d="M60 50 C74 46 86 32 88 14 C72 20 62 32 60 48"/>
-        <path d="M59 84 C42 84 30 76 24 62 C40 62 54 70 59 82"/>
-        <path d="M61 78 C78 76 90 66 94 52 C78 54 66 62 61 76"/>
-      </g>
-    </symbol>
-    <symbol id="i-orchid" viewBox="0 0 120 160">
-      <path d="M40 150 C40 110 50 70 80 40" fill="none" stroke="currentColor" stroke-width="1.3"/>
-      <g fill="none" stroke="currentColor" stroke-width="1.2">
-        <path d="M80 40 C70 30 72 18 80 16 C88 18 90 30 80 40Z"/>
-        <path d="M80 40 C90 32 102 34 102 42 C100 50 88 50 80 40Z"/>
-        <path d="M80 40 C70 48 58 46 58 38 C60 30 72 32 80 40Z"/>
-        <path d="M80 40 C84 50 82 60 76 60 C70 58 72 48 80 40Z"/>
-        <path d="M58 78 C50 70 52 60 58 58 C66 58 68 70 58 78Z"/>
-        <path d="M58 78 C66 72 76 74 76 80 C74 86 64 86 58 78Z"/>
-        <path d="M58 78 C50 84 40 82 40 76 C42 70 52 72 58 78Z"/>
-      </g>
-    </symbol>
-  </defs>
-</svg>
+<a class="skip" href="#kollekcio">Ugrás a kollekcióhoz</a>
+<div class="grain" aria-hidden="true"></div>
 
-<a class="skip" href="#kinalat">Ugrás a kínálathoz</a>
-
+<!-- ============ FEJLÉC ============ -->
 <header class="nav" id="top">
   <div class="nav__inner">
     <a class="brand" href="#top" aria-label="Meggie Virágbolt – vissza a tetejére">
-      <span class="brand__mark" aria-hidden="true">M</span>
-      <span class="brand__text">Meggie <em>virágbolt</em></span>
+      <span class="brand__name">Meggie</span>
+      <span class="brand__sub">virágbolt</span>
     </a>
     <nav class="nav__links" aria-label="Fő navigáció">
-      <a href="#rolunk">Rólunk</a>
-      <a href="#kinalat">Kínálat</a>
+      <a href="#bemutatkozas">A bolt</a>
+      <a href="#kollekcio">Kollekció</a>
       <a href="#arlista">Árlista</a>
       <a href="#alkalmak">Alkalmak</a>
       <a href="#elerhetoseg">Elérhetőség</a>
     </nav>
-    <a class="btn btn--small nav__cta" data-phone-link href="#elerhetoseg">Hívjon minket</a>
-    <button class="nav__toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü megnyitása">
+    <a class="nav__phone" data-phone-link data-phone-text href="#elerhetoseg">Elérhetőség</a>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="menu" aria-label="Menü megnyitása">
       <span></span><span></span>
     </button>
   </div>
-  <div class="mobile-menu" id="mobile-menu" hidden>
-    <a href="#rolunk">Rólunk</a>
-    <a href="#kinalat">Kínálat</a>
-    <a href="#arlista">Árlista</a>
-    <a href="#alkalmak">Alkalmak</a>
-    <a href="#elerhetoseg">Elérhetőség</a>
-  </div>
 </header>
+
+<div class="menu" id="menu" hidden>
+  <nav class="menu__links" aria-label="Mobil navigáció">
+    <a href="#bemutatkozas"><small>01</small>A bolt</a>
+    <a href="#kollekcio"><small>02</small>Kollekció</a>
+    <a href="#arlista"><small>03</small>Árlista</a>
+    <a href="#alkalmak"><small>04</small>Alkalmak</a>
+    <a href="#elerhetoseg"><small>05</small>Elérhetőség</a>
+  </nav>
+  <div class="menu__foot">
+    <a data-phone-link data-phone-text href="#elerhetoseg"></a>
+    <span data-open-text></span>
+  </div>
+</div>
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero__copy">
-      <p class="eyebrow reveal">Blaha Lujza tér · aluljáró · Budapest</p>
-      <h1 class="reveal">Virág, ami <em>megállítja</em> a&nbsp;várost.</h1>
-      <p class="lead reveal">Kézzel kötött csokrok, szezonális szálas virágok és gondosan válogatott növények – a Blaha forgatagának közepén, minden reggel frissen.</p>
-      <div class="hero__actions reveal">
-        <a class="btn" href="#kinalat">Kínálat és árak</a>
-        <a class="btn btn--ghost" href="#elerhetoseg">Hol talál minket?</a>
-      </div>
-      <div class="hero__status reveal" aria-live="polite">
-        <span class="dot" data-open-dot></span>
-        <span data-open-text>Nyitvatartás betöltése…</span>
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__bouquet" aria-hidden="true">
+      <div class="bloom-slot b1" data-bloom="peony"   data-palette="blush"  data-seed="11"></div>
+      <div class="bloom-slot b2" data-bloom="rose"    data-palette="cherry" data-seed="4"></div>
+      <div class="bloom-slot b3" data-bloom="anemone" data-palette="cream"  data-seed="7"></div>
+      <div class="bloom-slot b4" data-bloom="rose"    data-palette="apricot" data-seed="21"></div>
+      <div class="bloom-slot b5" data-bloom="bud"     data-palette="cherry" data-seed="3"></div>
+      <div class="bloom-slot b6" data-bloom="leaf"    data-palette="sage"   data-seed="9"></div>
+      <div class="bloom-slot b7" data-bloom="leaf"    data-palette="sage"   data-seed="15"></div>
+    </div>
+
+    <div class="hero__inner">
+      <p class="label hero__label" data-anim>Virágbolt · Blaha Lujza tér · Budapest</p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="line"><span data-anim>Meggie</span></span>
+      </h1>
+      <div class="hero__bottom">
+        <p class="hero__lead" data-anim>Kézzel kötött csokrok, friss szálas virágok és gondosan válogatott növények – a&nbsp;Blaha Lujza téri aluljáróban, a&nbsp;hét minden napján.</p>
+        <div class="hero__actions" data-anim>
+          <a class="btn btn--light" href="#kollekcio">Kollekció és árak</a>
+          <a class="link-arrow" href="#elerhetoseg">Útvonal a bolthoz</a>
+        </div>
       </div>
     </div>
 
-    <div class="hero__art" aria-hidden="true">
-      <div class="arch">
-        <div class="arch__glow"></div>
-        <svg class="art art--1"><use href="#i-peony"/></svg>
-        <svg class="art art--2"><use href="#i-rose"/></svg>
-        <svg class="art art--3"><use href="#i-tulip"/></svg>
-        <svg class="art art--4"><use href="#i-sprig"/></svg>
-      </div>
-      <div class="hero__badge">
-        <span class="hero__badge-num">Friss</span>
-        <span class="hero__badge-txt">virág<br>minden reggel</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee__track">
-      <span>Rózsa</span><i>✦</i><span>Tulipán</span><i>✦</i><span>Bazsarózsa</span><i>✦</i><span>Orchidea</span><i>✦</i><span>Liliom</span><i>✦</i><span>Eukaliptusz</span><i>✦</i><span>Gerbera</span><i>✦</i><span>Hortenzia</span><i>✦</i>
-      <span>Rózsa</span><i>✦</i><span>Tulipán</span><i>✦</i><span>Bazsarózsa</span><i>✦</i><span>Orchidea</span><i>✦</i><span>Liliom</span><i>✦</i><span>Eukaliptusz</span><i>✦</i><span>Gerbera</span><i>✦</i><span>Hortenzia</span><i>✦</i>
-    </div>
-  </div>
-
-  <!-- RÓLUNK -->
-  <section class="section about" id="rolunk">
-    <div class="about__grid">
-      <div class="about__title">
-        <p class="eyebrow reveal">Rólunk</p>
-        <h2 class="reveal">Egy kis bolt a&nbsp;föld alatt, <em>nagy</em> szívvel.</h2>
-      </div>
-      <div class="about__body">
-        <p class="reveal">A Meggie Virágbolt a Blaha Lujza téri aluljáróban várja a sietőket és a ráérőket egyaránt. Akár egy szál rózsáért ugrik be munkába menet, akár egy különleges alkalomra keres egyedi csokrot – nálunk percek alatt elkészül, amit szeretne.</p>
-        <p class="reveal">Hiszünk abban, hogy a virág nem luxus, hanem mindennapi öröm. Ezért szezonális, friss alapanyagból dolgozunk, és minden csokrot kézzel, személyre szabva kötünk.</p>
-      </div>
-    </div>
-
-    <ul class="pillars">
-      <li class="pillar reveal">
-        <span class="pillar__num">01</span>
-        <h3>Minden nap friss</h3>
-        <p>Virágainkat gondosan válogatjuk, hogy csokra sokáig szép maradjon.</p>
-      </li>
-      <li class="pillar reveal">
-        <span class="pillar__num">02</span>
-        <h3>Kötés percek alatt</h3>
-        <p>Rohan? Mondja el, kinek és milyen alkalomra – mi közben megkötjük.</p>
-      </li>
-      <li class="pillar reveal">
-        <span class="pillar__num">03</span>
-        <h3>A város közepén</h3>
-        <p>Metróról, villamosról, buszról egy lépés: a Blaha aluljárójában vagyunk.</p>
-      </li>
+    <ul class="hero__meta" data-anim>
+      <li><span class="dot" data-open-dot></span><span data-open-text>Nyitvatartás…</span></li>
+      <li class="hide-sm"><a data-phone-link data-phone-text href="#elerhetoseg"></a></li>
+      <li class="hide-sm">M2 · Blaha Lujza tér</li>
     </ul>
   </section>
 
-  <!-- KÍNÁLAT -->
-  <section class="section shop" id="kinalat">
-    <div class="section__head">
-      <div>
-        <p class="eyebrow reveal">Kínálat</p>
-        <h2 class="reveal">Válogasson <em>kedvére</em></h2>
+  <!-- ============ 01 BEMUTATKOZÁS ============ -->
+  <section class="section intro" id="bemutatkozas">
+    <div class="wrap">
+      <p class="label reveal"><span class="num">01</span> A bolt</p>
+      <p class="statement reveal">
+        Hisszük, hogy egyetlen szál virág is képes megállítani egy rohanó napot. Ezért minden csokrot <em>kézzel, személyre szabva</em> kötünk – legyen szó egy gyors köszönetről vagy egy életre szóló pillanatról.
+      </p>
+
+      <div class="facts3">
+        <div class="fact3 reveal">
+          <span class="fact3__big">7<em>nap</em></span>
+          <p>Nyitva a hét minden napján, hétvégén is.</p>
+        </div>
+        <div class="fact3 reveal">
+          <span class="fact3__big">Pár<em>perc</em></span>
+          <p>Ennyi alatt elkészül a csokra – akár amíg vár.</p>
+        </div>
+        <div class="fact3 reveal">
+          <span class="fact3__big">M2</span>
+          <p>A Blaha Lujza téri metró aluljárójában, a város közepén.</p>
+        </div>
       </div>
-      <p class="section__note reveal">A feltüntetett árak tájékoztató jellegűek; a végső ár a szezontól és a választott virágoktól függ.</p>
     </div>
-
-    <div class="filters reveal" role="tablist" aria-label="Kategóriák">
-      <button class="chip is-active" role="tab" aria-selected="true" data-filter="all">Mind</button>
-      <button class="chip" role="tab" aria-selected="false" data-filter="csokor">Csokrok</button>
-      <button class="chip" role="tab" aria-selected="false" data-filter="szalas">Szálas virág</button>
-      <button class="chip" role="tab" aria-selected="false" data-filter="noveny">Cserepes</button>
-      <button class="chip" role="tab" aria-selected="false" data-filter="alkalmi">Alkalmi</button>
-    </div>
-
-    <div class="products" id="products" aria-live="polite"></div>
   </section>
 
-  <!-- ÁRLISTA -->
-  <section class="section prices" id="arlista">
-    <div class="prices__inner">
-      <div class="section__head section__head--light">
+  <!-- ============ 02 KOLLEKCIÓ ============ -->
+  <section class="section collection" id="kollekcio">
+    <div class="wrap">
+      <div class="head">
         <div>
-          <p class="eyebrow reveal">Árlista</p>
-          <h2 class="reveal">Tiszta árak, <em>szép</em> virágok</h2>
+          <p class="label reveal"><span class="num">02</span> Kollekció</p>
+          <h2 class="h2 reveal">A kollekció</h2>
         </div>
-        <p class="section__note reveal">Tájékoztató árak forintban. Egyedi kérés esetén szívesen adunk pontos árajánlatot.</p>
+        <div class="head__side reveal">
+          <div class="tabs" role="tablist" aria-label="Kategóriák">
+            <button role="tab" aria-selected="true"  class="is-active" data-filter="all">Mind</button>
+            <button role="tab" aria-selected="false" data-filter="szalas">Szálas</button>
+            <button role="tab" aria-selected="false" data-filter="csokor">Csokrok</button>
+            <button role="tab" aria-selected="false" data-filter="noveny">Cserepes</button>
+            <button role="tab" aria-selected="false" data-filter="alkalmi">Alkalmi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail" id="products" tabindex="0" aria-label="Termékek, a legolcsóbbtól a legdrágábbig"></div>
+
+    <div class="wrap rail__foot">
+      <p class="note">Az árak tájékoztató jellegűek, a legolcsóbbtól a legdrágábbig. A végső ár a szezontól és a választott virágoktól függ.</p>
+      <div class="rail__nav">
+        <button class="circle" data-rail="-1" aria-label="Előző termékek">←</button>
+        <button class="circle" data-rail="1" aria-label="Következő termékek">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 ÁRLISTA ============ -->
+  <section class="section prices" id="arlista">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label reveal"><span class="num">03</span> Árlista</p>
+          <h2 class="h2 reveal">Tiszta árak,<br><em>szép virágok</em></h2>
+        </div>
+        <p class="note reveal">Tájékoztató árak forintban. Egyedi kérés esetén szívesen adunk pontos árajánlatot telefonon vagy a boltban.</p>
       </div>
       <div class="pricelist" id="pricelist"></div>
     </div>
   </section>
 
-  <!-- ALKALMAK -->
+  <!-- ============ 04 ALKALMAK ============ -->
   <section class="section occasions" id="alkalmak">
-    <div class="section__head">
-      <div>
-        <p class="eyebrow reveal">Alkalmak</p>
-        <h2 class="reveal">Minden pillanatra <em>van</em> virág</h2>
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <p class="label reveal"><span class="num">04</span> Alkalmak</p>
+          <h2 class="h2 reveal">Minden pillanatra<br><em>van virág</em></h2>
+        </div>
       </div>
+
+      <ul class="occ-list" id="occasions">
+        <li class="occ reveal" data-bloom-preview="peony" data-palette="blush">
+          <span class="occ__num">i.</span>
+          <h3 class="occ__title">Születésnap &amp; évforduló</h3>
+          <p class="occ__desc">Az ünnepelt kedvenc színeire hangolt csokrok, akár díszdobozban.</p>
+          <span class="occ__price">6&nbsp;900&nbsp;Ft-tól</span>
+        </li>
+        <li class="occ reveal" data-bloom-preview="anemone" data-palette="ivory">
+          <span class="occ__num">ii.</span>
+          <h3 class="occ__title">Gyászkötészet</h3>
+          <p class="occ__desc">Koszorúk, sírcsokrok és urnadíszek csendes, méltó eleganciával.</p>
+          <span class="occ__price">14&nbsp;900&nbsp;Ft-tól</span>
+        </li>
+        <li class="occ reveal" data-bloom-preview="rose" data-palette="cream">
+          <span class="occ__num">iii.</span>
+          <h3 class="occ__title">Esküvő</h3>
+          <p class="occ__desc">Menyasszonyi csokor, kitűzők és asztaldísz – személyes egyeztetéssel.</p>
+          <span class="occ__price">24&nbsp;900&nbsp;Ft-tól</span>
+        </li>
+        <li class="occ reveal" data-bloom-preview="rose" data-palette="cherry">
+          <span class="occ__num">iv.</span>
+          <h3 class="occ__title">Céges megrendelés</h3>
+          <p class="occ__desc">Recepciós virágok, rendezvénydekoráció és ajándékcsokrok partnereknek.</p>
+          <span class="occ__price">Egyedi ajánlat</span>
+        </li>
+      </ul>
+
+      <ol class="steps">
+        <li class="reveal"><span>1</span><div><h3>Keressen minket</h3><p>Hívjon, vagy egyszerűen ugorjon be a boltba.</p></div></li>
+        <li class="reveal"><span>2</span><div><h3>Mesélje el az alkalmat</h3><p>Kinek szól, milyen színeket szeret, mekkora a keret.</p></div></li>
+        <li class="reveal"><span>3</span><div><h3>Vegye át frissen</h3><p>Előre rendelt csokrát a megbeszélt időpontra elkészítjük.</p></div></li>
+      </ol>
     </div>
-    <div class="occ-grid">
-      <article class="occ reveal">
-        <svg class="occ__art" aria-hidden="true"><use href="#i-peony"/></svg>
-        <h3>Esküvő</h3>
-        <p>Menyasszonyi csokor, kitűzők, asztaldísz és teremdekoráció – személyes egyeztetéssel.</p>
-        <span class="occ__price">egyedi ajánlat</span>
-      </article>
-      <article class="occ reveal">
-        <svg class="occ__art" aria-hidden="true"><use href="#i-rose"/></svg>
-        <h3>Születésnap &amp; évforduló</h3>
-        <p>Az ünnepelt kedvenc színeire hangolt csokrok, akár díszdobozban.</p>
-        <span class="occ__price">6 900 Ft-tól</span>
-      </article>
-      <article class="occ reveal">
-        <svg class="occ__art" aria-hidden="true"><use href="#i-orchid"/></svg>
-        <h3>Céges megrendelés</h3>
-        <p>Recepciós virágok, rendezvénydekoráció, ajándékcsokrok partnereknek – rendszeres szállítással is.</p>
-        <span class="occ__price">egyedi ajánlat</span>
-      </article>
-      <article class="occ reveal">
-        <svg class="occ__art" aria-hidden="true"><use href="#i-sprig"/></svg>
-        <h3>Gyászkötészet</h3>
-        <p>Koszorúk, sírcsokrok és urnadíszek csendes, méltó eleganciával.</p>
-        <span class="occ__price">14 900 Ft-tól</span>
-      </article>
+    <div class="cursor-bloom" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ A BOLT FOTÓJA ============ -->
+  <section class="store" aria-labelledby="store-title">
+    <div class="wrap store__grid">
+      <figure class="store__photo reveal">
+        <img src="assets/bolt.jpg" alt="A Meggie Virágbolt kirakata a Blaha Lujza téri aluljáróban" loading="lazy" width="384" height="510"
+             onerror="this.closest('.store__photo').classList.add('is-empty'); this.remove();">
+        <div class="store__placeholder" data-bloom="peony" data-palette="blush" data-seed="5" aria-hidden="true"></div>
+      </figure>
+      <div class="store__text">
+        <p class="label reveal">Várjuk szeretettel</p>
+        <h2 class="h2 reveal" id="store-title">Lépjen be<br><em>egy pillanatra</em></h2>
+        <p class="reveal">A Blaha forgatagának közepén egy kis színes menedék: virágok, cserepes növények és apró ajándékok. Nézzen be munkába menet vagy hazafelé – szívesen segítünk választani.</p>
+        <a class="link-arrow reveal" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085">Útvonaltervezés a Google Mapsben</a>
+      </div>
     </div>
   </section>
 
-  <!-- HOGYAN RENDELJEN -->
-  <section class="section steps">
-    <div class="section__head">
-      <div>
-        <p class="eyebrow reveal">Rendelés</p>
-        <h2 class="reveal">Három lépés a&nbsp;<em>tökéletes</em> csokorig</h2>
-      </div>
-    </div>
-    <ol class="steps__list">
-      <li class="reveal"><span>I.</span><h3>Keressen minket</h3><p>Hívjon, írjon, vagy egyszerűen ugorjon be a boltba.</p></li>
-      <li class="reveal"><span>II.</span><h3>Mondja el az alkalmat</h3><p>Kinek szól, milyen színeket szeret, mekkora a keret – a többit ránk bízhatja.</p></li>
-      <li class="reveal"><span>III.</span><h3>Vegye át frissen</h3><p>Előre rendelt csokrát a megbeszélt időpontra elkészítjük.</p></li>
-    </ol>
-  </section>
-
-  <!-- ELÉRHETŐSÉG -->
+  <!-- ============ 05 ELÉRHETŐSÉG ============ -->
   <section class="section contact" id="elerhetoseg">
-    <div class="contact__grid">
-      <div class="contact__info">
-        <p class="eyebrow reveal">Elérhetőség</p>
-        <h2 class="reveal">Látogasson el <em>hozzánk</em></h2>
+    <div class="wrap">
+      <p class="label reveal"><span class="num">05</span> Elérhetőség</p>
+      <a class="bigphone reveal" data-phone-link href="#elerhetoseg"><span data-phone-text-plain></span></a>
 
-        <dl class="facts">
-          <div class="fact reveal">
-            <dt>Cím</dt>
-            <dd data-address>Budapest, Blaha Lujza tér – aluljáró</dd>
-          </div>
-          <div class="fact reveal">
-            <dt>Telefon</dt>
-            <dd><a data-phone-link data-phone-text href="#">—</a></dd>
-          </div>
-          <div class="fact reveal">
-            <dt>E-mail</dt>
-            <dd><a data-email-link href="#">—</a></dd>
-          </div>
-          <div class="fact reveal">
-            <dt>Megközelítés</dt>
-            <dd>M2 metró (Blaha Lujza tér) · 4-es, 6-os villamos · 28-as, 37-es, 62-es villamos · 5-ös, 7-es busz</dd>
-          </div>
-        </dl>
+      <div class="contact__grid">
+        <div class="contact__col">
+          <dl class="facts">
+            <div class="reveal"><dt>Cím</dt><dd data-address></dd></div>
+            <div class="reveal"><dt>E-mail</dt><dd><a data-email-link href="#"></a></dd></div>
+            <div class="reveal"><dt>Megközelítés</dt><dd>M2 metró · 4-es, 6-os villamos · 28-as, 37-es, 62-es villamos · 5-ös, 7-es busz</dd></div>
+          </dl>
 
-        <div class="hours reveal">
-          <div class="hours__head">
-            <h3>Nyitvatartás</h3>
-            <span class="status"><span class="dot" data-open-dot></span><span data-open-text></span></span>
+          <div class="hours reveal">
+            <div class="hours__head">
+              <h3>Nyitvatartás</h3>
+              <span class="status"><span class="dot" data-open-dot></span><span data-open-text></span></span>
+            </div>
+            <ul class="hours__list" id="hours"></ul>
           </div>
-          <ul class="hours__list" id="hours"></ul>
         </div>
-      </div>
 
-      <div class="contact__map reveal">
-        <div class="mapbox">
-          <!-- Rajzolt térkép; a Google Maps csak kattintásra töltődik be -->
-          <div class="mapbox__fallback" aria-hidden="true">
-            <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
-              <rect width="400" height="500" fill="#efe7da"/>
-              <g stroke="#e2d6c4" stroke-width="10" fill="none">
-                <path d="M-10 90 L410 130"/><path d="M-10 400 L410 370"/>
-                <path d="M80 -10 L60 510"/><path d="M330 -10 L350 510"/>
-              </g>
-              <path d="M-10 262 L410 238" stroke="#fbf8f3" stroke-width="30"/>
-              <path d="M188 -10 L212 510" stroke="#fbf8f3" stroke-width="30"/>
-              <circle cx="200" cy="250" r="54" fill="#dfe6d9"/>
-              <g font-family="Manrope, sans-serif" font-size="12" fill="#7d8a80" letter-spacing="1.5">
-                <text x="18" y="252" transform="rotate(-3 18 252)">RÁKÓCZI ÚT</text>
-                <text x="300" y="232" transform="rotate(-3 300 232)">RÁKÓCZI ÚT</text>
-                <text x="222" y="70" transform="rotate(87 222 70)">ERZSÉBET KRT.</text>
-                <text x="232" y="340" transform="rotate(87 232 340)">JÓZSEF KRT.</text>
-              </g>
-              <g transform="translate(200 250)">
-                <circle r="30" fill="#b5566a" opacity=".15"/>
-                <path d="M0 -44 C-16 -44 -26 -32 -26 -19 C-26 -2 0 18 0 18 C0 18 26 -2 26 -19 C26 -32 16 -44 0 -44Z" fill="#8e3a4f"/>
-                <circle cy="-20" r="8" fill="#fbf8f3"/>
-              </g>
-              <text x="200" y="300" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="26" fill="#1f2b24">Meggie virágbolt</text>
-              <text x="200" y="322" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" fill="#4a5a50">Blaha Lujza tér · metró aluljáró</text>
-            </svg>
+        <div class="contact__map reveal">
+          <div class="mapbox">
+            <!-- Rajzolt térkép; a Google Maps csak kattintásra töltődik be -->
+            <div class="mapbox__fallback" aria-hidden="true">
+              <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+                <rect width="400" height="500" fill="#ece5da"/>
+                <g stroke="#e0d6c7" stroke-width="10" fill="none">
+                  <path d="M-10 90 L410 130"/><path d="M-10 400 L410 370"/>
+                  <path d="M80 -10 L60 510"/><path d="M330 -10 L350 510"/>
+                </g>
+                <path d="M-10 262 L410 238" stroke="#f8f4ee" stroke-width="30"/>
+                <path d="M188 -10 L212 510" stroke="#f8f4ee" stroke-width="30"/>
+                <circle cx="200" cy="250" r="54" fill="#dde3d6"/>
+                <g font-family="Jost, sans-serif" font-size="11" fill="#8a8f89" letter-spacing="2">
+                  <text x="18" y="252" transform="rotate(-3 18 252)">RÁKÓCZI ÚT</text>
+                  <text x="300" y="232" transform="rotate(-3 300 232)">RÁKÓCZI ÚT</text>
+                  <text x="222" y="70" transform="rotate(87 222 70)">ERZSÉBET KRT.</text>
+                  <text x="232" y="340" transform="rotate(87 232 340)">JÓZSEF KRT.</text>
+                </g>
+                <g transform="translate(200 250)">
+                  <circle r="30" fill="#7b1e2e" opacity=".12"/>
+                  <path d="M0 -44 C-16 -44 -26 -32 -26 -19 C-26 -2 0 18 0 18 C0 18 26 -2 26 -19 C26 -32 16 -44 0 -44Z" fill="#7b1e2e"/>
+                  <circle cy="-20" r="8" fill="#f8f4ee"/>
+                </g>
+                <text x="200" y="302" text-anchor="middle" font-family="Bodoni Moda, Didot, serif" font-style="italic" font-size="26" fill="#161b18">Meggie</text>
+                <text x="200" y="324" text-anchor="middle" font-family="Jost, sans-serif" font-size="11" letter-spacing="2" fill="#4b524d">BLAHA LUJZA TÉR · ALULJÁRÓ</text>
+              </svg>
+            </div>
+            <button class="mapbox__load" type="button"
+              data-map-src="https://www.google.com/maps?q=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085&z=17&output=embed">
+              Élő térkép megnyitása
+            </button>
           </div>
-          <button class="mapbox__load" type="button"
-            data-map-src="https://www.google.com/maps?q=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085&z=17&output=embed">
-            Élő térkép megnyitása
-          </button>
+          <a class="btn btn--dark btn--block" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085">Útvonaltervezés</a>
         </div>
-        <a class="btn btn--block" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085">Útvonaltervezés</a>
       </div>
     </div>
-  </section>
-
-  <!-- A BOLT FOTÓJA – a képet ide kell tenni: assets/bolt.jpg -->
-  <section class="storefront" aria-label="A bolt">
-    <figure class="storefront__frame">
-      <img class="storefront__img" src="assets/bolt.jpg" alt="A Meggie Virágbolt a Blaha Lujza téri aluljáróban" loading="lazy"
-           onerror="this.closest('.storefront__frame').classList.add('is-empty'); this.remove();">
-      <div class="storefront__placeholder" aria-hidden="true">
-        <svg class="art"><use href="#i-peony"/></svg>
-        <svg class="art"><use href="#i-rose"/></svg>
-        <svg class="art"><use href="#i-tulip"/></svg>
-        <svg class="art"><use href="#i-sprig"/></svg>
-        <svg class="art"><use href="#i-orchid"/></svg>
-      </div>
-      <figcaption class="storefront__caption">
-        <span class="eyebrow">Várjuk szeretettel</span>
-        <span class="storefront__title">Meggie <em>virágbolt</em></span>
-        <span class="storefront__addr">Blaha Lujza tér · metró aluljáró</span>
-        <span class="storefront__text">Lépjen be egy pillanatra a nyüzsgésből: virágok, cserepes növények és apró ajándékok várják a Blaha aluljárójában.</span>
-        <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Meggie+Vir%C3%A1g,+Budapest,+Blaha+Lujza+t%C3%A9r+1-3,+1085">Útvonal a bolthoz</a>
-      </figcaption>
-    </figure>
   </section>
 
 </main>
 
+<!-- ============ LÁBLÉC ============ -->
 <footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__brand">
-      <span class="brand__mark" aria-hidden="true">M</span>
-      <p class="footer__name">Meggie <em>virágbolt</em></p>
-      <p class="footer__tag">Friss virág a Blaha szívében.</p>
+  <div class="wrap">
+    <div class="footer__top">
+      <p class="footer__tag">Kézzel kötött csokrok<br>a város szívében.</p>
+      <nav class="footer__links" aria-label="Lábléc navigáció">
+        <a href="#bemutatkozas">A bolt</a>
+        <a href="#kollekcio">Kollekció</a>
+        <a href="#arlista">Árlista</a>
+        <a href="#alkalmak">Alkalmak</a>
+        <a href="#elerhetoseg">Elérhetőség</a>
+      </nav>
+      <div class="footer__contact">
+        <span data-address></span>
+        <a data-phone-link data-phone-text href="#elerhetoseg"></a>
+      </div>
     </div>
-    <nav class="footer__links" aria-label="Lábléc navigáció">
-      <a href="#rolunk">Rólunk</a>
-      <a href="#kinalat">Kínálat</a>
-      <a href="#arlista">Árlista</a>
-      <a href="#elerhetoseg">Elérhetőség</a>
-    </nav>
-    <p class="footer__copy">© <span data-year></span> Meggie Virágbolt · Budapest, Blaha Lujza tér</p>
+    <p class="footer__word" aria-hidden="true">Meggie</p>
+    <div class="footer__bottom">
+      <span>© <span data-year></span> Meggie Virágbolt</span>
+      <a href="#top">Vissza a tetejére ↑</a>
+    </div>
   </div>
 </footer>
 
