@@ -5,19 +5,19 @@
    ========================================================== */
 
 const SHOP = {
-  // TODO: valós adatokra cserélni. Ha null, a weboldal "érdeklődjön a boltban" szöveget mutat.
+  // Ha phone/email null, a weboldal nem mutatja.
   phone: "+36 1 211 4035",
   email: null,            // pl. "hello@meggieviragbolt.hu"
   address: "1085 Budapest, Blaha Lujza tér 1–3. (metró aluljáró)",
   // Nyitvatartás: 0 = vasárnap … 6 = szombat. null = zárva.
   hours: {
-    1: ["07:00", "20:00"],
-    2: ["07:00", "20:00"],
-    3: ["07:00", "20:00"],
-    4: ["07:00", "20:00"],
-    5: ["07:00", "20:00"],
-    6: ["08:00", "18:00"],
-    0: ["09:00", "14:00"],
+    1: ["08:00", "20:00"],
+    2: ["08:00", "20:00"],
+    3: ["08:00", "20:00"],
+    4: ["08:00", "20:00"],
+    5: ["08:00", "20:00"],
+    6: ["08:00", "19:00"],
+    0: ["09:00", "17:00"],
   },
 };
 

@@ -19,7 +19,7 @@ A `script.js` elején található objektumok módosításával frissíthetők az
 - `PRODUCTS` – a Kínálat kártyái (név, leírás, ár, kategória)
 - `PRICELIST` – az Árlista szekció tételei
 
-> A telefonszám, e-mail, nyitvatartás és az árak jelenleg **helykitöltő értékek** – élesítés előtt cseréld a valós adatokra.
+> Az árak jelenleg **tájékoztató mintaértékek** – élesítés előtt egyeztesd a bolttal.
 
 ## Helyi megtekintés
 
