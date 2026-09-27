@@ -16,7 +16,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 
 ## Megjelenés
 
-- Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), Google Fonts-ról
+- Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
 - Színek: egyetlen meggy-színcsalád (bor, meggypiros, rózsa, púder) – a `public/styles.css` elején, a `:root` részben
 - A virágképek kódból készülnek (`makeBloom` a `public/script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
 
