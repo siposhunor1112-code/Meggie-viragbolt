@@ -3,13 +3,80 @@
    Márkaszín: meggypiros (a „Meggie” név a meggyre rímel)
    ========================================================== */
 
+/* Betűtípusok a saját tárhelyről (nem a Google-től): gyorsabb, és a látogatók adatai nem jutnak ki.
+   Bodoni Moda és Jost – SIL Open Font License, lásd assets/fonts/OFL-*.txt */
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/bodoni-moda-latin-ext-400-normal.woff2) format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/bodoni-moda-latin-400-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/bodoni-moda-latin-ext-400-italic.woff2) format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bodoni Moda';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/bodoni-moda-latin-400-italic.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url(assets/fonts/jost-latin-ext-300-normal.woff2) format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url(assets/fonts/jost-latin-300-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/jost-latin-ext-400-normal.woff2) format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Jost';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(assets/fonts/jost-latin-400-normal.woff2) format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 :root {
   /* Egyetlen színcsalád: meggy – bor, meggypiros, rózsa, hamvas púder */
   --ivory: #f7ece6;      /* alap háttér, és világos szöveg sötét háttéren */
   --paper: #fbf4f0;      /* világosabb háttér */
   --ink: #3d1c24;        /* szöveg: mély szilvabarna fekete helyett */
   --ink-2: #6f4a51;
-  --muted: #a3868a;
+  --muted: #7e5d63;      /* a kis szürke szövegek is jól olvashatók (kontraszt ≥ 4.5) */
   --line: rgba(61, 28, 36, .14);
   --line-light: rgba(251, 238, 232, .18);
   --wine: #4e1723;       /* sötét háttér fekete helyett */
@@ -185,7 +252,7 @@ em { font-style: italic; }
 }
 .hero__label { color: rgba(251, 238, 232, .7); }
 .hero__title {
-  font: italic 400 clamp(80px, 25vw, 360px)/.8 var(--serif);
+  font: italic 400 clamp(80px, 19vw, 300px)/.8 var(--serif);
   letter-spacing: -.045em; margin: 24px 0 8px -0.04em;
 }
 .hero__title .line { display: block; overflow: hidden; padding: 0 .06em .24em 0; }
@@ -205,12 +272,12 @@ em { font-style: italic; }
 .hero__bouquet { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .bloom-slot { position: absolute; will-change: transform; }
 .bloom-slot svg { width: 100%; height: 100%; overflow: visible; }
-.hero .b1 { width: min(40vw, 560px); aspect-ratio: 1; right: -3vw; top: 5vh; }
+.hero .b1 { width: min(40vw, 62vh, 560px); aspect-ratio: 1; right: -3vw; top: 5vh; }
 .hero .b2 { width: min(26vw, 360px); aspect-ratio: 1; right: 26vw; top: 18vh; }
 .hero .b3 { width: min(17vw, 240px); aspect-ratio: 1; right: 1vw; top: 34vh; }
 .hero .b4 { width: min(15vw, 200px); aspect-ratio: 1; right: 36vw; top: 5vh; opacity: .9; }
-.hero .b5 { width: min(9vw, 120px); aspect-ratio: 1; right: 22vw; top: 60vh; }
-.hero .b6 { width: min(24vw, 320px); aspect-ratio: 1; right: 20vw; top: 34vh; opacity: .75; }
+.hero .b5 { width: min(8vw, 110px); aspect-ratio: 1; right: 31vw; top: 42vh; }
+.hero .b6 { width: min(24vw, 36vh, 320px); aspect-ratio: 1; right: 25vw; top: 32vh; opacity: .75; }
 .hero .b7 { width: min(20vw, 260px); aspect-ratio: 1; right: 2vw; top: 0; opacity: .55; transform: scaleX(-1); }
 .spin { transform-origin: 50% 50%; animation: spin 90s linear infinite; will-change: transform; }
 .spin.rev { animation-direction: reverse; animation-duration: 120s; }
@@ -305,7 +372,7 @@ em { font-style: italic; }
   display: flex; justify-content: space-between; align-items: baseline;
   padding-bottom: 16px; border-bottom: 1px solid var(--line-light); margin-bottom: 6px;
 }
-.pgroup h3 small { font: 300 11px var(--sans); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 238, 232, .45); }
+.pgroup h3 small { font: 300 11px var(--sans); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 238, 232, .62); }
 .prow { display: flex; align-items: baseline; gap: 14px; padding: 15px 0; border-bottom: 1px solid rgba(251, 238, 232, .06); font-size: 16px; }
 .prow__name { flex: 0 1 auto; }
 .prow__dots { flex: 1; min-width: 20px; border-bottom: 1px dotted rgba(251, 238, 232, .25); transform: translateY(-5px); }
@@ -428,7 +495,8 @@ em { font-style: italic; }
 .footer__links { display: grid; gap: 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 238, 232, .7); }
 .footer__contact { display: grid; gap: 8px; font-size: 15px; color: rgba(251, 238, 232, .7); }
 .footer__word {
-  font: italic 400 clamp(80px, 30vw, 470px)/.78 var(--serif); letter-spacing: -.05em;
+  /* ~3× a betűméret a szó szélessége: 22vw mellett mindig elfér, nagy képernyőn 260px-nél megáll */
+  font: italic 400 clamp(64px, 22vw, 260px)/.78 var(--serif); letter-spacing: -.04em;
   color: var(--ivory); margin: clamp(50px, 7vw, 100px) 0 0 -.04em; padding: 0 .04em .2em; white-space: nowrap;
   background: linear-gradient(180deg, var(--ivory) 25%, var(--rose));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -436,7 +504,7 @@ em { font-style: italic; }
 .footer__bottom {
   display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
   padding: 24px 0 30px; border-top: 1px solid var(--line-light);
-  font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(251, 238, 232, .5);
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(251, 238, 232, .62);
 }
 
 /* ---------- Reszponzív ---------- */
@@ -464,7 +532,8 @@ em { font-style: italic; }
   .store__photo { max-width: 520px; }
 }
 @media (max-width: 640px) {
-  body { font-size: 16px; }
+  /* Telefonon a vékony (300) betű helyett normál vastagság: kis kijelzőn jobban olvasható */
+  body { font-size: 16px; font-weight: 400; }
   .hide-sm { display: none !important; }
   .hero__meta { gap: 20px; }
   .hero__actions { gap: 26px; }
