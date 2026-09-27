@@ -421,17 +421,25 @@ function initNav() {
   const toggle = $(".nav__toggle");
   const menu = $("#menu");
   const hero = $(".hero");
-  let lastY = window.scrollY;
+  // Érintőképernyőn a fejléc mindig látszik: a telefonos görgetés (lendület, visszapattanás,
+  // címsor-átméreteződés) miatt az elrejtés ugrálna. Egérrel görgetve csak határozott mozdulatra rejtjük.
+  const touch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  const HIDE_AFTER = 80, SHOW_AFTER = 40;
+  let lastY = window.scrollY, travel = 0;
 
   const onScroll = () => {
-    const y = window.scrollY;
-    const pastHero = y > hero.offsetHeight - 90;
-    if (menu.hidden) {
-      nav.classList.toggle("is-solid", pastHero);
-      nav.classList.toggle("is-hidden", pastHero && y > lastY + 4);
-      if (y < lastY - 4) nav.classList.remove("is-hidden");
-    }
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const y = Math.min(Math.max(window.scrollY, 0), Math.max(max, 0)); // a visszapattanást figyelmen kívül hagyjuk
+    const dy = y - lastY;
     lastY = y;
+    if (!menu.hidden) return;
+    const pastHero = y > hero.offsetHeight - 90;
+    nav.classList.toggle("is-solid", pastHero);
+    if (touch || !pastHero) { nav.classList.remove("is-hidden"); travel = 0; return; }
+    // Irányváltáskor újraindul a számlálás; csak elég hosszú, egyirányú mozdulat vált
+    travel = (dy > 0) === (travel > 0) ? travel + dy : dy;
+    if (travel > HIDE_AFTER) nav.classList.add("is-hidden");
+    else if (travel < -SHOW_AFTER) nav.classList.remove("is-hidden");
   };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -479,7 +487,8 @@ function initNav() {
 
 /* ---------- Hero parallaxis ---------- */
 function initParallax() {
-  if (reduceMotion) return;
+  // Telefonon/tableten kikapcsolva: simább görgetés, kevesebb akkumulátor
+  if (reduceMotion || window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
   const slots = $$(".hero .bloom-slot");
   const depth = [.35, .6, .2, .8, .5, .45, .25];
   let ticking = false;
