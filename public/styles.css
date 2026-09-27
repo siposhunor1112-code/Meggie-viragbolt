@@ -497,7 +497,7 @@ em { font-style: italic; }
 .footer__word {
   /* ~3× a betűméret a szó szélessége: 22vw mellett mindig elfér, nagy képernyőn 260px-nél megáll */
   font: italic 400 clamp(64px, 22vw, 260px)/.78 var(--serif); letter-spacing: -.04em;
-  color: var(--ivory); margin: clamp(50px, 7vw, 100px) 0 0 -.04em; padding: 0 .04em .2em; white-space: nowrap;
+  color: var(--ivory); margin: clamp(40px, 6vw, 80px) 0 0 -.04em; padding: 0 .04em .34em; white-space: nowrap;
   background: linear-gradient(180deg, var(--ivory) 25%, var(--rose));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
