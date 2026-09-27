@@ -14,7 +14,7 @@ Nincs szükség build lépésre: az `index.html` bármilyen tárhelyen (GitHub P
 ## Megjelenés
 
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), Google Fonts-ról
-- Márkaszín: meggypiros (`--cherry` a `styles.css` elején)
+- Színek: egyetlen meggy-színcsalád (bor, meggypiros, rózsa, púder) – a `styles.css` elején, a `:root` részben
 - A virágképek kódból készülnek (`makeBloom` a `script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
 
 ## Tartalom szerkesztése

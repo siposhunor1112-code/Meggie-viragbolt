@@ -40,6 +40,8 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
+const CARD_TINTS = ["#efd2c9", "#f1ddd2", "#ecd0cf", "#f3e0d6"];
+
 const CATEGORY_LABEL = { csokor: "Csokor", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
 
 // Az Árlista szekció tételei
@@ -205,10 +207,11 @@ function renderProducts(filter = "all") {
     .filter((p) => filter === "all" || p.cat === filter)
     .sort((a, b) => a.price - b.price);
   $("#products").innerHTML = list.map((p, i) => {
-    const pal = PALETTES[p.palette].c;
+    // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
+    const bg = CARD_TINTS[i % CARD_TINTS.length];
     return `
     <article class="card" style="animation-delay:${i * 70}ms">
-      <div class="card__art" style="background:radial-gradient(90% 70% at 50% 45%, ${pal[0]}, ${pal[1]} 140%)">
+      <div class="card__art" style="background:radial-gradient(90% 70% at 50% 42%, #fcf5f1, ${bg} 120%)">
         <span class="card__cat">${CATEGORY_LABEL[p.cat]}</span>
         <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
         <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
