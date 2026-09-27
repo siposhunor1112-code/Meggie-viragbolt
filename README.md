@@ -1,26 +1,28 @@
 # Meggie Virágbolt – weboldal
 
 Statikus, egyoldalas weboldal a Blaha Lujza téri aluljáróban található Meggie Virágboltnak.
-Nincs szükség build lépésre: az `index.html` bármilyen tárhelyen (GitHub Pages, Netlify, Vercel) közvetlenül kiszolgálható.
+Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelyen kiszolgálható. Élesben a Cloudflare Workers tölti ki a `main` ágról, minden feltöltés után automatikusan.
 
 ## Fájlok
 
-- `index.html` – az oldal szerkezete és szövegei
-- `styles.css` – megjelenés (színek a `:root` változókban)
-- `script.js` – elérhetőség, nyitvatartás, termékek és árlista
-- `assets/favicon.svg`, `assets/apple-touch-icon.png` – ikonok
-- `tools/prerender.js` – beírja az adatokat az `index.html`-be (lásd lent)
-- `assets/bolt.jpg` – a bolt fotója az oldal alján (ha nincs, rajzolt kép jelenik meg a helyén)
+- `public/` – maga a weboldal (ez kerül ki a netre):
+  - `index.html` – az oldal szerkezete és szövegei
+  - `styles.css` – megjelenés (színek a `:root` változókban)
+  - `script.js` – elérhetőség, nyitvatartás, termékek és árlista
+  - `assets/` – ikonok és a bolt fotója
+  - `robots.txt` – a keresőknek
+- `wrangler.jsonc` – Cloudflare-beállítás (a `public/` mappát teszi ki)
+- `tools/prerender.js` – beírja az adatokat a `public/index.html`-be (lásd lent)
 
 ## Megjelenés
 
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), Google Fonts-ról
-- Színek: egyetlen meggy-színcsalád (bor, meggypiros, rózsa, púder) – a `styles.css` elején, a `:root` részben
-- A virágképek kódból készülnek (`makeBloom` a `script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
+- Színek: egyetlen meggy-színcsalád (bor, meggypiros, rózsa, púder) – a `public/styles.css` elején, a `:root` részben
+- A virágképek kódból készülnek (`makeBloom` a `public/script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
 
 ## Tartalom szerkesztése
 
-A `script.js` elején található objektumok módosításával frissíthetők az adatok:
+A `public/script.js` elején található objektumok módosításával frissíthetők az adatok:
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
@@ -33,7 +35,7 @@ A `script.js` elején található objektumok módosításával frissíthetők az
 
 Az árlista, a kollekció, a nyitvatartás és az elérhetőségek az `index.html`-be is be vannak írva,
 hogy JavaScript nélkül (pl. telefonos fájlelőnézetben vagy keresőknél) is látszódjanak.
-A `script.js` módosítása után frissítsd ezt a beírt változatot is:
+A `public/script.js` módosítása után frissítsd ezt a beírt változatot is:
 
 ```sh
 node tools/prerender.js
@@ -44,6 +46,6 @@ node tools/prerender.js
 ## Helyi megtekintés
 
 ```sh
-python3 -m http.server 8000
+python3 -m http.server 8000 -d public
 # majd: http://localhost:8000
 ```

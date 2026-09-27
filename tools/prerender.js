@@ -10,7 +10,7 @@ const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
 
-const root = path.join(__dirname, "..");
+const root = path.join(__dirname, "..", "public");
 const htmlPath = path.join(root, "index.html");
 const src = fs.readFileSync(path.join(root, "script.js"), "utf8");
 
