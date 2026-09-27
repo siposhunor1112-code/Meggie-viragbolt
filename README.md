@@ -8,7 +8,8 @@ Nincs szükség build lépésre: az `index.html` bármilyen tárhelyen (GitHub P
 - `index.html` – az oldal szerkezete és szövegei
 - `styles.css` – megjelenés (színek a `:root` változókban)
 - `script.js` – elérhetőség, nyitvatartás, termékek és árlista
-- `assets/favicon.svg` – ikon
+- `assets/favicon.svg`, `assets/apple-touch-icon.png` – ikonok
+- `tools/prerender.js` – beírja az adatokat az `index.html`-be (lásd lent)
 - `assets/bolt.jpg` – a bolt fotója az oldal alján (ha nincs, rajzolt kép jelenik meg a helyén)
 
 ## Megjelenés
@@ -27,6 +28,18 @@ A `script.js` elején található objektumok módosításával frissíthetők az
 - `PRICELIST` – az Árlista szekció tételei
 
 > Az árak jelenleg **tájékoztató mintaértékek** – élesítés előtt egyeztesd a bolttal.
+
+### Adatmódosítás után (ajánlott)
+
+Az árlista, a kollekció, a nyitvatartás és az elérhetőségek az `index.html`-be is be vannak írva,
+hogy JavaScript nélkül (pl. telefonos fájlelőnézetben vagy keresőknél) is látszódjanak.
+A `script.js` módosítása után frissítsd ezt a beírt változatot is:
+
+```sh
+node tools/prerender.js
+```
+
+(Ha kimarad, a böngészőben akkor is a friss adatok jelennek meg, csak JavaScript nélkül a régiek.)
 
 ## Helyi megtekintés
 

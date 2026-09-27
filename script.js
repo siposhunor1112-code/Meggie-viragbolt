@@ -193,20 +193,23 @@ function makeBloom(type = "peony", paletteName = "blush", seed = 1) {
   return `<svg viewBox="-110 -110 220 220" aria-hidden="true" focusable="false"><defs>${defs.join("")}</defs><g${fit}><g${soft}>${body.join("")}</g></g></svg>`;
 }
 
+function bloomSlotHTML(type, palette, seed) {
+  const spinCls = type === "leaf" || type === "bud" ? "" : ` spin${seed % 2 ? " rev" : ""}`;
+  return `<div class="bloom-wrap${spinCls}" style="width:100%;height:100%">${makeBloom(type, palette, seed || 1)}</div>`;
+}
+
 function renderBloomSlots() {
   $$("[data-bloom]").forEach((el) => {
-    const type = el.dataset.bloom;
-    const spinCls = type === "leaf" || type === "bud" ? "" : ` spin${Number(el.dataset.seed) % 2 ? " rev" : ""}`;
-    el.innerHTML = `<div class="bloom-wrap${spinCls}" style="width:100%;height:100%">${makeBloom(type, el.dataset.palette, Number(el.dataset.seed) || 1)}</div>`;
+    el.innerHTML = bloomSlotHTML(el.dataset.bloom, el.dataset.palette, Number(el.dataset.seed));
   });
 }
 
 /* ---------- Kollekció ---------- */
-function renderProducts(filter = "all") {
+function productsHTML(filter = "all") {
   const list = PRODUCTS
     .filter((p) => filter === "all" || p.cat === filter)
     .sort((a, b) => a.price - b.price);
-  $("#products").innerHTML = list.map((p, i) => {
+  return list.map((p, i) => {
     // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
     const bg = CARD_TINTS[i % CARD_TINTS.length];
     return `
@@ -223,7 +226,12 @@ function renderProducts(filter = "all") {
       </div>
     </article>`;
   }).join("");
-  $("#products").scrollTo({ left: 0 });
+}
+
+function renderProducts(filter = "all") {
+  const rail = $("#products");
+  rail.innerHTML = productsHTML(filter);
+  rail.scrollLeft = 0;
 }
 
 function initCollection() {
@@ -270,8 +278,8 @@ function initCollection() {
 // Az árszöveg első számát adja vissza ("1 200 Ft / szál" → 1200, "ingyenes" → 0)
 const priceValue = (text) => Number((text.match(/\d[\d\s]*/) || ["0"])[0].replace(/\s/g, ""));
 
-function renderPricelist() {
-  $("#pricelist").innerHTML = PRICELIST.map((g) => {
+function pricelistHTML() {
+  return PRICELIST.map((g) => {
     const items = [...g.items].sort((a, b) => priceValue(a[1]) - priceValue(b[1]));
     return `
     <div class="pgroup reveal">
@@ -284,6 +292,10 @@ function renderPricelist() {
         </div>`).join("")}
     </div>`;
   }).join("");
+}
+
+function renderPricelist() {
+  $("#pricelist").innerHTML = pricelistHTML();
 }
 
 /* ---------- Alkalmak: egeret követő virág ---------- */
@@ -313,20 +325,36 @@ function initCursorBloom() {
 /* ---------- Nyitvatartás ---------- */
 // Aktuális idő budapesti időzónában, a látogató helyétől függetlenül
 function budapestNow() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Europe/Budapest", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,
-  }).formatToParts(new Date());
-  const get = (t) => parts.find((p) => p.type === t).value;
-  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
-  return { day, minutes: (Number(get("hour")) % 24) * 60 + Number(get("minute")) };
+  try {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Budapest", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,
+    }).formatToParts(new Date());
+    const get = (t) => parts.find((p) => p.type === t).value;
+    const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(get("weekday"));
+    const minutes = (Number(get("hour")) % 24) * 60 + Number(get("minute"));
+    if (day < 0 || Number.isNaN(minutes)) throw new Error("hiányos időzóna-adat");
+    return { day, minutes };
+  } catch (err) {
+    // Tartalék: ha a böngésző nem ismeri az időzónát, kézzel számolunk
+    // (CET, nyári időszámítás március utolsó vasárnapjától október utolsó vasárnapjáig)
+    const now = new Date();
+    const y = now.getUTCFullYear();
+    const lastSunday = (month) => { const d = new Date(Date.UTC(y, month + 1, 0, 1)); d.setUTCDate(d.getUTCDate() - d.getUTCDay()); return d; };
+    const summer = now >= lastSunday(2) && now < lastSunday(9);
+    const t = new Date(now.getTime() + (summer ? 2 : 1) * 3600e3);
+    return { day: t.getUTCDay(), minutes: t.getUTCHours() * 60 + t.getUTCMinutes() };
+  }
+}
+
+function hoursHTML(today = -1) {
+  return [1, 2, 3, 4, 5, 6, 0].map((d) => {
+    const h = SHOP.hours[d];
+    return `<li class="${d === today ? "is-today" : ""}"><span>${DAY_NAMES[d]}</span><span>${h ? `${h[0]} – ${h[1]}` : "Zárva"}</span></li>`;
+  }).join("");
 }
 
 function renderHours() {
-  const { day } = budapestNow();
-  $("#hours").innerHTML = [1, 2, 3, 4, 5, 6, 0].map((d) => {
-    const h = SHOP.hours[d];
-    return `<li class="${d === day ? "is-today" : ""}"><span>${DAY_NAMES[d]}</span><span>${h ? `${h[0]} – ${h[1]}` : "Zárva"}</span></li>`;
-  }).join("");
+  $("#hours").innerHTML = hoursHTML(budapestNow().day);
 }
 
 function openStatus() {
@@ -480,15 +508,18 @@ function initReveal() {
 }
 
 /* ---------- Indítás ---------- */
-// Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
-const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
-document.documentElement.classList.remove("no-js");
-[renderBloomSlots, renderProducts, renderPricelist, renderContact, updateStatus,
- initCollection, initCursorBloom, initMap, initNav, initParallax, initReveal].forEach(safely);
-setInterval(() => safely(updateStatus), 60 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
-// Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok
-setTimeout(() => {
-  document.documentElement.classList.add("is-loaded");
-  if (!("IntersectionObserver" in window)) $$(".reveal, .store__photo").forEach((el) => el.classList.add("is-in"));
-}, 2500);
+// (A tools/prerender.js ezt a fájlt böngésző nélkül is betölti, akkor az indítás kimarad.)
+if (typeof document !== "undefined" && !window.__PRERENDER__) {
+  // Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
+  const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
+  document.documentElement.classList.remove("no-js");
+  [renderBloomSlots, renderProducts, renderPricelist, renderContact, updateStatus,
+   initCollection, initCursorBloom, initMap, initNav, initParallax, initReveal].forEach(safely);
+  setInterval(() => safely(updateStatus), 60 * 1000);
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
+  // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok
+  setTimeout(() => {
+    document.documentElement.classList.add("is-loaded");
+    if (!("IntersectionObserver" in window)) $$(".reveal, .store__photo").forEach((el) => el.classList.add("is-in"));
+  }, 2500);
+}
