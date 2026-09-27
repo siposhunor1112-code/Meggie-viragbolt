@@ -352,6 +352,8 @@ function updateStatus() {
   const s = openStatus();
   $$("[data-open-dot]").forEach((d) => { d.classList.toggle("is-open", s.open); d.classList.toggle("is-closed", !s.open); });
   $$("[data-open-text]").forEach((t) => (t.textContent = s.text));
+  const today = SHOP.hours[budapestNow().day];
+  $$("[data-today-hours]").forEach((t) => (t.textContent = today ? `${today[0]} – ${today[1]}` : "Ma zárva"));
 }
 
 /* ---------- Elérhetőségek ---------- */
@@ -363,7 +365,7 @@ function renderContact() {
     $$("[data-phone-text]").forEach((a) => (a.textContent = SHOP.phone));
     $$("[data-phone-text-plain]").forEach((a) => (a.textContent = SHOP.phone));
   } else {
-    $$("[data-phone-text], .bigphone, .actionbar [data-phone-link]").forEach((a) => a.remove());
+    $$("[data-phone-text], .ccard--wine, .actionbar [data-phone-link]").forEach((a) => a.remove());
     $$(".actionbar").forEach((bar) => (bar.style.gridTemplateColumns = "1fr"));
   }
   $$("[data-email-link]").forEach((a) => {

@@ -204,9 +204,9 @@ em { font-style: italic; }
 .hero__bouquet { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .bloom-slot { position: absolute; will-change: transform; }
 .bloom-slot svg { width: 100%; height: 100%; overflow: visible; }
-.hero .b1 { width: min(46vw, 640px); aspect-ratio: 1; right: -4vw; top: 6vh; }
+.hero .b1 { width: min(40vw, 560px); aspect-ratio: 1; right: -3vw; top: 5vh; }
 .hero .b2 { width: min(26vw, 360px); aspect-ratio: 1; right: 26vw; top: 18vh; }
-.hero .b3 { width: min(19vw, 270px); aspect-ratio: 1; right: 2vw; top: 44vh; }
+.hero .b3 { width: min(17vw, 240px); aspect-ratio: 1; right: 1vw; top: 34vh; }
 .hero .b4 { width: min(15vw, 200px); aspect-ratio: 1; right: 36vw; top: 5vh; opacity: .9; }
 .hero .b5 { width: min(9vw, 120px); aspect-ratio: 1; right: 22vw; top: 60vh; }
 .hero .b6 { width: min(24vw, 320px); aspect-ratio: 1; right: 20vw; top: 34vh; opacity: .75; }
@@ -358,12 +358,35 @@ em { font-style: italic; }
 
 /* 05 Elérhetőség */
 .contact { padding-top: clamp(100px, 12vw, 170px); }
-.bigphone {
-  display: inline-block; margin: 30px 0 clamp(60px, 7vw, 100px);
-  font: italic 400 clamp(46px, 8.4vw, 136px)/1 var(--serif); letter-spacing: -.03em;
-  background: linear-gradient(var(--cherry), var(--cherry)) 0 100% / 0 2px no-repeat;
-  transition: background-size .9s var(--ease), color .5s;
+/* Elérhetőség kártyák */
+.ccards { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: clamp(14px, 1.6vw, 22px); margin-bottom: clamp(60px, 7vw, 100px); }
+.ccard {
+  position: relative; display: flex; flex-direction: column; gap: 10px;
+  min-height: 220px; padding: clamp(26px, 2.6vw, 38px);
+  background: var(--paper); border: 1px solid var(--line); border-radius: 4px;
+  transition: transform .8s var(--ease), box-shadow .8s var(--ease), border-color .5s;
 }
+.ccard__label {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted);
+}
+.ccard__main { margin-top: auto; font: italic 400 clamp(28px, 2.6vw, 40px)/1.1 var(--serif); letter-spacing: -.01em; white-space: nowrap; }
+.ccard__sub { font-size: 14px; color: var(--ink-2); }
+.ccard__go {
+  position: absolute; top: clamp(20px, 2.2vw, 30px); right: clamp(20px, 2.2vw, 30px);
+  width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  display: grid; place-items: center; font-size: 16px;
+  transition: transform .6s var(--ease), background .4s, color .4s;
+}
+.ccard--wine {
+  background:
+    radial-gradient(80% 90% at 100% 0%, rgba(217, 158, 160, .28), transparent 60%),
+    linear-gradient(150deg, var(--wine-2), var(--wine));
+  border-color: transparent; color: var(--ivory);
+}
+.ccard--wine .ccard__label { color: rgba(251, 238, 232, .65); }
+.ccard--wine .ccard__sub { color: rgba(251, 238, 232, .75); }
+.ccard--wine .ccard__go { border-color: rgba(251, 238, 232, .3); }
 .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px); align-items: start; }
 .facts { border-top: 1px solid var(--line); }
 .facts > div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
@@ -434,7 +457,7 @@ em { font-style: italic; }
   .hero .b5, .hero .b7 { display: none; }
   .hero .b6 { width: 40vw; right: 26vw; top: 36vh; }
   .hero__inner { padding-top: 55vh; }
-  .facts3, .steps, .contact__grid, .store__grid, .pricelist, .footer__top { grid-template-columns: 1fr; }
+  .facts3, .steps, .contact__grid, .store__grid, .pricelist, .footer__top, .ccards { grid-template-columns: 1fr; }
   .fact3, .fact3 + .fact3 { padding: 30px 0; border-left: 0; }
   .fact3 + .fact3 { border-top: 1px solid var(--line); }
   .statement { text-indent: 0; }
@@ -471,7 +494,9 @@ em { font-style: italic; }
   .card:hover .card__art .bloom-wrap { transform: scale(1.08) rotate(-8deg); }
   .occ:hover::before { transform: none; }
   .occ:hover { padding-left: 18px; }
-  .bigphone:hover { color: var(--cherry); background-size: 100% 2px; }
+  a.ccard:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(78, 23, 35, .45); border-color: rgba(138, 36, 54, .3); }
+  a.ccard:hover .ccard__go { transform: rotate(-45deg); background: var(--cherry); color: var(--ivory); border-color: var(--cherry); }
+  a.ccard--wine:hover .ccard__go { background: var(--ivory); color: var(--wine); border-color: var(--ivory); }
   .mapbox__load:hover { background: var(--wine); color: var(--ivory); }
 }
 .btn:active::before { transform: none; }
@@ -524,7 +549,9 @@ em { font-style: italic; }
   .hero__meta { padding-bottom: 20px; }
   .hero__actions { width: 100%; }
   .hero__actions .btn { flex: 1 1 auto; }
-  .bigphone { font-size: clamp(34px, 11.5vw, 60px); white-space: nowrap; }
+  .ccard { min-height: 0; padding: 24px 22px; }
+  .ccard__main { margin-top: 18px; font-size: clamp(26px, 8vw, 34px); }
+  .ccard__go { width: 38px; height: 38px; }
   .statement { font-size: clamp(26px, 7.4vw, 36px); }
   .h2 { font-size: clamp(40px, 12vw, 64px); }
   .fact3__big { font-size: 52px; }
