@@ -152,18 +152,18 @@
           <h2 class="h2 reveal">A kollekció</h2>
         </div>
         <div class="head__side reveal">
-          <div class="tabs" role="tablist" aria-label="Kategóriák">
-            <button role="tab" aria-selected="true"  class="is-active" data-filter="all">Mind</button>
-            <button role="tab" aria-selected="false" data-filter="szalas">Szálas</button>
-            <button role="tab" aria-selected="false" data-filter="csokor">Csokrok</button>
-            <button role="tab" aria-selected="false" data-filter="noveny">Cserepes</button>
-            <button role="tab" aria-selected="false" data-filter="alkalmi">Alkalmi</button>
+          <div class="tabs" role="group" aria-label="Kategóriák">
+            <button aria-pressed="true"  class="is-active" data-filter="all">Mind</button>
+            <button aria-pressed="false" data-filter="szalas">Szálas</button>
+            <button aria-pressed="false" data-filter="csokor">Csokrok</button>
+            <button aria-pressed="false" data-filter="noveny">Cserepes</button>
+            <button aria-pressed="false" data-filter="alkalmi">Alkalmi</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="rail" id="products" tabindex="0" aria-label="Termékek, a legolcsóbbtól a legdrágábbig"></div>
+    <div class="rail" id="products" role="region" tabindex="0" aria-label="Termékek, a legolcsóbbtól a legdrágábbig"></div>
 
     <div class="wrap rail__foot">
       <p class="swipe-hint" aria-hidden="true">Lapozzon oldalra →</p>

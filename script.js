@@ -228,16 +228,20 @@ function renderProducts(filter = "all") {
 
 function initCollection() {
   $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
-    $$(".tabs button").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-selected", "false"); });
-    b.classList.add("is-active"); b.setAttribute("aria-selected", "true");
+    $$(".tabs button").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-pressed", "false"); });
+    b.classList.add("is-active"); b.setAttribute("aria-pressed", "true");
     renderProducts(b.dataset.filter);
   }));
 
   const rail = $("#products");
-  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
+  // Egy kártya szélessége + a tényleges rés (a rés a képernyőmérettől függ)
+  const cardStep = () => {
     const card = $(".card", rail);
-    const step = card ? card.getBoundingClientRect().width + 24 : 320;
-    rail.scrollBy({ left: step * Number(b.dataset.rail), behavior: "smooth" });
+    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+    return card ? card.getBoundingClientRect().width + gap : 320;
+  };
+  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
+    rail.scrollBy({ left: cardStep() * Number(b.dataset.rail), behavior: "smooth" });
   }));
 
   // Húzással görgetés egérrel
@@ -256,11 +260,8 @@ function initCollection() {
     if (!down) return;
     down = false; rail.classList.remove("is-drag");
     if (moved) {
-      const card = $(".card", rail);
-      if (card) {
-        const w = card.getBoundingClientRect().width + 24;
-        rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
-      }
+      const w = cardStep();
+      rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
     }
   });
 }
@@ -299,13 +300,13 @@ function initCursorBloom() {
   $$(".occ").forEach((row, i) => {
     row.addEventListener("mouseenter", (e) => {
       const key = row.dataset.bloomPreview + row.dataset.palette;
-      cache[key] ||= makeBloom(row.dataset.bloomPreview, row.dataset.palette, 30 + i);
+      if (!cache[key]) cache[key] = makeBloom(row.dataset.bloomPreview, row.dataset.palette, 30 + i);
       el.innerHTML = `<div class="bloom-wrap spin" style="width:100%;height:100%">${cache[key]}</div>`;
       if (!el.classList.contains("is-on")) { cx = x = e.clientX; cy = y = e.clientY; }
       el.classList.add("is-on");
     });
     row.addEventListener("mouseleave", () => el.classList.remove("is-on"));
-    row.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; raf ||= requestAnimationFrame(loop); });
+    row.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(loop); });
   });
 }
 
@@ -415,7 +416,8 @@ function initNav() {
     document.body.style.overflow = open ? "hidden" : "";
     if (open) {
       nav.classList.remove("is-solid", "is-hidden");
-      $("a", menu)?.focus({ preventScroll: true });
+      const first = $("a", menu);
+      if (first) first.focus({ preventScroll: true });
     } else {
       onScroll();
       if (restoreFocus) toggle.focus({ preventScroll: true });
@@ -435,7 +437,9 @@ function initNav() {
     }
   });
   // Ha a képernyő kiszélesedik (pl. tablet elforgatása), a mobilmenü bezárul
-  window.matchMedia("(min-width: 901px)").addEventListener("change", (e) => { if (e.matches && !menu.hidden) setMenu(false, false); });
+  const wide = window.matchMedia("(min-width: 901px)");
+  const onWide = (e) => { if (e.matches && !menu.hidden) setMenu(false, false); };
+  if (wide.addEventListener) wide.addEventListener("change", onWide); else if (wide.addListener) wide.addListener(onWide);
 
   // Aktív menüpont kiemelése görgetéskor
   const links = $$(".nav__links a");
@@ -476,17 +480,15 @@ function initReveal() {
 }
 
 /* ---------- Indítás ---------- */
+// Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
+const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
 document.documentElement.classList.remove("no-js");
-renderBloomSlots();
-renderProducts();
-renderPricelist();
-renderContact();
-updateStatus();
-setInterval(updateStatus, 60 * 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) updateStatus(); });
-initCollection();
-initCursorBloom();
-initMap();
-initNav();
-initParallax();
-initReveal();
+[renderBloomSlots, renderProducts, renderPricelist, renderContact, updateStatus,
+ initCollection, initCursorBloom, initMap, initNav, initParallax, initReveal].forEach(safely);
+setInterval(() => safely(updateStatus), 60 * 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
+// Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok
+setTimeout(() => {
+  document.documentElement.classList.add("is-loaded");
+  if (!("IntersectionObserver" in window)) $$(".reveal, .store__photo").forEach((el) => el.classList.add("is-in"));
+}, 2500);
