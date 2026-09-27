@@ -49,5 +49,12 @@ if (SHOP.phone) {
 html = html.replace(/(<(\w+)\b[^>]*\bdata-address\b[^>]*>)[^<]*(<\/\2>)/g, `$1${SHOP.address}$3`);
 html = html.replace(/(<span data-year>)[^<]*(<\/span>)/g, `$1${new Date().getFullYear()}$2`);
 
+// Verziószám a CSS/JS hivatkozásokban: ha a fájl változik, a böngésző biztosan az újat tölti le
+const crypto = require("crypto");
+for (const file of ["styles.css", "script.js"]) {
+  const v = crypto.createHash("sha1").update(fs.readFileSync(path.join(root, file))).digest("hex").slice(0, 8);
+  html = html.replace(new RegExp(`((?:href|src)="${file.replace(".", "\\.")})(\\?v=[0-9a-f]+)?"`, "g"), `$1?v=${v}"`);
+}
+
 fs.writeFileSync(htmlPath, html);
 console.log("Kész: index.html frissítve (" + Math.round(html.length / 1024) + " KB)");

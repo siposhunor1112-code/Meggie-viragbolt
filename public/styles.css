@@ -583,9 +583,15 @@ a.ccard:active { transform: scale(.985); }
 .actionbar { display: none; }
 .swipe-hint { display: none; }
 
-/* Érintőképernyő */
+/* Telefon és tablet (keskeny kijelző is, mert egyes telefonok tévesen egeresnek jelzik magukat) */
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
+  /* Telefonon a görgetés közben újraszámolt elmosás (backdrop-filter) és a teljes képernyős
+     szemcseréteg akadozást, „ugrálást” okoz – helyettük sima, telt háttér */
+  .grain { display: none; }
+  .nav { transition: background .3s linear, color .3s linear; transform: translateZ(0); }
+  .nav.is-solid { background: rgba(247, 236, 230, .98); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
 @media (hover: none), (pointer: coarse) {
-  .grain { animation: none; }
   .rail { cursor: auto; }
   .rail__nav { display: none; }
   .swipe-hint { display: block; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); width: 100%; }
@@ -597,7 +603,7 @@ a.ccard:active { transform: scale(.985); }
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
     padding: 10px max(12px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
-    background: rgba(251, 238, 232, .92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: rgba(247, 236, 230, .98);
     box-shadow: 0 -1px 0 var(--line);
     transform: translateY(0); transition: transform .5s var(--ease);
   }

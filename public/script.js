@@ -423,7 +423,10 @@ function initNav() {
   const hero = $(".hero");
   // Érintőképernyőn a fejléc mindig látszik: a telefonos görgetés (lendület, visszapattanás,
   // címsor-átméreteződés) miatt az elrejtés ugrálna. Egérrel görgetve csak határozott mozdulatra rejtjük.
-  const touch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  // Néhány telefon (pl. egyes Samsungok) tévesen egeresnek vallja magát, ezért a keskeny kijelzőt és
+  // bármilyen érintőképernyőt is telefonnak tekintünk. Elforgatáskor is újraértékelődik.
+  const phoneLike = window.matchMedia("(hover: none), (pointer: coarse), (max-width: 900px)");
+  const isPhoneLike = () => phoneLike.matches || navigator.maxTouchPoints > 0;
   const HIDE_AFTER = 80, SHOW_AFTER = 40;
   let lastY = window.scrollY, travel = 0;
 
@@ -433,9 +436,11 @@ function initNav() {
     const dy = y - lastY;
     lastY = y;
     if (!menu.hidden) return;
-    const pastHero = y > hero.offsetHeight - 90;
+    // A sötét→világos váltásnál 60px „holtsáv”: apró rezgésre nem kapcsolgat oda-vissza
+    const edge = hero.offsetHeight - 90;
+    const pastHero = nav.classList.contains("is-solid") ? y > edge - 60 : y > edge;
     nav.classList.toggle("is-solid", pastHero);
-    if (touch || !pastHero) { nav.classList.remove("is-hidden"); travel = 0; return; }
+    if (isPhoneLike() || !pastHero) { nav.classList.remove("is-hidden"); travel = 0; return; }
     // Irányváltáskor újraindul a számlálás; csak elég hosszú, egyirányú mozdulat vált
     travel = (dy > 0) === (travel > 0) ? travel + dy : dy;
     if (travel > HIDE_AFTER) nav.classList.add("is-hidden");
@@ -488,7 +493,7 @@ function initNav() {
 /* ---------- Hero parallaxis ---------- */
 function initParallax() {
   // Telefonon/tableten kikapcsolva: simább görgetés, kevesebb akkumulátor
-  if (reduceMotion || window.matchMedia("(hover: none), (pointer: coarse)").matches) return;
+  if (reduceMotion || navigator.maxTouchPoints > 0 || window.matchMedia("(hover: none), (pointer: coarse), (max-width: 900px)").matches) return;
   const slots = $$(".hero .bloom-slot");
   const depth = [.35, .6, .2, .8, .5, .45, .25];
   let ticking = false;
