@@ -333,17 +333,28 @@ function renderContact() {
   if (SHOP.phone) {
     const tel = "tel:" + SHOP.phone.replace(/[^\d+]/g, "");
     $$("[data-phone-link]").forEach((a) => (a.href = tel));
-    $$("[data-phone-text]").forEach((a) => (a.textContent = SHOP.phone));
-    $$("[data-phone-text-plain]").forEach((a) => (a.textContent = SHOP.phone));
+    const shown = SHOP.phone.replace(/ /g, "\u00a0"); // nem törhető szóköz: a szám nem esik két sorba
+    $$("[data-phone-text]").forEach((a) => (a.textContent = shown));
+    $$("[data-phone-text-plain]").forEach((a) => (a.textContent = shown));
   } else {
     $$("[data-phone-text], .ccard--wine, .actionbar [data-phone-link]").forEach((a) => a.remove());
     $$(".actionbar").forEach((bar) => (bar.style.gridTemplateColumns = "1fr"));
   }
   $$("[data-email-link]").forEach((a) => {
-    if (SHOP.email) { a.href = "mailto:" + SHOP.email; a.textContent = SHOP.email; }
-    else a.closest("div").remove();
+    const row = a.closest("[data-email-row]");
+    if (SHOP.email) { a.href = "mailto:" + SHOP.email; a.textContent = SHOP.email; if (row) row.hidden = false; }
+    else if (row) row.remove();
   });
   $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+}
+
+/* ---------- A bolt fotója: ha nem tölthető be, rajzolt virág kerül a helyére ---------- */
+function initStorePhoto() {
+  const img = $(".store__photo img");
+  if (!img) return;
+  const fail = () => { img.closest(".store__photo").classList.add("is-empty"); img.remove(); };
+  if (img.complete && img.naturalWidth === 0 && img.currentSrc) fail();
+  else img.addEventListener("error", fail, { once: true });
 }
 
 /* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
@@ -470,7 +481,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
   [renderBloomSlots, renderProducts, renderContact, updateStatus,
-   initCollection, initCursorBloom, initMap, initNav, initParallax, initReveal].forEach(safely);
+   initCollection, initCursorBloom, initStorePhoto, initMap, initNav, initParallax, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
   // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok

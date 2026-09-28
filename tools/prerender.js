@@ -43,9 +43,14 @@ const { SHOP } = api;
 if (SHOP.phone) {
   const tel = "tel:" + SHOP.phone.replace(/[^\d+]/g, "");
   html = html.replace(/(<a\b[^>]*\bdata-phone-link\b[^>]*\bhref=")[^"]*(")/g, `$1${tel}$2`);
-  html = html.replace(/(<(\w+)\b[^>]*\bdata-phone-text(?:-plain)?\b[^>]*>)[^<]*(<\/\2>)/g, `$1${SHOP.phone}$3`);
+  const shown = SHOP.phone.replace(/ /g, "\u00a0"); // nem törhető szóköz
+  html = html.replace(/(<(\w+)\b[^>]*\bdata-phone-text(?:-plain)?\b[^>]*>)[^<]*(<\/\2>)/g, `$1${shown}$3`);
 }
 html = html.replace(/(<(\w+)\b[^>]*\bdata-address\b[^>]*>)[^<]*(<\/\2>)/g, `$1${SHOP.address}$3`);
+if (SHOP.email) {
+  html = html.replace(/(<a\b[^>]*\bdata-email-link\b[^>]*\bhref=")[^"]*("[^>]*>)[^<]*(<\/a>)/, `$1mailto:${SHOP.email}$2${SHOP.email}$3`)
+             .replace(/(<div\b[^>]*\bdata-email-row\b[^>]*?) hidden>/, "$1>");
+}
 html = html.replace(/(<span data-year>)[^<]*(<\/span>)/g, `$1${new Date().getFullYear()}$2`);
 
 // Verziószám a CSS/JS hivatkozásokban: ha a fájl változik, a böngésző biztosan az újat tölti le

@@ -11,6 +11,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `robots.txt` – a keresőknek
+  - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
 - `wrangler.jsonc` – Cloudflare-beállítás (a `public/` mappát teszi ki)
 - `tools/prerender.js` – beírja az adatokat a `public/index.html`-be (lásd lent)
 
