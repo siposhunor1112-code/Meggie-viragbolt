@@ -1,5 +1,5 @@
 /* ==========================================================
-   Előre beírja az index.html-be a kollekciót, az árlistát,
+   Előre beírja az index.html-be a kollekciót,
    a nyitvatartást és a virágrajzokat, hogy JavaScript nélkül
    (pl. telefonos fájlelőnézetben, keresőknél) is látszódjanak.
    A böngészőben a script.js ezeket úgyis frissen újrarajzolja.
@@ -16,7 +16,7 @@ const src = fs.readFileSync(path.join(root, "script.js"), "utf8");
 
 const sandbox = { console, window: { __PRERENDER__: true, matchMedia: () => ({ matches: false }) } };
 vm.createContext(sandbox);
-vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, productsHTML, pricelistHTML, hoursHTML, SHOP };", sandbox);
+vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, productsHTML, hoursHTML, SHOP };", sandbox);
 const api = sandbox.__api;
 
 let html = fs.readFileSync(htmlPath, "utf8");
@@ -36,7 +36,6 @@ const fill = (idAttr, tag, content) => {
   html = html.replace(re, (m, open, old, close) => open + mark(content) + close);
 };
 fill('id="products"', "div", api.productsHTML());
-fill('id="pricelist"', "div", api.pricelistHTML());
 fill('id="hours"', "ul", api.hoursHTML());
 
 // Elérhetőségek: telefonszám, hívás-linkek, cím, évszám

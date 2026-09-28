@@ -8,7 +8,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 - `public/` – maga a weboldal (ez kerül ki a netre):
   - `index.html` – az oldal szerkezete és szövegei
   - `styles.css` – megjelenés (színek a `:root` változókban)
-  - `script.js` – elérhetőség, nyitvatartás, termékek és árlista
+  - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `robots.txt` – a keresőknek
 - `wrangler.jsonc` – Cloudflare-beállítás (a `public/` mappát teszi ki)
@@ -17,7 +17,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 ## Megjelenés
 
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
-- Színek: egyetlen meggy-színcsalád (bor, meggypiros, rózsa, púder) – a `public/styles.css` elején, a `:root` részben
+- Színek: egyetlen meggy-színcsalád – rózsaszín (a nyitóoldal, a menü és a lábléc háttere), mély bor (szöveg, gombok), púder – a `public/styles.css` elején, a `:root` részben
 - A virágképek kódból készülnek (`makeBloom` a `public/script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
 
 ## Tartalom szerkesztése
@@ -26,14 +26,12 @@ A `public/script.js` elején található objektumok módosításával frissíthe
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
-- `PRODUCTS` – a Kollekció kártyái (név, leírás, ár, kategória, virágrajz típusa és színe)
-- `PRICELIST` – az Árlista szekció tételei
+- `PRODUCTS` – a Kollekció kártyái (név, leírás, kategória, virágrajz típusa és színe); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja
 
-> Az árak jelenleg **tájékoztató mintaértékek** – élesítés előtt egyeztesd a bolttal.
 
 ### Adatmódosítás után (ajánlott)
 
-Az árlista, a kollekció, a nyitvatartás és az elérhetőségek az `index.html`-be is be vannak írva,
+A kollekció, a nyitvatartás és az elérhetőségek az `index.html`-be is be vannak írva,
 hogy JavaScript nélkül (pl. telefonos fájlelőnézetben vagy keresőknél) is látszódjanak.
 A `public/script.js` módosítása után frissítsd ezt a beírt változatot is:
 

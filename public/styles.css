@@ -78,9 +78,13 @@
   --ink-2: #6f4a51;
   --muted: #7e5d63;      /* a kis szürke szövegek is jól olvashatók (kontraszt ≥ 4.5) */
   --line: rgba(61, 28, 36, .14);
-  --line-light: rgba(251, 238, 232, .18);
-  --wine: #4e1723;       /* sötét háttér fekete helyett */
+  --wine: #4e1723;       /* mély bor: szöveg a rózsaszín részeken, gombok */
   --wine-2: #6a2233;
+  --rose-bg: #e29aa1;    /* a nyitóoldal, a menü és a lábléc háttere – a virágszirmok rózsaszíne */
+  --rose-bg-2: #dd8d96;
+  --on-rose: #4e1723;    /* szöveg rózsaszínen (kontraszt 5.7–6.4) */
+  --on-rose-2: #5a1f2b;  /* másodlagos szöveg rózsaszínen (kontraszt ≥ 5.0) */
+  --line-rose: rgba(78, 23, 35, .2);
   --cherry: #8a2436;     /* kiemelőszín */
   --cherry-2: #b0485a;
   --rose: #d99ea0;
@@ -159,6 +163,8 @@ em { font-style: italic; }
   background: var(--cherry); transform: translateY(101%); transition: transform .6s var(--ease);
 }
 .btn--light { background: var(--ivory); color: var(--ink); }
+.hero .btn--light { background: var(--wine); color: var(--ivory); }
+.hero .btn--light::before { background: var(--cherry); }
 .btn--dark { background: var(--wine); color: var(--ivory); }
 .btn--block { width: 100%; }
 
@@ -187,7 +193,7 @@ em { font-style: italic; }
 
 /* ---------- Fejléc ---------- */
 .nav {
-  position: fixed; inset: 0 0 auto; z-index: 60; color: var(--ivory);
+  position: fixed; inset: 0 0 auto; z-index: 60; color: var(--on-rose);
   transition: background .6s var(--ease-soft), color .6s var(--ease-soft), transform .6s var(--ease);
 }
 .nav.is-solid { background: rgba(251, 238, 232, .9); color: var(--ink); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--line); }
@@ -215,7 +221,7 @@ em { font-style: italic; }
 .nav__toggle[aria-expanded="true"] span:last-child { top: 23px; transform: rotate(-45deg); }
 
 .menu {
-  position: fixed; inset: 0; z-index: 55; background: linear-gradient(170deg, var(--wine-2), var(--wine) 60%); color: var(--ivory);
+  position: fixed; inset: 0; z-index: 55; background: linear-gradient(170deg, #e8aab0, var(--rose-bg-2) 70%); color: var(--on-rose);
   display: flex; flex-direction: column; justify-content: space-between;
   padding: calc(110px + env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) calc(36px + env(safe-area-inset-bottom)) max(var(--gutter), env(safe-area-inset-left));
   overflow-y: auto; overscroll-behavior: contain; gap: 40px;
@@ -224,19 +230,19 @@ em { font-style: italic; }
 .menu[hidden] { display: none; }
 @keyframes menuIn { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 .menu__links { display: flex; flex-direction: column; }
-.menu__links a { font: 400 44px/1.25 var(--serif); display: flex; align-items: baseline; gap: 18px; padding: 6px 0; border-bottom: 1px solid var(--line-light); }
-.menu__links small { font: italic 14px var(--serif); color: var(--blush); }
-.menu__foot { display: flex; flex-direction: column; gap: 8px; font-size: 14px; letter-spacing: .08em; color: rgba(251, 238, 232, .7); }
-.menu__foot a { font: italic 26px var(--serif); color: var(--ivory); letter-spacing: 0; }
+.menu__links a { font: 400 44px/1.25 var(--serif); display: flex; align-items: baseline; gap: 18px; padding: 6px 0; border-bottom: 1px solid var(--line-rose); }
+.menu__links small { font: italic 14px var(--serif); color: var(--on-rose-2); }
+.menu__foot { display: flex; flex-direction: column; gap: 8px; font-size: 14px; letter-spacing: .08em; color: var(--on-rose-2); }
+.menu__foot a { font: italic 26px var(--serif); color: var(--on-rose); letter-spacing: 0; }
 
 /* ---------- Hero ---------- */
 .hero {
   position: relative; min-height: 100vh; min-height: 100svh;
   background:
-    radial-gradient(55% 55% at 74% 40%, rgba(217, 158, 160, .26), transparent 70%),
-    radial-gradient(45% 45% at 12% 85%, rgba(176, 72, 90, .28), transparent 70%),
-    linear-gradient(165deg, var(--wine-2) 0%, var(--wine) 55%, #43131e 100%);
-  color: var(--ivory); overflow: hidden;
+    radial-gradient(55% 55% at 74% 38%, rgba(252, 232, 228, .45), transparent 70%),
+    radial-gradient(45% 45% at 10% 88%, rgba(208, 115, 128, .35), transparent 70%),
+    linear-gradient(165deg, #e8a9ae 0%, var(--rose-bg) 50%, var(--rose-bg-2) 100%);
+  color: var(--on-rose); overflow: hidden;
   display: flex; flex-direction: column;
 }
 /* Lágy átmenet a hero aljáról a világos részbe – nincs éles vágás */
@@ -250,7 +256,7 @@ em { font-style: italic; }
   padding: 150px var(--gutter) 40px;
   display: flex; flex-direction: column; justify-content: flex-end;
 }
-.hero__label { color: rgba(251, 238, 232, .7); }
+.hero__label { color: var(--on-rose-2); }
 .hero__title {
   font: italic 400 clamp(80px, 19vw, 300px)/.8 var(--serif);
   letter-spacing: -.045em; margin: 24px 0 8px -0.04em;
@@ -258,13 +264,13 @@ em { font-style: italic; }
 .hero__title .line { display: block; overflow: hidden; padding: 0 .06em .24em 0; }
 .hero__title .line > span { display: inline-block; }
 .hero__bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
-.hero__lead { max-width: 480px; font-size: clamp(16px, 1.3vw, 19px); color: rgba(251, 238, 232, .78); }
+.hero__lead { max-width: 480px; font-size: clamp(16px, 1.3vw, 19px); color: var(--on-rose-2); }
 .hero__actions { display: flex; align-items: center; gap: 34px; flex-wrap: wrap; }
 .hero__meta {
   position: relative; z-index: 2; width: 100%; max-width: var(--wrap); margin: 0 auto;
   padding: 22px var(--gutter) 28px; display: flex; gap: 44px; flex-wrap: wrap;
-  font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: rgba(251, 238, 232, .65);
-  border-top: 1px solid var(--line-light);
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--on-rose-2);
+  border-top: 1px solid var(--line-rose);
 }
 .hero__meta li { display: inline-flex; align-items: center; gap: 12px; }
 .hero__meta a { padding: 12px 0; margin: -12px 0; }
@@ -272,13 +278,15 @@ em { font-style: italic; }
 .hero__bouquet { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .bloom-slot { position: absolute; will-change: transform; }
 .bloom-slot svg { width: 100%; height: 100%; overflow: visible; }
-.hero .b1 { width: min(40vw, 62vh, 560px); aspect-ratio: 1; right: -3vw; top: 5vh; }
-.hero .b2 { width: min(26vw, 360px); aspect-ratio: 1; right: 26vw; top: 18vh; }
-.hero .b3 { width: min(17vw, 240px); aspect-ratio: 1; right: 1vw; top: 34vh; }
-.hero .b4 { width: min(15vw, 200px); aspect-ratio: 1; right: 36vw; top: 5vh; opacity: .9; }
-.hero .b5 { width: min(8vw, 110px); aspect-ratio: 1; right: 31vw; top: 42vh; }
-.hero .b6 { width: min(24vw, 36vh, 320px); aspect-ratio: 1; right: 25vw; top: 32vh; opacity: .75; }
-.hero .b7 { width: min(20vw, 260px); aspect-ratio: 1; right: 2vw; top: 0; opacity: .55; transform: scaleX(-1); }
+/* Asztali elrendezés: a sötét virágok (meggyrózsa, bimbó, levelek) a felirattól jobbra maradnak,
+   mert bor színű betű sötét virágon nem olvasható; a halvány bazsarózsa mögé kerülhet */
+.hero .b1 { width: min(34vw, 58vh, 500px); aspect-ratio: 1; right: -4vw; top: 7vh; }
+.hero .b2 { width: min(20vw, 34vh, 290px); aspect-ratio: 1; right: 14.5vw; top: 16vh; }
+.hero .b3 { width: min(17vw, 26vh, 240px); aspect-ratio: 1; right: 1vw; top: 36vh; }
+.hero .b4 { width: min(12vw, 170px); aspect-ratio: 1; right: 31vw; top: 6vh; opacity: .9; }
+.hero .b5 { display: none; }
+.hero .b6 { width: min(18vw, 30vh, 260px); aspect-ratio: 1; right: 12vw; top: 34vh; opacity: .75; }
+.hero .b7 { width: min(18vw, 30vh, 240px); aspect-ratio: 1; right: 2vw; top: 90px; opacity: .55; transform: scaleX(-1); }
 .spin { transform-origin: 50% 50%; animation: spin 90s linear infinite; will-change: transform; }
 .spin.rev { animation-direction: reverse; animation-duration: 120s; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -345,44 +353,17 @@ em { font-style: italic; }
   font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(61, 28, 36, .65);
 }
 .card__idx { position: absolute; top: 16px; right: 18px; font: italic 15px var(--serif); color: rgba(61, 28, 36, .5); }
-.card__body { padding: 22px 2px 0; display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: baseline; }
+.card__body { padding: 22px 2px 0; display: grid; gap: 8px; }
 .card__title { font: 400 28px/1.1 var(--serif); letter-spacing: -.01em; }
-.card__price { font: 400 19px var(--serif); white-space: nowrap; }
-.card__price small { font: 300 12px var(--sans); color: var(--muted); }
-.card__desc { grid-column: 1 / -1; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+.card__desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
 .rail__foot { display: flex; justify-content: space-between; align-items: center; gap: 30px; margin-top: 44px; flex-wrap: wrap; }
 .rail__nav { display: flex; gap: 10px; }
 
-/* 03 Árlista */
-.prices {
-  --fade: clamp(110px, 14vw, 200px);
-  padding: calc(var(--fade) + clamp(60px, 7vw, 100px)) 0;
-  background:
-    radial-gradient(50% 40% at 100% 30%, rgba(217, 158, 160, .18), transparent 70%),
-    radial-gradient(40% 30% at 0% 75%, rgba(176, 72, 90, .22), transparent 70%),
-    linear-gradient(180deg, var(--paper) 0, var(--wine) var(--fade), var(--wine) calc(100% - var(--fade)), var(--ivory) 100%);
-  color: var(--ivory);
-}
-.prices .label { color: rgba(251, 238, 232, .6); }
-.prices .label .num, .prices .h2 em { color: var(--blush); }
-.prices .note { color: rgba(251, 238, 232, .55); }
-.pricelist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 70px clamp(40px, 7vw, 120px); }
-.pgroup h3 {
-  font: italic 400 30px var(--serif); color: var(--blush);
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding-bottom: 16px; border-bottom: 1px solid var(--line-light); margin-bottom: 6px;
-}
-.pgroup h3 small { font: 300 11px var(--sans); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 238, 232, .62); }
-.prow { display: flex; align-items: baseline; gap: 14px; padding: 15px 0; border-bottom: 1px solid rgba(251, 238, 232, .06); font-size: 16px; }
-.prow__name { flex: 0 1 auto; }
-.prow__dots { flex: 1; min-width: 20px; border-bottom: 1px dotted rgba(251, 238, 232, .25); transform: translateY(-5px); }
-.prow__price { flex: none; font: 400 20px var(--serif); white-space: nowrap; }
-
-/* 04 Alkalmak */
+/* 03 Alkalmak */
 .occasions { position: relative; }
 .occ-list { border-top: 1px solid var(--cherry); }
 .occ {
-  display: grid; grid-template-columns: 70px 1.2fr 1fr 180px; gap: 30px; align-items: baseline;
+  display: grid; grid-template-columns: 70px 1.1fr 1fr; gap: 30px; align-items: baseline;
   padding: 38px 0; border-bottom: 1px solid var(--line); position: relative;
   transition: padding .7s var(--ease), color .5s;
 }
@@ -393,7 +374,6 @@ em { font-style: italic; }
 .occ__num { font: italic 18px var(--serif); color: var(--cherry); }
 .occ__title { font: 400 clamp(30px, 3.3vw, 48px)/1.05 var(--serif); letter-spacing: -.015em; }
 .occ__desc { color: var(--ink-2); font-size: 15px; max-width: 380px; }
-.occ__price { text-align: right; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
 .cursor-bloom {
   position: fixed; left: 0; top: 0; z-index: 5; width: 260px; height: 260px; pointer-events: none;
   opacity: 0; transform: translate(-50%, -50%) scale(.6); transition: opacity .5s var(--ease-soft), transform .8s var(--ease);
@@ -415,7 +395,7 @@ em { font-style: italic; }
 .store__grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(40px, 8vw, 130px); align-items: center; }
 .store__photo {
   position: relative; aspect-ratio: 384 / 510; overflow: hidden;
-  background: linear-gradient(160deg, var(--wine-2), var(--wine));
+  background: linear-gradient(160deg, #e8a9ae, var(--rose-bg-2));
 }
 .store__photo img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); transition: transform 2.2s var(--ease); }
 .store__photo.is-in img { transform: scale(1); }
@@ -423,7 +403,7 @@ em { font-style: italic; }
 .store__photo.is-empty .store__placeholder { display: block; position: absolute; inset: 12%; }
 .store__text p:not(.label) { margin: 34px 0 40px; max-width: 460px; color: var(--ink-2); }
 
-/* 05 Elérhetőség */
+/* 04 Elérhetőség */
 .contact { padding-top: clamp(100px, 12vw, 170px); }
 /* Elérhetőség kártyák */
 .ccards { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: clamp(14px, 1.6vw, 22px); margin-bottom: clamp(60px, 7vw, 100px); }
@@ -445,15 +425,14 @@ em { font-style: italic; }
   display: grid; place-items: center; font-size: 16px;
   transition: transform .6s var(--ease), background .4s, color .4s;
 }
-.ccard--wine {
+.ccard--rose {
   background:
-    radial-gradient(80% 90% at 100% 0%, rgba(217, 158, 160, .28), transparent 60%),
-    linear-gradient(150deg, var(--wine-2), var(--wine));
-  border-color: transparent; color: var(--ivory);
+    radial-gradient(80% 90% at 100% 0%, rgba(252, 232, 228, .5), transparent 60%),
+    linear-gradient(150deg, #e8a9ae, var(--rose-bg-2));
+  border-color: transparent; color: var(--on-rose);
 }
-.ccard--wine .ccard__label { color: rgba(251, 238, 232, .65); }
-.ccard--wine .ccard__sub { color: rgba(251, 238, 232, .75); }
-.ccard--wine .ccard__go { border-color: rgba(251, 238, 232, .3); }
+.ccard--rose .ccard__label, .ccard--rose .ccard__sub { color: var(--on-rose-2); }
+.ccard--rose .ccard__go { border-color: var(--line-rose); }
 .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px); align-items: start; }
 .facts { border-top: 1px solid var(--line); }
 .facts > div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); }
@@ -486,32 +465,32 @@ em { font-style: italic; }
 .footer {
   --fade: clamp(110px, 14vw, 200px);
   background:
-    radial-gradient(50% 40% at 85% 100%, rgba(217, 158, 160, .2), transparent 70%),
-    linear-gradient(180deg, var(--ivory) 0, var(--wine) var(--fade), #43131e 100%);
-  color: var(--ivory); padding-top: calc(var(--fade) + clamp(40px, 5vw, 70px)); overflow: hidden;
+    radial-gradient(50% 40% at 85% 100%, rgba(252, 232, 228, .4), transparent 70%),
+    linear-gradient(180deg, var(--ivory) 0, var(--rose-bg) var(--fade), var(--rose-bg-2) 100%);
+  color: var(--on-rose); padding-top: calc(var(--fade) + clamp(40px, 5vw, 70px)); overflow: hidden;
 }
 .footer__top { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 40px; align-items: start; }
 .footer__tag { font: italic 400 clamp(26px, 2.6vw, 38px)/1.2 var(--serif); }
-.footer__links { display: grid; gap: 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: rgba(251, 238, 232, .7); }
-.footer__contact { display: grid; gap: 8px; font-size: 15px; color: rgba(251, 238, 232, .7); }
+.footer__links { display: grid; gap: 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--on-rose-2); }
+.footer__contact { display: grid; gap: 8px; font-size: 15px; color: var(--on-rose-2); }
 .footer__word {
   /* ~3× a betűméret a szó szélessége: 22vw mellett mindig elfér, nagy képernyőn 260px-nél megáll */
   font: italic 400 clamp(64px, 22vw, 260px)/.78 var(--serif); letter-spacing: -.04em;
   color: var(--ivory); margin: clamp(40px, 6vw, 80px) 0 0 -.04em; padding: 0 .04em .34em; white-space: nowrap;
-  background: linear-gradient(180deg, var(--ivory) 25%, var(--rose));
+  background: linear-gradient(180deg, var(--wine) 30%, var(--cherry));
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 .footer__bottom {
   display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
-  padding: 24px 0 30px; border-top: 1px solid var(--line-light);
-  font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(251, 238, 232, .62);
+  padding: 24px 0 30px; border-top: 1px solid var(--line-rose);
+  font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--on-rose-2);
 }
 
 /* ---------- Reszponzív ---------- */
 @media (max-width: 1100px) {
   .nav__links { gap: 22px; }
-  .occ { grid-template-columns: 50px 1fr 150px; }
-  .occ__desc { grid-column: 2 / 3; grid-row: 2; }
+  .occ { grid-template-columns: 50px 1fr; }
+  .occ__desc { grid-column: 2; }
 }
 @media (max-width: 900px) {
   .nav__links, .nav__phone { display: none; }
@@ -521,7 +500,7 @@ em { font-style: italic; }
   .hero .b3 { width: 36vw; right: -6vw; top: 44vh; }
   .hero .b4 { width: 26vw; right: 64vw; top: 34vh; }
   .hero .b5, .hero .b7 { display: none; }
-  .hero .b6 { width: 40vw; right: 26vw; top: 36vh; }
+  .hero .b6 { width: min(34vw, 24vh); right: 30vw; top: 22vh; }
   .hero__inner { padding-top: 55vh; }
   .facts3, .steps, .contact__grid, .store__grid, .pricelist, .footer__top, .ccards { grid-template-columns: 1fr; }
   .fact3, .fact3 + .fact3 { padding: 30px 0; border-left: 0; }
@@ -538,13 +517,8 @@ em { font-style: italic; }
   .hero__meta { gap: 20px; }
   .hero__actions { gap: 26px; }
   .occ { grid-template-columns: 34px 1fr; gap: 8px 14px; padding: 30px 0; }
-  .occ__desc, .occ__price { grid-column: 2; grid-row: auto; text-align: left; }
+  .occ__desc { grid-column: 2; grid-row: auto; }
   .facts > div { grid-template-columns: 1fr; gap: 4px; }
-  .prow { font-size: 15px; gap: 10px; }
-  .prow__dots { display: none; }
-  .prow__name { flex: 1 1 auto; }
-  .prow__price { font-size: 18px; }
-  .pgroup h3 { font-size: 26px; }
   .rail__foot { margin-top: 30px; }
   .cursor-bloom { display: none; }
 }
@@ -563,11 +537,10 @@ em { font-style: italic; }
   .occ:hover { padding-left: 18px; }
   a.ccard:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(78, 23, 35, .45); border-color: rgba(138, 36, 54, .3); }
   a.ccard:hover .ccard__go { transform: rotate(-45deg); background: var(--cherry); color: var(--ivory); border-color: var(--cherry); }
-  a.ccard--wine:hover .ccard__go { background: var(--ivory); color: var(--wine); border-color: var(--ivory); }
+  a.ccard--rose:hover .ccard__go { background: var(--wine); color: var(--ivory); border-color: var(--wine); }
   .mapbox__load:hover { background: var(--wine); color: var(--ivory); }
   .tabs button:hover { color: var(--ink); }
-  .hero__meta a:hover, .footer__bottom a:hover { color: var(--ivory); }
-  .footer__links a:hover, .footer__contact a:hover { color: var(--blush); }
+  .hero__meta a:hover, .footer__bottom a:hover, .footer__links a:hover, .footer__contact a:hover { color: var(--cherry); }
 }
 /* Érintésre azonnali visszajelzés (a kék villanás helyett) */
 .ccard, .actionbar__btn, .circle, .mapbox__load, .tabs button, .menu__links a, .link-arrow { -webkit-touch-callout: none; }
@@ -640,8 +613,6 @@ a.ccard:active { transform: scale(.985); }
   .statement { font-size: clamp(26px, 7.4vw, 36px); }
   .h2 { font-size: clamp(40px, 12vw, 64px); }
   .fact3__big { font-size: 52px; }
-  .card__body { grid-template-columns: 1fr; }
-  .card__price { order: 3; }
   .mapbox__load { bottom: 16px; }
   .menu__links a { font-size: clamp(32px, 10vw, 44px); }
 }

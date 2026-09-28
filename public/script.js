@@ -1,8 +1,7 @@
 /* ==========================================================
    Meggie Virágbolt – tartalom és működés
-   Az alábbi SHOP, PRODUCTS és PRICELIST objektumok szerkesztésével
-   frissíthetők az elérhetőségek, a nyitvatartás és az árak.
-   Az árakat az oldal magától növekvő sorrendbe rendezi.
+   Az alábbi SHOP és PRODUCTS objektumok szerkesztésével
+   frissíthetők az elérhetőségek, a nyitvatartás és a kollekció.
    ========================================================== */
 
 const SHOP = {
@@ -25,6 +24,7 @@ const SHOP = {
 const DAY_NAMES = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
 // A Kollekció kártyái. bloom: peony | rose | anemone | bud; palette: lásd PALETTES
+// A "price" csak a sorrendet adja (olcsóbbtól a drágábbig), az oldalon nem jelenik meg.
 const PRODUCTS = [
   { cat: "csokor",  bloom: "peony",   palette: "blush",   seed: 2,  title: "Bazsarózsa álom",       desc: "Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.", from: true,  price: 14900, unit: "csokor" },
   { cat: "csokor",  bloom: "rose",    palette: "cherry",  seed: 8,  title: "Klasszikus rózsacsokor", desc: "11 szál prémium rózsa zölddel, elegáns csomagolásban.",               from: false, price: 12900, unit: "csokor" },
@@ -44,42 +44,9 @@ const CARD_TINTS = ["#efd2c9", "#f1ddd2", "#ecd0cf", "#f3e0d6"];
 
 const CATEGORY_LABEL = { csokor: "Csokor", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
 
-// Az Árlista szekció tételei
-const PRICELIST = [
-  { group: "Szálas virágok", items: [
-    ["Rózsa (normál)", "1 200 Ft / szál"],
-    ["Rózsa (prémium, hosszú szár)", "1 900 Ft / szál"],
-    ["Tulipán", "590 Ft / szál"],
-    ["Gerbera", "790 Ft / szál"],
-    ["Liliom", "1 900 Ft / szál"],
-    ["Szezonális virág", "490 Ft-tól"],
-  ]},
-  { group: "Csokrok", items: [
-    ["Kis csokor", "5 900 Ft-tól"],
-    ["Közepes csokor", "9 900 Ft-tól"],
-    ["Nagy, reprezentatív csokor", "16 900 Ft-tól"],
-    ["11 szál rózsa zölddel", "12 900 Ft"],
-    ["21 szál rózsa zölddel", "22 900 Ft"],
-  ]},
-  { group: "Cserepes növények", items: [
-    ["Lepkeorchidea, egyágú", "6 490 Ft"],
-    ["Lepkeorchidea, kétágú", "8 990 Ft"],
-    ["Szobanövény (kicsi)", "3 490 Ft-tól"],
-    ["Szobanövény (nagy)", "8 900 Ft-tól"],
-  ]},
-  { group: "Alkalmi és extrák", items: [
-    ["Virágdoboz", "16 900 Ft-tól"],
-    ["Gyászkoszorú", "14 900 Ft-tól"],
-    ["Menyasszonyi csokor", "24 900 Ft-tól"],
-    ["Ajándékkártya, üzenettel", "ingyenes"],
-    ["Díszcsomagolás", "990 Ft-tól"],
-  ]},
-];
-
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const huf = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " Ft";
 const toMinutes = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -221,7 +188,6 @@ function productsHTML(filter = "all") {
       </div>
       <div class="card__body">
         <h3 class="card__title">${p.title}</h3>
-        <span class="card__price">${huf(p.price)}${p.from ? "<small>-tól</small>" : ""}<small> / ${p.unit}</small></span>
         <p class="card__desc">${p.desc}</p>
       </div>
     </article>`;
@@ -272,30 +238,6 @@ function initCollection() {
       rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
     }
   });
-}
-
-/* ---------- Árlista ---------- */
-// Az árszöveg első számát adja vissza ("1 200 Ft / szál" → 1200, "ingyenes" → 0)
-const priceValue = (text) => Number((text.match(/\d[\d\s]*/) || ["0"])[0].replace(/\s/g, ""));
-
-function pricelistHTML() {
-  return PRICELIST.map((g) => {
-    const items = [...g.items].sort((a, b) => priceValue(a[1]) - priceValue(b[1]));
-    return `
-    <div class="pgroup reveal">
-      <h3>${g.group}<small>${items.length} tétel</small></h3>
-      ${items.map(([name, price]) => `
-        <div class="prow">
-          <span class="prow__name">${name}</span>
-          <span class="prow__dots" aria-hidden="true"></span>
-          <span class="prow__price">${price.replace(/ (?=\d{3})/g, " ")}</span>
-        </div>`).join("")}
-    </div>`;
-  }).join("");
-}
-
-function renderPricelist() {
-  $("#pricelist").innerHTML = pricelistHTML();
 }
 
 /* ---------- Alkalmak: egeret követő virág ---------- */
@@ -527,7 +469,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   // Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
-  [renderBloomSlots, renderProducts, renderPricelist, renderContact, updateStatus,
+  [renderBloomSlots, renderProducts, renderContact, updateStatus,
    initCollection, initCursorBloom, initMap, initNav, initParallax, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
