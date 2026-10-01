@@ -1,3 +1,5 @@
 # Meggie Virágbolt – a keresők számára az egész oldal látogatható
 User-agent: *
 Allow: /
+
+Sitemap: https://meggieviragbolt.com/sitemap.xml

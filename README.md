@@ -2,6 +2,7 @@
 
 Statikus, egyoldalas weboldal a Blaha Lujza téri aluljáróban található Meggie Virágboltnak.
 Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelyen kiszolgálható. Élesben a Cloudflare Workers tölti ki a `main` ágról, minden feltöltés után automatikusan.
+Éles cím: https://meggieviragbolt.com (a `www.` változat is működik).
 
 ## Fájlok
 
@@ -11,6 +12,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `robots.txt` – a keresőknek
+  - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
 - `wrangler.jsonc` – Cloudflare-beállítás (a `public/` mappát teszi ki)
 - `tools/prerender.js` – beírja az adatokat a `public/index.html`-be (lásd lent)
@@ -20,6 +22,10 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
 - Színek: egyetlen meggy-színcsalád – rózsaszín (a nyitóoldal, a menü és a lábléc háttere), mély bor (szöveg, gombok), púder – a `public/styles.css` elején, a `:root` részben
 - A virágképek kódból készülnek (`makeBloom` a `public/script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
+
+## Domain
+
+A teljes webcím (`https://meggieviragbolt.com`) a `public/index.html` fejében (canonical, megosztási kép, cégadatok), a `public/robots.txt`-ben és a `public/sitemap.xml`-ben szerepel. Domainváltáskor mindhárom helyen cserélni kell.
 
 ## Tartalom szerkesztése
 
