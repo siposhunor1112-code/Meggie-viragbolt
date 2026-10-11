@@ -238,9 +238,9 @@ em { font-style: italic; }
 .hero__text { max-width: min(640px, 48vw); }
 .hero__label { color: var(--on-night-2); }
 .hero__title { font: italic 400 clamp(72px, 13vw, 210px)/.88 var(--serif); letter-spacing: -.03em; margin-top: 14px; }
-.hero__title .line { display: block; overflow: hidden; padding-bottom: .24em; margin-bottom: -.24em; }
+.hero__title .line { display: block; overflow: hidden; padding-bottom: .36em; margin-bottom: -.36em; }
 .hero__title .line > span { display: inline-block; }
-.hero__lead { font-size: clamp(18px, 1.6vw, 22px); color: var(--on-night-2); max-width: 30em; margin-top: 24px; line-height: 1.6; }
+.hero__lead { font-size: clamp(18px, 1.6vw, 22px); color: var(--on-night-2); max-width: 30em; margin-top: max(32px, 4.6vw); line-height: 1.6; }
 .live { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line-night); display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; }
 .live__state { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 400; padding: 10px 16px; border-radius: 999px; background: rgba(243, 227, 220, .1); border: 1px solid var(--line-night); }
 .live__btns { display: flex; gap: 12px; flex-wrap: wrap; }
