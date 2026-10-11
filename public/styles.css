@@ -364,6 +364,38 @@ em { font-style: italic; }
 .spin.rev { animation-direction: reverse; animation-duration: 120s; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+.footer__legal { display: flex; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- Jogi aloldalak (adatkezelés, impresszum) ---------- */
+.doc { padding-bottom: 0; }
+.doc__head { background: var(--night); color: var(--on-night); }
+.doc__bar { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding-top: 18px; padding-bottom: 18px; }
+.doc__back { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 0; }
+.doc__back:hover { color: var(--rose); }
+.doc__body { max-width: 820px; padding-top: clamp(48px, 7vw, 88px); padding-bottom: clamp(64px, 8vw, 104px); }
+.doc__body .h2 { margin-bottom: 12px; }
+.doc__meta { color: var(--muted); font-size: 15px; }
+.doc__body section { margin-top: 44px; }
+.doc__body h2:not(.h2) { font: 400 28px/1.2 var(--serif); color: var(--wine); margin-bottom: 14px; }
+.doc__body p + p, .doc__body ul + p { margin-top: 12px; }
+.doc__body a { color: var(--wine); text-decoration: underline; text-underline-offset: 3px; }
+.doc__summary { margin-top: 36px; background: var(--ivory); border: 1px solid var(--line); border-radius: 22px; padding: 24px 26px; }
+.doc__summary h2 { font: 400 24px/1.2 var(--serif); color: var(--wine); margin-bottom: 10px; }
+.doc__summary li, .doc__list li { position: relative; padding-left: 22px; margin-top: 8px; }
+.doc__summary li::before, .doc__list li::before { content: ""; position: absolute; left: 4px; top: .75em; width: 6px; height: 6px; border-radius: 50%; background: var(--cherry-2); }
+.doc__facts { display: grid; gap: 0; margin: 14px 0; border-top: 1px solid var(--line); }
+.doc__facts div { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.doc__facts dt { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+mark.todo { background: #fde68a; color: #4a2c00; padding: 1px 6px; border-radius: 4px; }
+.doc__foot { background: var(--night); color: var(--on-night-2); font-size: 14px; }
+.doc__foot nav { display: flex; gap: 20px; }
+.doc__foot a { padding: 8px 0; }
+.doc__foot a[aria-current] { color: var(--on-night); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) {
+  .doc__facts div { grid-template-columns: 1fr; gap: 2px; }
+  .doc__back { font-size: 12px; }
+}
+
 /* ---------- Megjelenési animációk ---------- */
 [data-anim] { opacity: 0; transform: translateY(32px); transition: opacity 1.3s var(--ease), transform 1.3s var(--ease); }
 .hero__title [data-anim] { opacity: 1; transform: translateY(105%); transition: transform 1.5s var(--ease); }

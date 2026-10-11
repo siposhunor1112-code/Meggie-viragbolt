@@ -62,3 +62,13 @@ for (const file of ["styles.css", "script.js"]) {
 
 fs.writeFileSync(htmlPath, html);
 console.log("Kész: index.html frissítve (" + Math.round(html.length / 1024) + " KB)");
+
+// A jogi aloldalak ugyanazt a stíluslapot használják: ott is frissítjük a verziószámot
+const cssVersion = crypto.createHash("sha1").update(fs.readFileSync(path.join(root, "styles.css"))).digest("hex").slice(0, 8);
+for (const page of ["adatkezeles.html", "impresszum.html"]) {
+  const pagePath = path.join(root, page);
+  if (!fs.existsSync(pagePath)) continue;
+  const doc = fs.readFileSync(pagePath, "utf8").replace(/(href="styles\.css)(\?v=[0-9a-f]+)?"/g, `$1?v=${cssVersion}"`);
+  fs.writeFileSync(pagePath, doc);
+  console.log("Kész: " + page + " verziószám frissítve");
+}
