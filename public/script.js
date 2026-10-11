@@ -11,7 +11,7 @@ const SHOP = {
   address: "1085 Budapest, Blaha Lujza tér 1–3. (metró aluljáró)",
   // Közösségi oldalak: a teljes profil-link, vagy null, ha (még) nincs. Csak a kitöltöttek jelennek meg.
   social: {
-    facebook: null,
+    facebook: "https://www.facebook.com/MeggiVirag",
     instagram: "https://www.instagram.com/meggievirag1/",
     tiktok: "https://www.tiktok.com/@meggievirag1",
   },
