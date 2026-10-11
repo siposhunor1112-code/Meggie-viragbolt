@@ -11,6 +11,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `styles.css` – megjelenés (színek a `:root` változókban)
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
+  - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak), WebP formátumban
   - `robots.txt` – a keresőknek
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
@@ -20,8 +21,17 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 ## Megjelenés
 
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
-- Színek: egyetlen meggy-színcsalád – rózsaszín (a nyitóoldal, a menü és a lábléc háttere), mély bor (szöveg, gombok), púder – a `public/styles.css` elején, a `:root` részben
-- A virágképek kódból készülnek (`makeBloom` a `public/script.js`-ben); típusok: `peony`, `rose`, `anemone`, `bud`, `leaf`, színek: a `PALETTES` objektumban
+- Színek: meggy-színcsalád – sötét bor (a nyitókép, a menü, a kollekció és a lábléc háttere), mély bor (szöveg, gombok), rózsaszín és púder – a `public/styles.css` elején, a `:root` részekben
+- Képek: valódi fotók a `public/assets/photos/` mappában. Új fotó cseréjekor tartsd meg a fájlnevet, vagy írd át az `index.html`-ben.
+- Kódból rajzolt virág (`makeBloom` a `public/script.js`-ben) már csak a csokortervező előnézetében és a bolt fotójának tartalékaként jelenik meg; színek: a `PALETTES` objektumban
+
+## Az oldal részei
+
+1. Nyitókép – tulipánfotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
+2. Gyorsinfó – cím, nyitvatartás, megállók
+3. A pultról – fotógaléria
+4. Csokortervező – alkalom, szín, méret → kész mondat a telefonáláshoz
+5. Alkalmak, 6. Kollekció (lista kategóriánként), 7. A bolt – fotó, elérhetőség, heti nyitvatartás
 
 ## Domain
 
@@ -33,7 +43,7 @@ A `public/script.js` elején található objektumok módosításával frissíthe
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
-- `PRODUCTS` – a Kollekció kártyái (név, leírás, kategória, virágrajz típusa és színe); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja
+- `PRODUCTS` – a Kollekció listája (név, leírás, kategória); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja a kategórián belül
 
 
 ### Adatmódosítás után (ajánlott)

@@ -23,8 +23,9 @@ const SHOP = {
 
 const DAY_NAMES = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
-// A Kollekció kártyái. bloom: peony | rose | anemone | bud; palette: lásd PALETTES
+// A Kollekció listája, kategóriánként egy oszlopban.
 // A "price" csak a sorrendet adja (olcsóbbtól a drágábbig), az oldalon nem jelenik meg.
+// (A bloom / palette / seed mezők a korábbi rajzolt kártyákhoz tartoztak; most nem jelennek meg.)
 const PRODUCTS = [
   { cat: "csokor",  bloom: "peony",   palette: "blush",   seed: 2,  title: "Bazsarózsa álom",       desc: "Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.", from: true,  price: 14900, unit: "csokor" },
   { cat: "csokor",  bloom: "rose",    palette: "cherry",  seed: 8,  title: "Klasszikus rózsacsokor", desc: "11 szál prémium rózsa zölddel, elegáns csomagolásban.",               from: false, price: 12900, unit: "csokor" },
@@ -40,9 +41,8 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
-const CARD_TINTS = ["#efd2c9", "#f1ddd2", "#ecd0cf", "#f3e0d6"];
-
-const CATEGORY_LABEL = { csokor: "Csokor", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
+// Oszlopok sorrendje és címe a Kollekcióban
+const CATEGORY_LABEL = { csokor: "Csokrok", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
 
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -172,96 +172,53 @@ function renderBloomSlots() {
 }
 
 /* ---------- Kollekció ---------- */
-function productsHTML(filter = "all") {
-  const list = PRODUCTS
-    .filter((p) => filter === "all" || p.cat === filter)
-    .sort((a, b) => a.price - b.price);
-  return list.map((p, i) => {
-    // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
-    const bg = CARD_TINTS[i % CARD_TINTS.length];
+function productsHTML() {
+  return Object.keys(CATEGORY_LABEL).map((cat) => {
+    const items = PRODUCTS.filter((p) => p.cat === cat).sort((a, b) => a.price - b.price);
     return `
-    <article class="card" style="animation-delay:${i * 70}ms">
-      <div class="card__art" style="background:radial-gradient(90% 70% at 50% 42%, #fcf5f1, ${bg} 120%)">
-        <span class="card__cat">${CATEGORY_LABEL[p.cat]}</span>
-        <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
-        <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
-      </div>
-      <div class="card__body">
-        <h3 class="card__title">${p.title}</h3>
-        <p class="card__desc">${p.desc}</p>
-      </div>
-    </article>`;
+    <div class="col">
+      <h3>${CATEGORY_LABEL[cat]}</h3>
+      <ul>${items.map((p) => `<li><b>${p.title}</b><span>${p.desc}</span></li>`).join("")}</ul>
+    </div>`;
   }).join("");
 }
 
-function renderProducts(filter = "all") {
-  const rail = $("#products");
-  rail.innerHTML = productsHTML(filter);
-  rail.scrollLeft = 0;
+function renderProducts() {
+  $("#products").innerHTML = productsHTML();
 }
 
-function initCollection() {
-  $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
-    $$(".tabs button").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-pressed", "false"); });
-    b.classList.add("is-active"); b.setAttribute("aria-pressed", "true");
-    renderProducts(b.dataset.filter);
-  }));
-
-  const rail = $("#products");
-  // Egy kártya szélessége + a tényleges rés (a rés a képernyőmérettől függ)
-  const cardStep = () => {
-    const card = $(".card", rail);
-    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
-    return card ? card.getBoundingClientRect().width + gap : 320;
+/* ---------- Csokortervező ---------- */
+// Alkalom + szín + méret → előnézeti virág és egy kész mondat a telefonáláshoz
+function initPlanner() {
+  const groups = $$("[data-plan]");
+  if (!groups.length) return;
+  const picked = (key) => $(`[data-plan="${key}"] [aria-checked="true"]`);
+  const update = () => {
+    const occ = picked("occ"), pal = picked("pal"), size = picked("size");
+    const size1 = size.dataset.v.charAt(0).toUpperCase() + size.dataset.v.slice(1);
+    $("#plan-art").innerHTML = bloomSlotHTML(size.dataset.b, pal.dataset.v, 7);
+    $("#plan-title-result").textContent = `${size1}, ${pal.dataset.l} csokor`;
+    $("#plan-script").textContent = `„Szeretnék egy ${size.dataset.v} csokrot ${occ.dataset.v}, ${pal.dataset.l} színekben.”`;
   };
-  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
-    rail.scrollBy({ left: cardStep() * Number(b.dataset.rail), behavior: "smooth" });
-  }));
-
-  // Húzással görgetés egérrel
-  let down = false, startX = 0, startLeft = 0, moved = false;
-  rail.addEventListener("pointerdown", (e) => {
-    if (e.pointerType !== "mouse") return;
-    down = true; moved = false; startX = e.clientX; startLeft = rail.scrollLeft;
-  });
-  window.addEventListener("pointermove", (e) => {
-    if (!down) return;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 4) { moved = true; rail.classList.add("is-drag"); }
-    rail.scrollLeft = startLeft - dx;
-  });
-  window.addEventListener("pointerup", () => {
-    if (!down) return;
-    down = false; rail.classList.remove("is-drag");
-    if (moved) {
-      const w = cardStep();
-      rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
-    }
-  });
-}
-
-/* ---------- Alkalmak: egeret követő virág ---------- */
-function initCursorBloom() {
-  const el = $(".cursor-bloom");
-  if (!el || reduceMotion || !window.matchMedia("(hover: hover)").matches) return;
-  const cache = {};
-  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
-  const loop = () => {
-    cx += (x - cx) * .14; cy += (y - cy) * .14;
-    el.style.left = cx + "px"; el.style.top = cy + "px";
-    raf = Math.abs(x - cx) + Math.abs(y - cy) > .5 ? requestAnimationFrame(loop) : null;
-  };
-  $$(".occ").forEach((row, i) => {
-    row.addEventListener("mouseenter", (e) => {
-      const key = row.dataset.bloomPreview + row.dataset.palette;
-      if (!cache[key]) cache[key] = makeBloom(row.dataset.bloomPreview, row.dataset.palette, 30 + i);
-      el.innerHTML = `<div class="bloom-wrap spin" style="width:100%;height:100%">${cache[key]}</div>`;
-      if (!el.classList.contains("is-on")) { cx = x = e.clientX; cy = y = e.clientY; }
-      el.classList.add("is-on");
+  groups.forEach((group) => {
+    const opts = $$(".opt", group);
+    const select = (opt) => {
+      opts.forEach((o) => { o.setAttribute("aria-checked", String(o === opt)); o.tabIndex = o === opt ? 0 : -1; });
+      update();
+    };
+    opts.forEach((o) => { o.tabIndex = o.getAttribute("aria-checked") === "true" ? 0 : -1; });
+    group.addEventListener("click", (e) => { const o = e.target.closest(".opt"); if (o) select(o); });
+    // Nyilakkal is lehet választani, ahogy egy rádiógombcsoportnál megszokott
+    group.addEventListener("keydown", (e) => {
+      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      const next = opts[(opts.indexOf(document.activeElement) + step + opts.length) % opts.length];
+      next.focus();
+      select(next);
     });
-    row.addEventListener("mouseleave", () => el.classList.remove("is-on"));
-    row.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(loop); });
   });
+  update();
 }
 
 /* ---------- Nyitvatartás ---------- */
@@ -337,7 +294,8 @@ function renderContact() {
     $$("[data-phone-text]").forEach((a) => (a.textContent = shown));
     $$("[data-phone-text-plain]").forEach((a) => (a.textContent = shown));
   } else {
-    $$("[data-phone-text], .ccard--wine, .actionbar [data-phone-link]").forEach((a) => a.remove());
+    // Telefonszám nélkül minden hívás-gomb és a telefon sor is eltűnik
+    $$("[data-phone-row], [data-phone-text], [data-phone-link]").forEach((a) => a.remove());
     $$(".actionbar").forEach((bar) => (bar.style.gridTemplateColumns = "1fr"));
   }
   $$("[data-email-link]").forEach((a) => {
@@ -355,17 +313,6 @@ function initStorePhoto() {
   const fail = () => { img.closest(".store__photo").classList.add("is-empty"); img.remove(); };
   if (img.complete && img.naturalWidth === 0 && img.currentSrc) fail();
   else img.addEventListener("error", fail, { once: true });
-}
-
-/* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
-function initMap() {
-  $$(".mapbox__load").forEach((btn) => btn.addEventListener("click", () => {
-    const f = document.createElement("iframe");
-    f.title = "Meggie Virágbolt helye a térképen – Blaha Lujza tér";
-    f.src = btn.dataset.mapSrc;
-    f.referrerPolicy = "no-referrer-when-downgrade";
-    btn.replaceWith(f);
-  }));
 }
 
 /* ---------- Navigáció ---------- */
@@ -443,23 +390,6 @@ function initNav() {
   links.map((a) => $(a.getAttribute("href"))).filter(Boolean).forEach((s) => spy.observe(s));
 }
 
-/* ---------- Hero parallaxis ---------- */
-function initParallax() {
-  // Telefonon/tableten kikapcsolva: simább görgetés, kevesebb akkumulátor
-  if (reduceMotion || navigator.maxTouchPoints > 0 || window.matchMedia("(hover: none), (pointer: coarse), (max-width: 900px)").matches) return;
-  const slots = $$(".hero .bloom-slot");
-  const depth = [.35, .6, .2, .8, .5, .45, .25];
-  let ticking = false;
-  const apply = () => {
-    const y = window.scrollY;
-    if (y < window.innerHeight * 1.2) {
-      slots.forEach((s, i) => (s.style.transform = `translate3d(0, ${(-y * depth[i % depth.length]).toFixed(1)}px, 0)${s.classList.contains("b7") ? " scaleX(-1)" : ""}`));
-    }
-    ticking = false;
-  };
-  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
-}
-
 /* ---------- Megjelenési animációk ---------- */
 function initReveal() {
   $$(".hero [data-anim]").forEach((el, i) => (el.style.transitionDelay = `${200 + i * 140}ms`));
@@ -481,7 +411,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
   [renderBloomSlots, renderProducts, renderContact, updateStatus,
-   initCollection, initCursorBloom, initStorePhoto, initMap, initNav, initParallax, initReveal].forEach(safely);
+   initPlanner, initStorePhoto, initNav, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
   // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok
