@@ -42,6 +42,7 @@ A teljes webcím (`https://meggieviragbolt.com`) a `public/index.html` fejében 
 A `public/script.js` elején található objektumok módosításával frissíthetők az adatok:
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
+- `SHOP.social` – Facebook, Instagram és TikTok profil-link (ha `null`, nem jelenik meg); a bolt résznél, a láblécben és a mobilmenüben látszik, és a keresőknek szóló adatokba (`sameAs`) is bekerül
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
 - `PRODUCTS` – a Kollekció listája (név, leírás, kategória); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja a kategórián belül
 

@@ -16,7 +16,7 @@ const src = fs.readFileSync(path.join(root, "script.js"), "utf8");
 
 const sandbox = { console, window: { __PRERENDER__: true, matchMedia: () => ({ matches: false }) } };
 vm.createContext(sandbox);
-vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, productsHTML, hoursHTML, SHOP };", sandbox);
+vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, productsHTML, hoursHTML, socialHTML, SHOP };", sandbox);
 const api = sandbox.__api;
 
 let html = fs.readFileSync(htmlPath, "utf8");
@@ -37,6 +37,12 @@ const fill = (idAttr, tag, content) => {
 };
 fill('id="products"', "div", api.productsHTML());
 fill('id="hours"', "ul", api.hoursHTML());
+for (const id of ["social-menu", "social-bolt", "social-footer"]) fill(`id="${id}"`, "div", api.socialHTML());
+
+// Közösségi oldalak: üres blokk elrejtve, és a keresőknek szóló adatokba (sameAs) is bekerülnek
+const socialUrls = Object.values(api.SHOP.social || {}).filter(Boolean);
+html = html.replace(/(<div class="social[^"]*" data-social)( hidden)?>/g, (m, open) => open + (socialUrls.length ? "" : " hidden") + ">");
+html = html.replace(/"sameAs": \[[^\]]*\]/, `"sameAs": ${JSON.stringify(socialUrls)}`);
 
 // Elérhetőségek: telefonszám, hívás-linkek, cím, évszám
 const { SHOP } = api;

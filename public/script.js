@@ -9,6 +9,12 @@ const SHOP = {
   phone: "+36 1 211 4035",
   email: null,            // pl. "hello@meggieviragbolt.hu"
   address: "1085 Budapest, Blaha Lujza tér 1–3. (metró aluljáró)",
+  // Közösségi oldalak: a teljes profil-link, vagy null, ha (még) nincs. Csak a kitöltöttek jelennek meg.
+  social: {
+    facebook: null,
+    instagram: null,
+    tiktok: "https://www.tiktok.com/@meggievirag1",
+  },
   // Nyitvatartás: 0 = vasárnap … 6 = szombat. null = zárva.
   hours: {
     1: ["08:00", "20:00"],
@@ -251,6 +257,32 @@ function updateStatus() {
 }
 
 /* ---------- Elérhetőségek ---------- */
+/* ---------- Közösségi oldalak ---------- */
+// Saját rajzolású ikonok: semmit nem töltünk be a Facebooktól, Instagramtól vagy TikToktól, így sütit sem tesznek az oldalra
+const SOCIAL_LINKS = {
+  facebook: { label: "Facebook", icon: '<path d="M14 8.5V6.8c0-.8.5-1.3 1.3-1.3H17V2h-2.6C11.6 2 10 3.8 10 6.6v1.9H7.5V12H10v10h4V12h2.7l.5-3.5H14z" fill="currentColor"/>' },
+  instagram: { label: "Instagram", icon: '<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/>' },
+  tiktok: { label: "TikTok", icon: '<path d="M16.6 2c.3 2.4 1.8 4 4.2 4.2v3.4c-1.6 0-3-.5-4.2-1.3v6.6a6.1 6.1 0 1 1-6.1-6.1c.3 0 .6 0 .9.1v3.5a2.7 2.7 0 1 0 1.8 2.5V2h3.4z" fill="currentColor"/>' },
+};
+
+function socialHTML() {
+  return Object.keys(SOCIAL_LINKS)
+    .filter((key) => SHOP.social && SHOP.social[key])
+    .map((key) => {
+      const { label, icon } = SOCIAL_LINKS[key];
+      return `<a class="social__link" href="${SHOP.social[key]}" target="_blank" rel="noopener" aria-label="Meggie Virágbolt a ${label}on"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${icon}</svg><span>${label}</span></a>`;
+    }).join("");
+}
+
+function renderSocial() {
+  const html = socialHTML();
+  $$("[data-social]").forEach((box) => {
+    const list = $(".social__list", box);
+    if (list) list.innerHTML = html;
+    box.hidden = !html;
+  });
+}
+
 function renderContact() {
   $$("[data-address]").forEach((el) => (el.textContent = SHOP.address));
   if (SHOP.phone) {
@@ -376,7 +408,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   // Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
-  [renderBloomSlots, renderProducts, renderContact, updateStatus,
+  [renderBloomSlots, renderProducts, renderContact, renderSocial, updateStatus,
    initStorePhoto, initNav, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });

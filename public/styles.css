@@ -320,6 +320,24 @@ em { font-style: italic; }
 .hours__list li.is-today span:first-child::after { content: " · ma"; color: var(--cherry); }
 .store__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
 
+/* ---------- Közösségi oldalak ---------- */
+.social[hidden] { display: none; }
+.social { margin-top: 28px; }
+.social__title { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.social__list { display: flex; flex-wrap: wrap; gap: 10px; }
+.social__link {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 12px;
+  border: 1px solid var(--line); border-radius: 999px; font-size: 14px; font-weight: 400; color: var(--wine);
+  transition: background-color .25s var(--ease-soft), color .25s var(--ease-soft), border-color .25s var(--ease-soft);
+}
+.social__link svg { width: 20px; height: 20px; flex: none; }
+.social__link:hover { background: var(--wine); border-color: var(--wine); color: var(--ivory); }
+.social--footer, .social--menu { margin-top: 18px; }
+.social--footer .social__title, .social--menu .social__title { color: var(--on-night-2); }
+.social--footer .social__link, .social--menu .social__link { color: var(--on-night); border-color: var(--line-night); }
+.social--footer .social__link:hover, .social--menu .social__link:hover { background: var(--on-night); color: var(--night); border-color: var(--on-night); }
+.menu__foot .social__link { font: 400 14px var(--sans); letter-spacing: 0; }
+
 /* ---------- Lábléc ---------- */
 .footer { background: var(--night); color: var(--on-night-2); padding: 72px 0 calc(32px + env(safe-area-inset-bottom)); }
 .footer__top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; align-items: start; }
