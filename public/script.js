@@ -187,40 +187,6 @@ function renderProducts() {
   $("#products").innerHTML = productsHTML();
 }
 
-/* ---------- Csokortervező ---------- */
-// Alkalom + szín + méret → előnézeti virág és egy kész mondat a telefonáláshoz
-function initPlanner() {
-  const groups = $$("[data-plan]");
-  if (!groups.length) return;
-  const picked = (key) => $(`[data-plan="${key}"] [aria-checked="true"]`);
-  const update = () => {
-    const occ = picked("occ"), pal = picked("pal"), size = picked("size");
-    const size1 = size.dataset.v.charAt(0).toUpperCase() + size.dataset.v.slice(1);
-    $("#plan-art").innerHTML = bloomSlotHTML(size.dataset.b, pal.dataset.v, 7);
-    $("#plan-title-result").textContent = `${size1}, ${pal.dataset.l} csokor`;
-    $("#plan-script").textContent = `„Szeretnék egy ${size.dataset.v} csokrot ${occ.dataset.v}, ${pal.dataset.l} színekben.”`;
-  };
-  groups.forEach((group) => {
-    const opts = $$(".opt", group);
-    const select = (opt) => {
-      opts.forEach((o) => { o.setAttribute("aria-checked", String(o === opt)); o.tabIndex = o === opt ? 0 : -1; });
-      update();
-    };
-    opts.forEach((o) => { o.tabIndex = o.getAttribute("aria-checked") === "true" ? 0 : -1; });
-    group.addEventListener("click", (e) => { const o = e.target.closest(".opt"); if (o) select(o); });
-    // Nyilakkal is lehet választani, ahogy egy rádiógombcsoportnál megszokott
-    group.addEventListener("keydown", (e) => {
-      const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-      if (!step) return;
-      e.preventDefault();
-      const next = opts[(opts.indexOf(document.activeElement) + step + opts.length) % opts.length];
-      next.focus();
-      select(next);
-    });
-  });
-  update();
-}
-
 /* ---------- Nyitvatartás ---------- */
 // Aktuális idő budapesti időzónában, a látogató helyétől függetlenül
 function budapestNow() {
@@ -411,7 +377,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
   [renderBloomSlots, renderProducts, renderContact, updateStatus,
-   initPlanner, initStorePhoto, initNav, initReveal].forEach(safely);
+   initStorePhoto, initNav, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
   // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok

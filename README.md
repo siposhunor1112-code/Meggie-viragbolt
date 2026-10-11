@@ -23,15 +23,15 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
 - Színek: meggy-színcsalád – sötét bor (a nyitókép, a menü, a kollekció és a lábléc háttere), mély bor (szöveg, gombok), rózsaszín és púder – a `public/styles.css` elején, a `:root` részekben
 - Képek: valódi fotók a `public/assets/photos/` mappában. Új fotó cseréjekor tartsd meg a fájlnevet, vagy írd át az `index.html`-ben.
-- Kódból rajzolt virág (`makeBloom` a `public/script.js`-ben) már csak a csokortervező előnézetében és a bolt fotójának tartalékaként jelenik meg; színek: a `PALETTES` objektumban
+- Kódból rajzolt virág (`makeBloom` a `public/script.js`-ben) már csak a bolt fotójának tartalékaként jelenik meg; színek: a `PALETTES` objektumban
 
 ## Az oldal részei
 
 1. Nyitókép – tulipánfotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
 2. Gyorsinfó – cím, nyitvatartás, megállók
-3. A pultról – fotógaléria
-4. Csokortervező – alkalom, szín, méret → kész mondat a telefonáláshoz
-5. Alkalmak, 6. Kollekció (lista kategóriánként), 7. A bolt – fotó, elérhetőség, heti nyitvatartás
+3. Alkalmak, 4. Kollekció (lista kategóriánként)
+5. A bolt – fotó, elérhetőség, heti nyitvatartás
+6. Képek a pultról – fotógaléria az oldal végén
 
 ## Domain
 

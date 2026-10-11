@@ -259,8 +259,8 @@ em { font-style: italic; }
 .ln--tram { background: #f5c400; color: #222; }
 .ln--bus { background: #007ac0; }
 
-/* ---------- 01 A pultról: fotógaléria ---------- */
-.gallery { padding-bottom: clamp(24px, 3vw, 40px); }
+/* ---------- 04 Képek a pultról (a bolt után, kiegészítésként) ---------- */
+.gallery { padding-top: 0; }
 .mosaic { display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(2, minmax(220px, 26vw)); gap: 14px; }
 .mosaic__item { position: relative; border-radius: 22px; overflow: hidden; background: var(--blush); }
 .mosaic__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
@@ -277,35 +277,8 @@ em { font-style: italic; }
 .m3 { grid-column: 7 / 10; grid-row: 2; }
 .m4 { grid-column: 10 / 13; grid-row: 1 / 3; }
 
-/* ---------- 02 Csokortervező ---------- */
-.plan__grid { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; align-items: start; }
-.plan__intro { position: sticky; top: 110px; }
-.plan__lead { color: var(--ink-2); font-size: 18px; margin-top: 24px; max-width: 26em; }
-.planner { background: #fff; border: 1px solid var(--line); border-radius: 28px; padding: 28px; }
-.planner__step { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.planner__step span { width: 30px; height: 30px; border-radius: 50%; background: var(--wine); color: var(--ivory); display: grid; place-items: center; font-size: 14px; flex: none; }
-.planner__step h3 { font: 400 24px/1.2 var(--serif); color: var(--wine); }
-.opts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
-.opt {
-  min-height: 44px; padding: 0 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--paper);
-  font-size: 15px; font-weight: 400; color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-  transition: border-color .2s, background-color .2s;
-}
-.opt:hover { border-color: var(--wine); }
-.opt[aria-checked="true"] { border-color: var(--wine); background: var(--blush); box-shadow: inset 0 0 0 1px var(--wine); }
-.sw { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .12); }
-.sw--blush { background: #f2cbc2; } .sw--cherry { background: #93263a; } .sw--cream { background: #f3e4c9; }
-.sw--apricot { background: #f6c7a4; } .sw--lilac { background: #b898c2; }
-.planner__result { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; background: var(--sage-bg); border-radius: 22px; padding: 18px; }
-.planner__art { aspect-ratio: 1; }
-.planner__result h4 { font: 400 26px/1.1 var(--serif); color: var(--sage-ink); overflow-wrap: anywhere; }
-.planner__result p { margin-top: 6px; font-size: 15px; color: #4b5946; }
-.planner__script { background: rgba(255, 255, 255, .7); border-radius: 12px; padding: 10px 12px; color: var(--ink-2) !important; margin: 10px 0 14px !important; }
-.planner__note { font-size: 14px; color: var(--muted); margin-top: 14px; }
-.no-js .planner .opts, .no-js .planner__step { display: none; }
-
-/* ---------- 03 Alkalmak ---------- */
-.occasions { padding-top: clamp(40px, 5vw, 72px); }
+/* ---------- 01 Alkalmak ---------- */
+.occasions { padding-top: clamp(72px, 9vw, 120px); }
 .occasions__head { margin-bottom: 36px; }
 .bands { border-top: 1px solid var(--line); }
 .band { border-bottom: 1px solid var(--line); }
@@ -316,7 +289,7 @@ em { font-style: italic; }
 .band__img { width: 110px; height: 110px; justify-self: end; border-radius: 50%; object-fit: cover; box-shadow: 0 6px 18px rgba(61, 28, 36, .18); transition: transform .6s var(--ease); }
 .band:hover .band__img { transform: scale(1.08); }
 
-/* ---------- 04 Kollekció ---------- */
+/* ---------- 02 Kollekció ---------- */
 .collection { background: var(--night); color: var(--on-night); }
 .collection .label { color: var(--on-night-2); }
 .collection .label .num { color: var(--rose); }
@@ -328,7 +301,7 @@ em { font-style: italic; }
 .cols li b { display: block; font: 400 22px/1.15 var(--serif); }
 .cols li span { font-size: 14px; color: var(--on-night-2); }
 
-/* ---------- 05 A bolt ---------- */
+/* ---------- 03 A bolt ---------- */
 .store__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 72px; align-items: center; }
 .store__photo { position: relative; aspect-ratio: 4 / 5; border-radius: 240px 240px 24px 24px; overflow: hidden; background: var(--blush); }
 .store__photo img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
@@ -359,7 +332,7 @@ em { font-style: italic; }
   .footer a:hover { color: var(--rose); }
 }
 
-/* Kódból rajzolt virágok (csokortervező, a bolt fotójának tartaléka) */
+/* Kódból rajzolt virág: a bolt fotójának tartaléka */
 .spin { transform-origin: 50% 50%; animation: spin 90s linear infinite; will-change: transform; }
 .spin.rev { animation-direction: reverse; animation-duration: 120s; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -374,7 +347,7 @@ em { font-style: italic; }
 
 /* ---------- Mobil gyorsgombok ---------- */
 .actionbar { display: none; }
-.actionbar__btn, .opt, .menu__links a { -webkit-touch-callout: none; }
+.actionbar__btn, .menu__links a { -webkit-touch-callout: none; }
 .actionbar__btn:active { opacity: .75; transform: scale(.97); }
 .actionbar__btn { transition: opacity .2s, transform .2s; }
 
@@ -409,8 +382,7 @@ em { font-style: italic; }
   .actionbar__btn svg { width: 17px; height: 17px; }
   .actionbar__btn--dark { background: var(--wine); border-color: var(--wine); color: var(--ivory); }
 
-  .plan__grid, .store__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-  .plan__intro { position: static; }
+  .store__grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
   .cols { grid-template-columns: 1fr 1fr; gap: 28px 20px; }
   .footer__top { grid-template-columns: 1fr 1fr; }
   .footer__tag { grid-column: 1 / -1; }
@@ -443,11 +415,6 @@ em { font-style: italic; }
   .m2 span, .m3 span { display: none; }
   .mosaic__item figcaption { padding: 48px 14px 12px; }
   .mosaic__item b { font-size: 20px; }
-
-  .planner { padding: 22px 18px; }
-  .planner__result { grid-template-columns: 1fr; text-align: center; }
-  .planner__art { width: 130px; margin: 0 auto; }
-  .planner__result .btn { width: 100%; }
 
   .band__row { grid-template-columns: 48px 1fr 64px; gap: 14px; padding-top: 22px; padding-bottom: 22px; }
   .band p { grid-column: 2 / 3; grid-row: 2; font-size: 15px; }
