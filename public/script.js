@@ -12,7 +12,7 @@ const SHOP = {
   // Közösségi oldalak: a teljes profil-link, vagy null, ha (még) nincs. Csak a kitöltöttek jelennek meg.
   social: {
     facebook: null,
-    instagram: null,
+    instagram: "https://www.instagram.com/meggievirag1/",
     tiktok: "https://www.tiktok.com/@meggievirag1",
   },
   // Nyitvatartás: 0 = vasárnap … 6 = szombat. null = zárva.
