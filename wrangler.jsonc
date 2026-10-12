@@ -4,7 +4,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "meggie-viragbolt",
   "compatibility_date": "2025-09-01",
+  // A src/worker.js irányítja át a http:// kéréseket https://-re
+  "main": "src/worker.js",
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "binding": "ASSETS",
+    // A Worker csak az oldal megnyitásakor fut (a többi fájl közvetlenül megy ki);
+    // nem létező címnél is lefut, mert ott nincs kiszolgálható fájl.
+    "run_worker_first": ["/", "/index.html"]
   }
 }
