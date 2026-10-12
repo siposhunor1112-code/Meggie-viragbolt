@@ -1,3 +1,6 @@
 # Helyi Cloudflare-tesztek ideiglenes fájljai
 .wrangler/
 node_modules/
+
+# Fejlesztőeszköz (bővítmény) helyi naplói
+.cto-toolkit/

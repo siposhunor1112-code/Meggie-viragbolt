@@ -23,7 +23,7 @@
   <link rel="preload" href="assets/fonts/bodoni-moda-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jost-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/photos/tulipan-hero.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="styles.css?v=746ea6ea">
+  <link rel="stylesheet" href="styles.css?v=ed04f131">
 
   <script type="application/ld+json">
   {
@@ -101,7 +101,7 @@
     <div class="wrap hero__inner">
       <div class="hero__text">
         <p class="label hero__label" data-anim>Virágbolt · Blaha Lujza tér · M2 aluljáró</p>
-        <h1 class="hero__title" id="hero-title"><span class="line"><span data-anim>Meggie</span></span></h1>
+        <h1 class="sr-only" id="hero-title">Meggie Virágbolt</h1>
         <p class="hero__lead" data-anim>Kézzel kötött csokrok, friss szálas virágok és növények. Hívjon, és mire odaér, kész a&nbsp;csokra.</p>
         <div class="live" data-anim>
           <span class="live__state"><span class="dot" data-open-dot></span><span data-open-text>Nyitva a hét minden napján</span></span>
@@ -158,25 +158,57 @@
           <p class="label reveal"><span class="num">02</span> Kollekció</p>
           <h2 class="h2 reveal" id="col-title">A kollekció</h2>
         </div>
-        <p class="note reveal">Minden csokor kézzel, a nap legszebb virágaiból készül – az összeállítás a szezontól függően változhat.</p>
+        <p class="note reveal">Koppintson egy kategóriára, és megnyílik a hozzá tartozó kínálat. Minden csokor kézzel, a nap legszebb virágaiból készül.</p>
       </div>
-      <div class="cols" id="products"><!--pr-->
-    <div class="col">
-      <h3>Csokrok</h3>
-      <ul><li><b>Tavaszi tulipán</b><span>Színes tulipánok friss zölddel – egyszerű, vidám, mindig talál.</span></li><li><b>Meggie válogatás</b><span>A nap legszebb virágaiból, a kötő szabad kezével – minden darab egyedi.</span></li><li><b>Klasszikus rózsacsokor</b><span>11 szál prémium rózsa zölddel, elegáns csomagolásban.</span></li><li><b>Bazsarózsa álom</b><span>Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.</span></li></ul>
-    </div>
-    <div class="col">
-      <h3>Szálas</h3>
-      <ul><li><b>Tulipán</b><span>Szezonban, sokféle színben – tíz szálas kötegben kedvezőbb.</span></li><li><b>Rózsa</b><span>Vörös, fehér, rózsaszín és különleges színekben, szálanként.</span></li><li><b>Liliom</b><span>Illatos, nagy virágú liliom – önmagában is látványos.</span></li></ul>
-    </div>
-    <div class="col">
-      <h3>Cserepes</h3>
-      <ul><li><b>Zöldnövények</b><span>Könnyen gondozható szobanövények irodába és otthonra.</span></li><li><b>Orchidea</b><span>Lepkeorchidea kaspóban, egy- vagy kétágú kivitelben.</span></li></ul>
-    </div>
-    <div class="col">
-      <h3>Alkalmi</h3>
-      <ul><li><b>Koszorú</b><span>Gyászkoszorú élő virágból, méltó és visszafogott kivitelben.</span></li><li><b>Virágdoboz</b><span>Díszdobozba rendezett virágok – ajándéknak a legelegánsabb választás.</span></li><li><b>Menyasszonyi csokor</b><span>Az esküvő stílusához tervezve, személyes egyeztetés alapján.</span></li></ul>
-    </div><!--/pr--></div>
+      <div class="cats" id="products"><!--pr-->
+    <details class="cat" id="kollekcio-csokor">
+      <summary class="cat__head">
+        <img class="cat__img" src="assets/photos/tulipan-vegyes.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+        <span class="cat__text">
+          <span class="cat__title">Csokrok</span>
+          <span class="cat__desc">Kézzel kötött csokrok minden alkalomra.</span>
+        </span>
+        <span class="cat__count">4 tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <ul class="cat__list"><li><b>Tavaszi tulipán</b><span>Színes tulipánok friss zölddel – egyszerű, vidám, mindig talál.</span></li><li><b>Meggie válogatás</b><span>A nap legszebb virágaiból, a kötő szabad kezével – minden darab egyedi.</span></li><li><b>Klasszikus rózsacsokor</b><span>11 szál prémium rózsa zölddel, elegáns csomagolásban.</span></li><li><b>Bazsarózsa álom</b><span>Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.</span></li></ul>
+    </details>
+    <details class="cat" id="kollekcio-szalas">
+      <summary class="cat__head">
+        <img class="cat__img" src="assets/photos/rozsa.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+        <span class="cat__text">
+          <span class="cat__title">Szálas virágok</span>
+          <span class="cat__desc">Rózsa, tulipán, liliom – szálanként, ahogy kell.</span>
+        </span>
+        <span class="cat__count">3 tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <ul class="cat__list"><li><b>Tulipán</b><span>Szezonban, sokféle színben – tíz szálas kötegben kedvezőbb.</span></li><li><b>Rózsa</b><span>Vörös, fehér, rózsaszín és különleges színekben, szálanként.</span></li><li><b>Liliom</b><span>Illatos, nagy virágú liliom – önmagában is látványos.</span></li></ul>
+    </details>
+    <details class="cat" id="kollekcio-noveny">
+      <summary class="cat__head">
+        <img class="cat__img" src="assets/photos/rozsa-orchidea.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+        <span class="cat__text">
+          <span class="cat__title">Cserepes növények</span>
+          <span class="cat__desc">Orchideák és szobanövények otthonra, irodába.</span>
+        </span>
+        <span class="cat__count">2 tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <ul class="cat__list"><li><b>Zöldnövények</b><span>Könnyen gondozható szobanövények irodába és otthonra.</span></li><li><b>Orchidea</b><span>Lepkeorchidea kaspóban, egy- vagy kétágú kivitelben.</span></li></ul>
+    </details>
+    <details class="cat" id="kollekcio-alkalmi">
+      <summary class="cat__head">
+        <img class="cat__img" src="assets/photos/feher-rozsa.webp" alt="" width="96" height="96" loading="lazy" decoding="async">
+        <span class="cat__text">
+          <span class="cat__title">Alkalmi kötészet</span>
+          <span class="cat__desc">Virágdoboz, koszorú, menyasszonyi csokor.</span>
+        </span>
+        <span class="cat__count">3 tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <ul class="cat__list"><li><b>Koszorú</b><span>Gyászkoszorú élő virágból, méltó és visszafogott kivitelben.</span></li><li><b>Virágdoboz</b><span>Díszdobozba rendezett virágok – ajándéknak a legelegánsabb választás.</span></li><li><b>Menyasszonyi csokor</b><span>Az esküvő stílusához tervezve, személyes egyeztetés alapján.</span></li></ul>
+    </details><!--/pr--></div>
     </div>
   </section>
 
@@ -267,6 +299,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=344496ff" defer></script>
+<script src="script.js?v=47f0ff03" defer></script>
 </body>
 </html>
