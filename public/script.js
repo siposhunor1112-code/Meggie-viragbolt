@@ -9,6 +9,12 @@ const SHOP = {
   phone: "+36 1 211 4035",
   email: null,            // pl. "hello@meggieviragbolt.hu"
   address: "1085 Budapest, Blaha Lujza tér 1–3. (metró aluljáró)",
+  // Közösségi oldalak: a teljes profil-link, vagy null, ha (még) nincs. Csak a kitöltöttek jelennek meg.
+  social: {
+    facebook: "https://www.facebook.com/MeggiVirag",
+    instagram: "https://www.instagram.com/meggievirag1/",
+    tiktok: "https://www.tiktok.com/@meggievirag1",
+  },
   // Nyitvatartás: 0 = vasárnap … 6 = szombat. null = zárva.
   hours: {
     1: ["08:00", "20:00"],
@@ -23,8 +29,9 @@ const SHOP = {
 
 const DAY_NAMES = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
-// A Kollekció kártyái. bloom: peony | rose | anemone | bud; palette: lásd PALETTES
+// A Kollekció listája, kategóriánként egy oszlopban.
 // A "price" csak a sorrendet adja (olcsóbbtól a drágábbig), az oldalon nem jelenik meg.
+// (A bloom / palette / seed mezők a korábbi rajzolt kártyákhoz tartoztak; most nem jelennek meg.)
 const PRODUCTS = [
   { cat: "csokor",  bloom: "peony",   palette: "blush",   seed: 2,  title: "Bazsarózsa álom",       desc: "Szezonális bazsarózsák eukaliptusszal, laza, kerti stílusban kötve.", from: true,  price: 14900, unit: "csokor" },
   { cat: "csokor",  bloom: "rose",    palette: "cherry",  seed: 8,  title: "Klasszikus rózsacsokor", desc: "11 szál prémium rózsa zölddel, elegáns csomagolásban.",               from: false, price: 12900, unit: "csokor" },
@@ -40,15 +47,8 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
-const CARD_TINTS = ["#f0cfcf", "#f3d9d6", "#eecbcd", "#f4dcd8"];
-
-// A Kollekció lenyitható kategóriái, ebben a sorrendben. A virágrajz a fejlécben látszik.
-const CATEGORIES = [
-  { id: "szalas",  title: "Szálas virágok",     desc: "Rózsa, tulipán, liliom – szálanként, ahogy épp kell.",  bloom: "bud",     palette: "apricot", seed: 6 },
-  { id: "csokor",  title: "Csokrok",            desc: "Kézzel kötött csokrok minden alkalomra.",              bloom: "peony",   palette: "blush",   seed: 2 },
-  { id: "noveny",  title: "Cserepes növények",  desc: "Orchideák és szobanövények otthonra, irodába.",        bloom: "anemone", palette: "lilac",   seed: 4 },
-  { id: "alkalmi", title: "Alkalmi kötészet",   desc: "Virágdoboz, koszorú, menyasszonyi csokor.",            bloom: "rose",    palette: "cherry",  seed: 7 },
-];
+// Oszlopok sorrendje és címe a Kollekcióban
+const CATEGORY_LABEL = { csokor: "Csokrok", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
 
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -178,73 +178,19 @@ function renderBloomSlots() {
 }
 
 /* ---------- Kollekció ---------- */
-function cardHTML(p, i) {
-  // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
-  const bg = CARD_TINTS[i % CARD_TINTS.length];
-  return `
-        <article class="card">
-          <div class="card__art" style="background:radial-gradient(90% 70% at 50% 42%, #fdf3f2, ${bg} 120%)">
-            <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
-            <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
-          </div>
-          <div class="card__body">
-            <h3 class="card__title">${p.title}</h3>
-            <p class="card__desc">${p.desc}</p>
-          </div>
-        </article>`;
-}
-
-// Kategóriánként egy <details> blokk: JavaScript nélkül is lenyitható, egymástól függetlenül
-function categoriesHTML() {
-  return CATEGORIES.map((c, k) => {
-    const items = PRODUCTS.filter((p) => p.cat === c.id).sort((a, b) => a.price - b.price);
-    if (!items.length) return "";
+function productsHTML() {
+  return Object.keys(CATEGORY_LABEL).map((cat) => {
+    const items = PRODUCTS.filter((p) => p.cat === cat).sort((a, b) => a.price - b.price);
     return `
-    <details class="cat" id="kollekcio-${c.id}">
-      <summary class="cat__head">
-        <span class="cat__num">${String(k + 1).padStart(2, "0")}</span>
-        <span class="cat__bloom" aria-hidden="true">${makeBloom(c.bloom, c.palette, c.seed)}</span>
-        <span class="cat__text">
-          <span class="cat__title">${c.title}</span>
-          <span class="cat__desc">${c.desc}</span>
-        </span>
-        <span class="cat__count">${items.length} tétel</span>
-        <span class="cat__icon" aria-hidden="true"></span>
-      </summary>
-      <div class="cat__body">
-        <div class="cat__grid">${items.map(cardHTML).join("")}
-        </div>
-      </div>
-    </details>`;
+    <div class="col">
+      <h3>${CATEGORY_LABEL[cat]}</h3>
+      <ul>${items.map((p) => `<li><b>${p.title}</b><span>${p.desc}</span></li>`).join("")}</ul>
+    </div>`;
   }).join("");
 }
 
 function renderProducts() {
-  $("#products").innerHTML = categoriesHTML();
-}
-
-/* ---------- Alkalmak: egeret követő virág ---------- */
-function initCursorBloom() {
-  const el = $(".cursor-bloom");
-  if (!el || reduceMotion || !window.matchMedia("(hover: hover)").matches) return;
-  const cache = {};
-  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
-  const loop = () => {
-    cx += (x - cx) * .14; cy += (y - cy) * .14;
-    el.style.left = cx + "px"; el.style.top = cy + "px";
-    raf = Math.abs(x - cx) + Math.abs(y - cy) > .5 ? requestAnimationFrame(loop) : null;
-  };
-  $$(".occ").forEach((row, i) => {
-    row.addEventListener("mouseenter", (e) => {
-      const key = row.dataset.bloomPreview + row.dataset.palette;
-      if (!cache[key]) cache[key] = makeBloom(row.dataset.bloomPreview, row.dataset.palette, 30 + i);
-      el.innerHTML = `<div class="bloom-wrap spin" style="width:100%;height:100%">${cache[key]}</div>`;
-      if (!el.classList.contains("is-on")) { cx = x = e.clientX; cy = y = e.clientY; }
-      el.classList.add("is-on");
-    });
-    row.addEventListener("mouseleave", () => el.classList.remove("is-on"));
-    row.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(loop); });
-  });
+  $("#products").innerHTML = productsHTML();
 }
 
 /* ---------- Nyitvatartás ---------- */
@@ -311,6 +257,32 @@ function updateStatus() {
 }
 
 /* ---------- Elérhetőségek ---------- */
+/* ---------- Közösségi oldalak ---------- */
+// Saját rajzolású ikonok: semmit nem töltünk be a Facebooktól, Instagramtól vagy TikToktól, így sütit sem tesznek az oldalra
+const SOCIAL_LINKS = {
+  facebook: { label: "Facebook", icon: '<path d="M14 8.5V6.8c0-.8.5-1.3 1.3-1.3H17V2h-2.6C11.6 2 10 3.8 10 6.6v1.9H7.5V12H10v10h4V12h2.7l.5-3.5H14z" fill="currentColor"/>' },
+  instagram: { label: "Instagram", icon: '<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/>' },
+  tiktok: { label: "TikTok", icon: '<path d="M16.6 2c.3 2.4 1.8 4 4.2 4.2v3.4c-1.6 0-3-.5-4.2-1.3v6.6a6.1 6.1 0 1 1-6.1-6.1c.3 0 .6 0 .9.1v3.5a2.7 2.7 0 1 0 1.8 2.5V2h3.4z" fill="currentColor"/>' },
+};
+
+function socialHTML() {
+  return Object.keys(SOCIAL_LINKS)
+    .filter((key) => SHOP.social && SHOP.social[key])
+    .map((key) => {
+      const { label, icon } = SOCIAL_LINKS[key];
+      return `<a class="social__link" href="${SHOP.social[key]}" target="_blank" rel="noopener" aria-label="Meggie Virágbolt a ${label}on"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${icon}</svg><span>${label}</span></a>`;
+    }).join("");
+}
+
+function renderSocial() {
+  const html = socialHTML();
+  $$("[data-social]").forEach((box) => {
+    const list = $(".social__list", box);
+    if (list) list.innerHTML = html;
+    box.hidden = !html;
+  });
+}
+
 function renderContact() {
   $$("[data-address]").forEach((el) => (el.textContent = SHOP.address));
   if (SHOP.phone) {
@@ -320,7 +292,8 @@ function renderContact() {
     $$("[data-phone-text]").forEach((a) => (a.textContent = shown));
     $$("[data-phone-text-plain]").forEach((a) => (a.textContent = shown));
   } else {
-    $$("[data-phone-text], .ccard--wine, .actionbar [data-phone-link]").forEach((a) => a.remove());
+    // Telefonszám nélkül minden hívás-gomb és a telefon sor is eltűnik
+    $$("[data-phone-row], [data-phone-text], [data-phone-link]").forEach((a) => a.remove());
     $$(".actionbar").forEach((bar) => (bar.style.gridTemplateColumns = "1fr"));
   }
   $$("[data-email-link]").forEach((a) => {
@@ -338,17 +311,6 @@ function initStorePhoto() {
   const fail = () => { img.closest(".store__photo").classList.add("is-empty"); img.remove(); };
   if (img.complete && img.naturalWidth === 0 && img.currentSrc) fail();
   else img.addEventListener("error", fail, { once: true });
-}
-
-/* ---------- Térkép: csak kattintásra tölti be a Google Maps-et ---------- */
-function initMap() {
-  $$(".mapbox__load").forEach((btn) => btn.addEventListener("click", () => {
-    const f = document.createElement("iframe");
-    f.title = "Meggie Virágbolt helye a térképen – Blaha Lujza tér";
-    f.src = btn.dataset.mapSrc;
-    f.referrerPolicy = "no-referrer-when-downgrade";
-    btn.replaceWith(f);
-  }));
 }
 
 /* ---------- Navigáció ---------- */
@@ -426,23 +388,6 @@ function initNav() {
   links.map((a) => $(a.getAttribute("href"))).filter(Boolean).forEach((s) => spy.observe(s));
 }
 
-/* ---------- Hero parallaxis ---------- */
-function initParallax() {
-  // Telefonon/tableten kikapcsolva: simább görgetés, kevesebb akkumulátor
-  if (reduceMotion || navigator.maxTouchPoints > 0 || window.matchMedia("(hover: none), (pointer: coarse), (max-width: 900px)").matches) return;
-  const slots = $$(".hero .bloom-slot");
-  const depth = [.35, .6, .2, .8, .5, .45, .25];
-  let ticking = false;
-  const apply = () => {
-    const y = window.scrollY;
-    if (y < window.innerHeight * 1.2) {
-      slots.forEach((s, i) => (s.style.transform = `translate3d(0, ${(-y * depth[i % depth.length]).toFixed(1)}px, 0)${s.classList.contains("b7") ? " scaleX(-1)" : ""}`));
-    }
-    ticking = false;
-  };
-  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } }, { passive: true });
-}
-
 /* ---------- Megjelenési animációk ---------- */
 function initReveal() {
   $$(".hero [data-anim]").forEach((el, i) => (el.style.transitionDelay = `${200 + i * 140}ms`));
@@ -463,8 +408,8 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   // Minden rész külön indul: ha egy hibázna (pl. régi böngészőben), a többi és a szöveg akkor is megjelenik
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
-  [renderBloomSlots, renderProducts, renderContact, updateStatus,
-   initCursorBloom, initStorePhoto, initMap, initNav, initParallax, initReveal].forEach(safely);
+  [renderBloomSlots, renderProducts, renderContact, renderSocial, updateStatus,
+   initStorePhoto, initNav, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
   // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok
