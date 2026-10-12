@@ -1,7 +1,7 @@
 # Biztonsági fejlécek – a Cloudflare minden oldalhoz hozzáadja őket.
-# CSP: csak a saját fájljaink futhatnak; külső tartalom kizárólag a Google Térkép (kattintásra).
+# CSP: csak a saját fájljaink futhatnak, külső tartalom (beágyazott oldal, szkript) nem tölthető be.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src 'none'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin

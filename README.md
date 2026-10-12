@@ -16,6 +16,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
 - `wrangler.jsonc` – Cloudflare-beállítás (a `public/` mappát teszi ki)
+- `src/worker.js` – apró Cloudflare Worker: a `http://` címeket `https://`-re irányítja (csak az oldal megnyitásakor fut, a többi fájl közvetlenül megy ki)
 - `tools/prerender.js` – beírja az adatokat a `public/index.html`-be (lásd lent)
 
 ## Megjelenés
