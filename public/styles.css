@@ -101,15 +101,19 @@
   --ease-soft: cubic-bezier(.4, 0, .2, 1);
 }
 
-/* Sötét bor: a nyitókép, a kollekció és a lábléc háttere */
+/* Rózsás meggy: a nyitókép, a kollekció, a menü és a lábléc háttere
+   (világosabb, pinkesebb árnyalat a korábbi szinte fekete bordó helyett) */
 :root {
-  --night: #2a0d14;
+  --night: #7a3347;
+  /* Finom rózsaszín fény a meggy háttéren (a szélektől távol, hogy az átmenetekkel ne üssön lépcsőt) */
+  --night-glow: radial-gradient(70% 55% at 12% 6%, rgba(246, 184, 192, .16), transparent 70%);
+  --rose-night: #f7cdd0;   /* rózsaszín kiemelés a meggy háttéren (kontraszt ≥ 6) */
   /* Lágy átmenet a sötét bor és a világos rózsa között (meggy → rózsa), éles vágás helyett */
   --fade-h: clamp(72px, 9vw, 140px);
-  --to-light: linear-gradient(180deg, var(--night) 0%, #4e1723 22%, #9a4a58 52%, #dfa9ae 78%, var(--paper) 100%);
-  --to-dark: linear-gradient(0deg, var(--night) 0%, #4e1723 22%, #9a4a58 52%, #dfa9ae 78%, var(--paper) 100%);
-  --on-night: #f3e3dc;     /* kontraszt a sötét háttéren ≥ 13 */
-  --on-night-2: #d9bdb6;   /* másodlagos szöveg sötéten (kontraszt ≥ 9) */
+  --to-light: linear-gradient(180deg, var(--night) 0%, #a5596b 35%, #dca4ad 70%, var(--paper) 100%);
+  --to-dark: linear-gradient(0deg, var(--night) 0%, #a5596b 35%, #dca4ad 70%, var(--paper) 100%);
+  --on-night: #f8ebe6;     /* szöveg a meggy háttéren (kontraszt ≥ 6) */
+  --on-night-2: #efd6d1;   /* másodlagos szöveg a meggy háttéren (kontraszt ≥ 5) */
   --line-night: rgba(243, 227, 220, .16);
   --sage-ink: #3f5238;
   --sage-bg: #e4e9df;
@@ -162,7 +166,7 @@ em { font-style: italic; }
 .btn:active { transform: scale(.98); }
 .btn--rose { background: var(--rose-bg); color: var(--wine); }
 .btn--rose:hover { background: var(--blush); }
-.btn--ghost { border-color: rgba(243, 227, 220, .45); color: var(--on-night); background: rgba(42, 13, 20, .55); }
+.btn--ghost { border-color: rgba(243, 227, 220, .45); color: var(--on-night); background: rgba(122, 51, 71, .55); }
 .btn--ghost:hover { border-color: var(--on-night); }
 .btn--dark { background: var(--wine); color: var(--ivory); }
 .btn--dark:hover { background: var(--cherry); }
@@ -183,7 +187,7 @@ em { font-style: italic; }
   position: fixed; inset: 0 0 auto; z-index: 60; color: var(--on-night);
   transition: background .6s var(--ease-soft), color .6s var(--ease-soft), transform .6s var(--ease);
 }
-.nav:not(.is-solid) .nav__links, .nav:not(.is-solid) .nav__phone { text-shadow: 0 1px 8px rgba(42, 13, 20, .9); }
+.nav:not(.is-solid) .nav__links, .nav:not(.is-solid) .nav__phone { text-shadow: 0 1px 8px rgba(122, 51, 71, .9); }
 .nav.is-solid { background: rgba(250, 230, 228, .94); color: var(--ink); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--line); }
 .nav.is-hidden { transform: translateY(-100%); }
 .nav__inner { max-width: var(--wrap); margin: 0 auto; padding: calc(18px + env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) 18px max(var(--gutter), env(safe-area-inset-left)); display: flex; align-items: center; gap: 36px; }
@@ -207,7 +211,7 @@ em { font-style: italic; }
 .nav__toggle[aria-expanded="true"] span:last-child { top: 23px; transform: rotate(-45deg); }
 
 .menu {
-  position: fixed; inset: 0; z-index: 55; background: var(--night); color: var(--on-night);
+  position: fixed; inset: 0; z-index: 55; background: var(--night-glow), var(--night); color: var(--on-night);
   display: flex; flex-direction: column; justify-content: space-between;
   padding: calc(110px + env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) calc(36px + env(safe-area-inset-bottom)) max(var(--gutter), env(safe-area-inset-left));
   overflow-y: auto; overscroll-behavior: contain; gap: 40px;
@@ -217,13 +221,13 @@ em { font-style: italic; }
 @keyframes menuIn { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 .menu__links { display: flex; flex-direction: column; }
 .menu__links a { font: 400 40px/1.25 var(--serif); display: flex; align-items: baseline; gap: 18px; padding: 6px 0; border-bottom: 1px solid var(--line-night); }
-.menu__links small { font: italic 14px var(--serif); color: var(--rose); }
+.menu__links small { font: italic 14px var(--serif); color: var(--rose-night); }
 .menu__foot { display: flex; flex-direction: column; gap: 8px; font-size: 14px; letter-spacing: .08em; color: var(--on-night-2); }
 .menu__foot a { font: italic 26px var(--serif); color: var(--on-night); letter-spacing: 0; }
 
 /* ---------- Nyitókép: valódi fotó jobbra, borszínű szövegpanel balra ---------- */
 .hero {
-  position: relative; overflow: hidden; background: var(--night); color: var(--on-night);
+  position: relative; overflow: hidden; background: var(--night-glow), var(--night); color: var(--on-night);
   min-height: min(100svh, 940px); display: grid; align-items: end; padding: 120px 0 56px;
 }
 .hero__photo { position: absolute; top: 0; right: 0; bottom: 0; width: 47vw; }
@@ -231,14 +235,14 @@ em { font-style: italic; }
 .hero__photo::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, var(--night) 0%, rgba(42, 13, 20, .55) 14%, rgba(42, 13, 20, 0) 38%),
-    linear-gradient(180deg, rgba(42, 13, 20, .85) 0%, rgba(42, 13, 20, .35) 12%, rgba(42, 13, 20, 0) 26%),
-    linear-gradient(0deg, var(--night) 0%, rgba(42, 13, 20, .5) 9%, rgba(42, 13, 20, 0) 22%);
+    linear-gradient(90deg, var(--night) 0%, rgba(122, 51, 71, .55) 14%, rgba(122, 51, 71, 0) 38%),
+    linear-gradient(180deg, rgba(122, 51, 71, .85) 0%, rgba(122, 51, 71, .35) 12%, rgba(122, 51, 71, 0) 26%),
+    linear-gradient(0deg, var(--night) 0%, rgba(122, 51, 71, .5) 9%, rgba(122, 51, 71, 0) 22%);
 }
 .hero__photo figcaption {
   position: absolute; right: 24px; bottom: 24px; z-index: 1;
   font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--on-night);
-  background: rgba(42, 13, 20, .6); padding: 8px 12px; border-radius: 999px;
+  background: rgba(122, 51, 71, .6); padding: 8px 12px; border-radius: 999px;
 }
 .hero__inner { position: relative; width: 100%; }
 .hero__text { max-width: min(640px, 48vw); }
@@ -271,7 +275,7 @@ em { font-style: italic; }
 .mosaic__item:hover img { transform: scale(1.04); }
 .mosaic__item figcaption {
   position: absolute; left: 0; right: 0; bottom: 0; padding: 56px 18px 16px; color: #fff;
-  background: linear-gradient(180deg, rgba(42, 13, 20, 0), rgba(42, 13, 20, .6) 40%, rgba(42, 13, 20, .9));
+  background: linear-gradient(180deg, rgba(122, 51, 71, 0), rgba(122, 51, 71, .6) 40%, rgba(122, 51, 71, .9));
   text-shadow: 0 1px 6px rgba(0, 0, 0, .45);
 }
 .mosaic__item b { display: block; font: italic 400 24px/1.15 var(--serif); }
@@ -294,13 +298,13 @@ em { font-style: italic; }
 .band:hover .band__img { transform: scale(1.08); }
 
 /* ---------- 02 Kollekció – lenyitható kategóriák ---------- */
-.collection { background: var(--night); color: var(--on-night); padding: 0; }
+.collection { background: radial-gradient(50% 32% at 82% 50%, rgba(246, 184, 192, .12), transparent 70%), var(--night); color: var(--on-night); padding: 0; }
 .collection::before, .collection::after { content: ""; display: block; height: var(--fade-h); }
 .collection::before { background: var(--to-dark); }
 .collection::after { background: var(--to-light); }
 .collection > .wrap { padding-top: clamp(36px, 5vw, 64px); padding-bottom: clamp(48px, 6vw, 80px); }
 .collection .label { color: var(--on-night-2); }
-.collection .label .num { color: var(--rose); }
+.collection .label .num { color: var(--rose-night); }
 .collection .h2 { color: var(--on-night); }
 .collection .note { color: var(--on-night-2); }
 
@@ -315,7 +319,7 @@ em { font-style: italic; }
 .cat__text { display: grid; gap: 2px; min-width: 0; }
 .cat__title { font: 400 clamp(28px, 3vw, 44px)/1.1 var(--serif); letter-spacing: -.01em; color: var(--on-night); }
 .cat__desc { font-size: 15px; color: var(--on-night-2); }
-.cat__count { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--rose); white-space: nowrap; }
+.cat__count { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--rose-night); white-space: nowrap; }
 /* Plusz jel; nyitva mínusz */
 .cat__icon {
   width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line-night); position: relative; color: var(--on-night);
@@ -394,10 +398,10 @@ em { font-style: italic; }
 .footer__tag { font: italic 400 clamp(26px, 2.6vw, 36px)/1.2 var(--serif); color: var(--on-night); }
 .footer__links { display: flex; flex-direction: column; gap: 6px; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; }
 .footer__contact { display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
-.footer__word { font: italic 400 clamp(90px, 20vw, 300px)/.9 var(--serif); color: var(--rose-bg); letter-spacing: -.03em; margin: 48px 0 24px; }
+.footer__word { font: italic 400 clamp(90px, 20vw, 300px)/.9 var(--serif); color: var(--rose-night); letter-spacing: -.03em; margin: 48px 0 24px; }
 .footer__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--line-night); font-size: 14px; }
 @media (hover: hover) {
-  .footer a:hover { color: var(--rose); }
+  .footer a:hover { color: var(--rose-night); }
 }
 
 /* Kódból rajzolt virág: a bolt fotójának tartaléka */
@@ -460,7 +464,7 @@ em { font-style: italic; }
   /* A nyitókép telefonon: fotó felül, szöveg alatta a sötét háttéren */
   .hero { display: block; min-height: 0; padding: 0 0 32px; }
   .hero__photo { position: relative; width: 100%; height: 50svh; min-height: 300px; max-height: 520px; }
-  .hero__photo::after { background: linear-gradient(180deg, rgba(42, 13, 20, .6) 0%, rgba(42, 13, 20, 0) 24%, rgba(42, 13, 20, 0) 55%, var(--night) 100%); }
+  .hero__photo::after { background: linear-gradient(180deg, rgba(122, 51, 71, .6) 0%, rgba(122, 51, 71, 0) 24%, rgba(122, 51, 71, 0) 55%, var(--night) 100%); }
   .hero__photo figcaption { top: calc(84px + env(safe-area-inset-top)); bottom: auto; right: 16px; }
   .hero__inner { margin-top: -90px; }
   .hero__text { max-width: none; }
