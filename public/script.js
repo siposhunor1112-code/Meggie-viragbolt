@@ -29,7 +29,7 @@ const SHOP = {
 
 const DAY_NAMES = ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"];
 
-// A Kollekció listája, kategóriánként egy oszlopban.
+// A Kollekció listája, kategóriánként egy lenyitható blokkban.
 // A "price" csak a sorrendet adja (olcsóbbtól a drágábbig), az oldalon nem jelenik meg.
 // (A bloom / palette / seed mezők a korábbi rajzolt kártyákhoz tartoztak; most nem jelennek meg.)
 const PRODUCTS = [
@@ -47,8 +47,13 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
-// Oszlopok sorrendje és címe a Kollekcióban
-const CATEGORY_LABEL = { csokor: "Csokrok", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
+// A Kollekció lenyitható kategóriái, ebben a sorrendben (cím, rövid leírás, kis fotó a fejlécben)
+const CATEGORIES = [
+  { id: "csokor",  title: "Csokrok",           desc: "Kézzel kötött csokrok minden alkalomra.",          photo: "tulipan-vegyes.webp" },
+  { id: "szalas",  title: "Szálas virágok",    desc: "Rózsa, tulipán, liliom – szálanként, ahogy kell.", photo: "rozsa.webp" },
+  { id: "noveny",  title: "Cserepes növények", desc: "Orchideák és szobanövények otthonra, irodába.",    photo: "rozsa-orchidea.webp" },
+  { id: "alkalmi", title: "Alkalmi kötészet",  desc: "Virágdoboz, koszorú, menyasszonyi csokor.",        photo: "feher-rozsa.webp" },
+];
 
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -178,14 +183,24 @@ function renderBloomSlots() {
 }
 
 /* ---------- Kollekció ---------- */
+// Kategóriánként egy <details> blokk: JavaScript nélkül is lenyitható, egymástól függetlenül
 function productsHTML() {
-  return Object.keys(CATEGORY_LABEL).map((cat) => {
-    const items = PRODUCTS.filter((p) => p.cat === cat).sort((a, b) => a.price - b.price);
+  return CATEGORIES.map((c) => {
+    const items = PRODUCTS.filter((p) => p.cat === c.id).sort((a, b) => a.price - b.price);
+    if (!items.length) return "";
     return `
-    <div class="col">
-      <h3>${CATEGORY_LABEL[cat]}</h3>
-      <ul>${items.map((p) => `<li><b>${p.title}</b><span>${p.desc}</span></li>`).join("")}</ul>
-    </div>`;
+    <details class="cat" id="kollekcio-${c.id}">
+      <summary class="cat__head">
+        <img class="cat__img" src="assets/photos/${c.photo}" alt="" width="96" height="96" loading="lazy" decoding="async">
+        <span class="cat__text">
+          <span class="cat__title">${c.title}</span>
+          <span class="cat__desc">${c.desc}</span>
+        </span>
+        <span class="cat__count">${items.length} tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <ul class="cat__list">${items.map((p) => `<li><b>${p.title}</b><span>${p.desc}</span></li>`).join("")}</ul>
+    </details>`;
   }).join("");
 }
 

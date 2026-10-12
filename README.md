@@ -29,7 +29,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 
 1. Nyitókép – tulipánfotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
 2. Gyorsinfó – cím, nyitvatartás, megállók
-3. Alkalmak, 4. Kollekció (lista kategóriánként)
+3. Alkalmak, 4. Kollekció (kategóriánként lenyitható lista)
 5. A bolt – fotó, elérhetőség, heti nyitvatartás
 6. Képek a pultról – fotógaléria az oldal végén
 
@@ -44,7 +44,8 @@ A `public/script.js` elején található objektumok módosításával frissíthe
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.social` – Facebook, Instagram és TikTok profil-link (ha `null`, nem jelenik meg); a bolt résznél, a láblécben és a mobilmenüben látszik, és a keresőknek szóló adatokba (`sameAs`) is bekerül
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
-- `PRODUCTS` – a Kollekció listája (név, leírás, kategória); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja a kategórián belül
+- `CATEGORIES` – a Kollekció lenyitható kategóriái (cím, rövid leírás, a fejlécben látszó kis fotó az `assets/photos/` mappából); a sorrendjük az oldalon is ez
+- `PRODUCTS` – a Kollekció listája (név, leírás, kategória); a `cat` mondja meg, melyik kategória alá kerül. Az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja a kategórián belül
 
 
 ### Adatmódosítás után (ajánlott)
