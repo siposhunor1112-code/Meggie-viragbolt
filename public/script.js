@@ -40,9 +40,15 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
 ];
 
-const CARD_TINTS = ["#efd2c9", "#f1ddd2", "#ecd0cf", "#f3e0d6"];
+const CARD_TINTS = ["#f0cfcf", "#f3d9d6", "#eecbcd", "#f4dcd8"];
 
-const CATEGORY_LABEL = { csokor: "Csokor", szalas: "Szálas", noveny: "Cserepes", alkalmi: "Alkalmi" };
+// A Kollekció lenyitható kategóriái, ebben a sorrendben. A virágrajz a fejlécben látszik.
+const CATEGORIES = [
+  { id: "szalas",  title: "Szálas virágok",     desc: "Rózsa, tulipán, liliom – szálanként, ahogy épp kell.",  bloom: "bud",     palette: "apricot", seed: 6 },
+  { id: "csokor",  title: "Csokrok",            desc: "Kézzel kötött csokrok minden alkalomra.",              bloom: "peony",   palette: "blush",   seed: 2 },
+  { id: "noveny",  title: "Cserepes növények",  desc: "Orchideák és szobanövények otthonra, irodába.",        bloom: "anemone", palette: "lilac",   seed: 4 },
+  { id: "alkalmi", title: "Alkalmi kötészet",   desc: "Virágdoboz, koszorú, menyasszonyi csokor.",            bloom: "rose",    palette: "cherry",  seed: 7 },
+];
 
 /* ---------- Segédfüggvények ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -172,72 +178,49 @@ function renderBloomSlots() {
 }
 
 /* ---------- Kollekció ---------- */
-function productsHTML(filter = "all") {
-  const list = PRODUCTS
-    .filter((p) => filter === "all" || p.cat === filter)
-    .sort((a, b) => a.price - b.price);
-  return list.map((p, i) => {
-    // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
-    const bg = CARD_TINTS[i % CARD_TINTS.length];
+function cardHTML(p, i) {
+  // Minden kártya ugyanabból a meleg púder-rózsa családból kap hátteret
+  const bg = CARD_TINTS[i % CARD_TINTS.length];
+  return `
+        <article class="card">
+          <div class="card__art" style="background:radial-gradient(90% 70% at 50% 42%, #fdf3f2, ${bg} 120%)">
+            <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
+            <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
+          </div>
+          <div class="card__body">
+            <h3 class="card__title">${p.title}</h3>
+            <p class="card__desc">${p.desc}</p>
+          </div>
+        </article>`;
+}
+
+// Kategóriánként egy <details> blokk: JavaScript nélkül is lenyitható, egymástól függetlenül
+function categoriesHTML() {
+  return CATEGORIES.map((c, k) => {
+    const items = PRODUCTS.filter((p) => p.cat === c.id).sort((a, b) => a.price - b.price);
+    if (!items.length) return "";
     return `
-    <article class="card" style="animation-delay:${i * 70}ms">
-      <div class="card__art" style="background:radial-gradient(90% 70% at 50% 42%, #fcf5f1, ${bg} 120%)">
-        <span class="card__cat">${CATEGORY_LABEL[p.cat]}</span>
-        <span class="card__idx">${String(i + 1).padStart(2, "0")}</span>
-        <div class="bloom-wrap">${makeBloom(p.bloom, p.palette, p.seed)}</div>
+    <details class="cat" id="kollekcio-${c.id}">
+      <summary class="cat__head">
+        <span class="cat__num">${String(k + 1).padStart(2, "0")}</span>
+        <span class="cat__bloom" aria-hidden="true">${makeBloom(c.bloom, c.palette, c.seed)}</span>
+        <span class="cat__text">
+          <span class="cat__title">${c.title}</span>
+          <span class="cat__desc">${c.desc}</span>
+        </span>
+        <span class="cat__count">${items.length} tétel</span>
+        <span class="cat__icon" aria-hidden="true"></span>
+      </summary>
+      <div class="cat__body">
+        <div class="cat__grid">${items.map(cardHTML).join("")}
+        </div>
       </div>
-      <div class="card__body">
-        <h3 class="card__title">${p.title}</h3>
-        <p class="card__desc">${p.desc}</p>
-      </div>
-    </article>`;
+    </details>`;
   }).join("");
 }
 
-function renderProducts(filter = "all") {
-  const rail = $("#products");
-  rail.innerHTML = productsHTML(filter);
-  rail.scrollLeft = 0;
-}
-
-function initCollection() {
-  $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
-    $$(".tabs button").forEach((x) => { x.classList.remove("is-active"); x.setAttribute("aria-pressed", "false"); });
-    b.classList.add("is-active"); b.setAttribute("aria-pressed", "true");
-    renderProducts(b.dataset.filter);
-  }));
-
-  const rail = $("#products");
-  // Egy kártya szélessége + a tényleges rés (a rés a képernyőmérettől függ)
-  const cardStep = () => {
-    const card = $(".card", rail);
-    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
-    return card ? card.getBoundingClientRect().width + gap : 320;
-  };
-  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
-    rail.scrollBy({ left: cardStep() * Number(b.dataset.rail), behavior: "smooth" });
-  }));
-
-  // Húzással görgetés egérrel
-  let down = false, startX = 0, startLeft = 0, moved = false;
-  rail.addEventListener("pointerdown", (e) => {
-    if (e.pointerType !== "mouse") return;
-    down = true; moved = false; startX = e.clientX; startLeft = rail.scrollLeft;
-  });
-  window.addEventListener("pointermove", (e) => {
-    if (!down) return;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 4) { moved = true; rail.classList.add("is-drag"); }
-    rail.scrollLeft = startLeft - dx;
-  });
-  window.addEventListener("pointerup", () => {
-    if (!down) return;
-    down = false; rail.classList.remove("is-drag");
-    if (moved) {
-      const w = cardStep();
-      rail.scrollTo({ left: Math.round(rail.scrollLeft / w) * w, behavior: "smooth" });
-    }
-  });
+function renderProducts() {
+  $("#products").innerHTML = categoriesHTML();
 }
 
 /* ---------- Alkalmak: egeret követő virág ---------- */
@@ -481,7 +464,7 @@ if (typeof document !== "undefined" && !window.__PRERENDER__) {
   const safely = (fn) => { try { fn(); } catch (err) { console.error(err); } };
   document.documentElement.classList.remove("no-js");
   [renderBloomSlots, renderProducts, renderContact, updateStatus,
-   initCollection, initCursorBloom, initStorePhoto, initMap, initNav, initParallax, initReveal].forEach(safely);
+   initCursorBloom, initStorePhoto, initMap, initNav, initParallax, initReveal].forEach(safely);
   setInterval(() => safely(updateStatus), 60 * 1000);
   document.addEventListener("visibilitychange", () => { if (!document.hidden) safely(updateStatus); });
   // Végső biztosíték: a beúszó elemek semmiképp ne maradjanak láthatatlanok

@@ -27,7 +27,8 @@ A `public/script.js` elején található objektumok módosításával frissíthe
 
 - `SHOP.phone`, `SHOP.email` – telefonszám és e-mail (ha `null`, az oldal nem mutatja)
 - `SHOP.hours` – nyitvatartás napokra bontva; az oldal ez alapján jelzi élőben, hogy a bolt nyitva van-e (budapesti idő szerint)
-- `PRODUCTS` – a Kollekció kártyái (név, leírás, kategória, virágrajz típusa és színe); az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja
+- `CATEGORIES` – a Kollekció lenyitható kategóriái (név, rövid leírás, a fejlécben látszó virágrajz); a sorrendjük az oldalon is ez
+- `PRODUCTS` – a Kollekció kártyái (név, leírás, kategória, virágrajz típusa és színe); a `cat` mező mondja meg, melyik kategória alatt jelenjen meg. Az árak nem jelennek meg az oldalon, a `price` mező csak a sorrendet adja a kategórián belül
 
 
 ### Adatmódosítás után (ajánlott)

@@ -16,7 +16,7 @@ const src = fs.readFileSync(path.join(root, "script.js"), "utf8");
 
 const sandbox = { console, window: { __PRERENDER__: true, matchMedia: () => ({ matches: false }) } };
 vm.createContext(sandbox);
-vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, productsHTML, hoursHTML, SHOP };", sandbox);
+vm.runInContext(src + "\n;globalThis.__api = { bloomSlotHTML, categoriesHTML, hoursHTML, SHOP };", sandbox);
 const api = sandbox.__api;
 
 let html = fs.readFileSync(htmlPath, "utf8");
@@ -35,7 +35,7 @@ const fill = (idAttr, tag, content) => {
   if (!re.test(html)) throw new Error("Nem található: " + idAttr);
   html = html.replace(re, (m, open, old, close) => open + mark(content) + close);
 };
-fill('id="products"', "div", api.productsHTML());
+fill('id="products"', "div", api.categoriesHTML());
 fill('id="hours"', "ul", api.hoursHTML());
 
 // Elérhetőségek: telefonszám, hívás-linkek, cím, évszám
