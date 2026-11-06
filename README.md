@@ -11,7 +11,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `styles.css` – megjelenés (színek a `:root` változókban)
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
-  - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak), WebP formátumban
+  - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak, kollekció), WebP formátumban
   - `robots.txt` – a keresőknek
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
@@ -23,12 +23,13 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 
 - Betűtípusok: Bodoni Moda (címek) és Jost (szöveg), saját tárhelyről: `public/assets/fonts/` (SIL Open Font License)
 - Színek: meggy-színcsalád – sötét bor (a nyitókép, a menü, a kollekció és a lábléc háttere), mély bor (szöveg, gombok), rózsaszín és púder – a `public/styles.css` elején, a `:root` részekben
-- Képek: valódi fotók a `public/assets/photos/` mappában. Új fotó cseréjekor tartsd meg a fájlnevet, vagy írd át az `index.html`-ben.
+- Képek: valódi fotók a `public/assets/photos/` mappában. Új fotó cseréjekor tartsd meg a fájlnevet, vagy írd át az `index.html`-ben (és a kollekció kis képeinél a `script.js` `CATEGORIES` részében is).
+- A jelenlegi fotók a 2026. novemberi bolti 4K videófelvételek legélesebb kockáiból készültek, természetes színkorrekcióval. A `bolt.jpg` a bolt fotója, az `og.jpg` (1200×630) a megosztási kép.
 - Kódból rajzolt virág (`makeBloom` a `public/script.js`-ben) már csak a bolt fotójának tartalékaként jelenik meg; színek: a `PALETTES` objektumban
 
 ## Az oldal részei
 
-1. Nyitókép – tulipánfotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
+1. Nyitókép – rózsafotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
 2. Gyorsinfó – cím, nyitvatartás, megállók
 3. Alkalmak, 4. Kollekció (kategóriánként lenyitható lista)
 5. A bolt – fotó, elérhetőség, heti nyitvatartás

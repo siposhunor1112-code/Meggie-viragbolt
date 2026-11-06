@@ -49,10 +49,10 @@ const PRODUCTS = [
 
 // A Kollekció lenyitható kategóriái, ebben a sorrendben (cím, rövid leírás, kis fotó a fejlécben)
 const CATEGORIES = [
-  { id: "csokor",  title: "Csokrok",           desc: "Kézzel kötött csokrok minden alkalomra.",          photo: "tulipan-vegyes.webp" },
-  { id: "szalas",  title: "Szálas virágok",    desc: "Rózsa, tulipán, liliom – szálanként, ahogy kell.", photo: "rozsa.webp" },
-  { id: "noveny",  title: "Cserepes növények", desc: "Orchideák és szobanövények otthonra, irodába.",    photo: "rozsa-orchidea.webp" },
-  { id: "alkalmi", title: "Alkalmi kötészet",  desc: "Virágdoboz, koszorú, menyasszonyi csokor.",        photo: "feher-rozsa.webp" },
+  { id: "csokor",  title: "Csokrok",           desc: "Kézzel kötött csokrok minden alkalomra.",          photo: "rozsacsokor.webp" },
+  { id: "szalas",  title: "Szálas virágok",    desc: "Rózsa, tulipán, liliom – szálanként, ahogy kell.", photo: "feher-rozsa.webp" },
+  { id: "noveny",  title: "Cserepes növények", desc: "Orchideák és szobanövények otthonra, irodába.",    photo: "orchidea-lila.webp" },
+  { id: "alkalmi", title: "Alkalmi kötészet",  desc: "Virágdoboz, koszorú, menyasszonyi csokor.",        photo: "krizantem-feher.webp" },
 ];
 
 /* ---------- Segédfüggvények ---------- */
