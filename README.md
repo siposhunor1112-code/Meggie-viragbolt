@@ -12,9 +12,8 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak, kollekció), WebP formátumban
-  - `assets/video/` – rövid (kb. 34 mp-es) film a boltról a galéria alatt, két 4K felvételből vágva (a rángó részek kivágva), 30 kép/mp: `meggie-film.mp4` (16:9, 1920×1080, asztali nézet), `meggie-allo.mp4` (9:16, telefonon), `meggie-film-poster.jpg` (borítókép). Csak lejátszáskor töltődik be.
-    A nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali) és `hero-mobil.mp4` (telefon). Most egy karácsonyi jelenetet is tartalmaz (polc, illetve hógömb); ünnepek után karácsony nélküli változatra cserélhető.
-    Mind a négy videó utólag stabilizálva van (a kézi felvétel lépésekből adódó rángásai és sebesség-lüktetése kisimítva, kb. 6%-os ráközelítéssel), és finom, természetes színkorrekciót kapott. Új videó cseréjekor érdemes ugyanígy eljárni.
+  - `assets/video/` – a nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali, 16:9) és `hero-mobil.mp4` (telefon, ugyanaz a felvétel 4:5-re vágva, kisebb fájl). Most egy karácsonyi polcos jelenetet is tartalmaz; ünnepek után karácsony nélküli változatra cserélhető.
+    A videók utólag stabilizálva vannak (a kézi felvétel lépésekből adódó rángásai és sebesség-lüktetése kisimítva, kb. 6%-os ráközelítéssel), és finom, természetes színkorrekciót kapott. Új videó cseréjekor érdemes ugyanígy eljárni.
   - `robots.txt` – a keresőknek
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
@@ -36,7 +35,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 2. Gyorsinfó – cím, nyitvatartás, megállók
 3. Alkalmak, 4. Kollekció (kategóriánként lenyitható lista)
 5. A bolt – fotó, elérhetőség, heti nyitvatartás
-6. Képek a pultról – fotógaléria, „Ajándék és karácsony” sor (plüssmacik, hógömbök, karácsonyi házikók) és rövid film a boltról az oldal végén
+6. Képek a pultról – fotógaléria, „Ajándék és karácsony” sor (plüssmacik, hógömbök, karácsonyi házikók)
 
 ## Domain
 

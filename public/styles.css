@@ -288,12 +288,6 @@ em { font-style: italic; }
 .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .trio .mosaic__item { aspect-ratio: 4 / 5; }
 
-/* Rövid film a galéria alatt: asztali nézetben fekvő, telefonon álló változat (a <source media> választja) */
-.film { position: relative; margin-top: 14px; border-radius: 22px; overflow: hidden; background: var(--night); }
-.film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--night); }
-.film figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; padding: 16px 20px 18px; color: var(--on-night); }
-.film b { font: italic 400 24px/1.15 var(--serif); }
-.film span { font-size: 14px; font-weight: 400; color: var(--on-night-2); }
 
 /* ---------- 01 Alkalmak ---------- */
 .occasions { padding-top: clamp(72px, 9vw, 120px); }
@@ -499,10 +493,6 @@ em { font-style: italic; }
   .trio .mosaic__item { aspect-ratio: 3 / 4; }
   .trio .mosaic__item:first-child { grid-column: 1 / 3; aspect-ratio: 4 / 3; }
   .trio .mosaic__item:not(:first-child) span { display: none; }
-  .film { margin-top: 10px; }
-  .film video { aspect-ratio: 9 / 16; max-height: 82svh; }
-  .film figcaption { padding: 14px 14px 16px; }
-  .film b { font-size: 20px; }
 
   .band__row { grid-template-columns: 48px 1fr 64px; gap: 14px; padding-top: 22px; padding-bottom: 22px; }
   .band p { grid-column: 2 / 3; grid-row: 2; font-size: 15px; }
