@@ -225,17 +225,19 @@ em { font-style: italic; }
 .menu__foot { display: flex; flex-direction: column; gap: 8px; font-size: 14px; letter-spacing: .08em; color: var(--on-night-2); }
 .menu__foot a { font: italic 26px var(--serif); color: var(--on-night); letter-spacing: 0; }
 
-/* ---------- Nyitókép: valódi fotó jobbra, borszínű szövegpanel balra ---------- */
+/* ---------- Nyitókép: virágos hurokvideó a teljes szélességben, a szöveg mögött borszínű átmenet ---------- */
 .hero {
   position: relative; overflow: hidden; background: var(--night-glow), var(--night); color: var(--on-night);
   min-height: min(100svh, 940px); display: grid; align-items: end; padding: 120px 0 56px;
 }
-.hero__photo { position: absolute; top: 0; right: 0; bottom: 0; width: 47vw; }
+.hero__photo { position: absolute; inset: 0; }
 .hero__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+@media (prefers-reduced-motion: reduce) { .hero__video { display: none; } }
 .hero__photo::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    linear-gradient(90deg, var(--night) 0%, rgba(122, 51, 71, .55) 14%, rgba(122, 51, 71, 0) 38%),
+    linear-gradient(90deg, var(--night) 0%, rgba(122, 51, 71, .9) 30%, rgba(122, 51, 71, .62) 48%, rgba(122, 51, 71, .2) 68%, rgba(122, 51, 71, 0) 82%),
     linear-gradient(180deg, rgba(122, 51, 71, .85) 0%, rgba(122, 51, 71, .35) 12%, rgba(122, 51, 71, 0) 26%),
     linear-gradient(0deg, var(--night) 0%, rgba(122, 51, 71, .5) 9%, rgba(122, 51, 71, 0) 22%);
 }
