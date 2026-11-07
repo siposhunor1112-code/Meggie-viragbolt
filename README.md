@@ -13,6 +13,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `assets/` – ikonok és a bolt fotója
   - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak, kollekció), WebP formátumban
   - `assets/video/` – rövid film a boltról a galéria alatt: `meggie-film.mp4` (16:9, asztali nézet), `meggie-allo.mp4` (9:16, telefonon), `meggie-film-poster.jpg` (borítókép). Csak lejátszáskor töltődik be.
+    A nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali) és `hero-mobil.mp4` (telefon). Most egy karácsonyi jelenetet is tartalmaz (polc, illetve hógömb); ünnepek után karácsony nélküli változatra cserélhető.
   - `robots.txt` – a keresőknek
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
   - `_headers` – biztonsági fejlécek (Cloudflare alkalmazza, nem jelenik meg az oldalon)
@@ -30,11 +31,11 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
 
 ## Az oldal részei
 
-1. Nyitókép – rózsafotó, élő nyitvatartás-jelzés, Hívás és Útvonal gomb
+1. Nyitókép – virágos hurokvideó a szöveg mögött (a rózsafotó a tartalék), élő nyitvatartás-jelzés, Hívás és Útvonal gomb
 2. Gyorsinfó – cím, nyitvatartás, megállók
 3. Alkalmak, 4. Kollekció (kategóriánként lenyitható lista)
 5. A bolt – fotó, elérhetőség, heti nyitvatartás
-6. Képek a pultról – fotógaléria és rövid film a boltról az oldal végén
+6. Képek a pultról – fotógaléria, „Ajándék és karácsony” sor (plüssmacik, hógömbök, karácsonyi házikók) és rövid film a boltról az oldal végén
 
 ## Domain
 

@@ -45,6 +45,9 @@ const PRODUCTS = [
   { cat: "alkalmi", bloom: "peony",   palette: "cherry",  seed: 7,  title: "Virágdoboz",            desc: "Díszdobozba rendezett virágok – ajándéknak a legelegánsabb választás.", from: true, price: 16900, unit: "doboz" },
   { cat: "alkalmi", bloom: "anemone", palette: "ivory",   seed: 17, title: "Koszorú",               desc: "Gyászkoszorú élő virágból, méltó és visszafogott kivitelben.",        from: true,  price: 14900, unit: "db" },
   { cat: "alkalmi", bloom: "rose",    palette: "cream",   seed: 10, title: "Menyasszonyi csokor",   desc: "Az esküvő stílusához tervezve, személyes egyeztetés alapján.",        from: true,  price: 24900, unit: "db" },
+  { cat: "ajandek", bloom: "bud",     palette: "blush",   seed: 21, title: "Plüssmaci",             desc: "Kicsi és óriás plüssmacik – önmagukban vagy egy csokor mellé.",       from: true,  price: 1,     unit: "db" },
+  { cat: "ajandek", bloom: "bud",     palette: "cherry",  seed: 22, title: "Hógömb",                desc: "Zenélő, havazó hógömbök Mikulással és fenyőkkel.",                   from: true,  price: 2,     unit: "db" },
+  { cat: "ajandek", bloom: "bud",     palette: "apricot", seed: 23, title: "Világító karácsonyi házikó", desc: "Fényes házikók, kocsik és fenyők – ünnepi dísz a polcra vagy az asztalra.", from: true, price: 3, unit: "db" },
 ];
 
 // A Kollekció lenyitható kategóriái, ebben a sorrendben (cím, rövid leírás, kis fotó a fejlécben)
@@ -53,6 +56,7 @@ const CATEGORIES = [
   { id: "szalas",  title: "Szálas virágok",    desc: "Rózsa, tulipán, liliom – szálanként, ahogy kell.", photo: "feher-rozsa.webp" },
   { id: "noveny",  title: "Cserepes növények", desc: "Orchideák és szobanövények otthonra, irodába.",    photo: "orchidea-lila.webp" },
   { id: "alkalmi", title: "Alkalmi kötészet",  desc: "Virágdoboz, koszorú, menyasszonyi csokor.",        photo: "krizantem-feher.webp" },
+  { id: "ajandek", title: "Ajándékok és karácsony", desc: "Plüssmacik, hógömbök, karácsonyi díszek.",  photo: "maci-feher.webp" },
 ];
 
 /* ---------- Segédfüggvények ---------- */
