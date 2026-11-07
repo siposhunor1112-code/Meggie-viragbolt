@@ -12,7 +12,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak, kollekció), WebP formátumban
-  - `assets/video/` – a nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali, 16:9) és `hero-mobil.mp4` (telefon, ugyanaz a felvétel 4:5-re vágva, kisebb fájl). Most egy karácsonyi polcos jelenetet is tartalmaz; ünnepek után karácsony nélküli változatra cserélhető.
+  - `assets/video/` – a nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali, 16:9) és `hero-mobil.mp4` (telefon, ugyanaz a felvétel 4:5-re vágva, kisebb fájl). Most karácsonyi polcos és plüssmacis jelenetet is tartalmaz (a macik a korábbi bolti filmből); ünnepek után karácsony nélküli változatra cserélhető.
     A videók utólag stabilizálva vannak (a kézi felvétel lépésekből adódó rángásai és sebesség-lüktetése kisimítva, kb. 6%-os ráközelítéssel), és finom, természetes színkorrekciót kapott. Új videó cseréjekor érdemes ugyanígy eljárni.
   - `robots.txt` – a keresőknek
   - `sitemap.xml` – oldaltérkép a Google-nek (Search Console-ba beküldhető)
