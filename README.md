@@ -12,7 +12,7 @@ Nincs szükség build lépésre: a `public/` mappa bármilyen statikus tárhelye
   - `script.js` – elérhetőség, nyitvatartás és a kollekció
   - `assets/` – ikonok és a bolt fotója
   - `assets/photos/` – a virágfotók (nyitókép, „A pultról” galéria, alkalmak, kollekció), WebP formátumban
-  - `assets/video/` – rövid film a boltról a galéria alatt: `meggie-film.mp4` (16:9, asztali nézet), `meggie-allo.mp4` (9:16, telefonon), `meggie-film-poster.jpg` (borítókép). Csak lejátszáskor töltődik be.
+  - `assets/video/` – rövid (kb. 38 mp-es) film a boltról a galéria alatt, két 4K felvételből vágva, 30 kép/mp: `meggie-film.mp4` (16:9, 1920×1080, asztali nézet), `meggie-allo.mp4` (9:16, telefonon), `meggie-film-poster.jpg` (borítókép). Csak lejátszáskor töltődik be.
     A nyitókép mögötti hangtalan, végtelenített hurok: `hero.mp4` (asztali) és `hero-mobil.mp4` (telefon). Most egy karácsonyi jelenetet is tartalmaz (polc, illetve hógömb); ünnepek után karácsony nélküli változatra cserélhető.
     Mind a négy videó utólag stabilizálva van (a kézi felvétel lépésekből adódó rángásai és sebesség-lüktetése kisimítva, kb. 6%-os ráközelítéssel), és finom, természetes színkorrekciót kapott. Új videó cseréjekor érdemes ugyanígy eljárni.
   - `robots.txt` – a keresőknek
