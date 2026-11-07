@@ -25,7 +25,10 @@ export default {
         return await serveVideo(request, env);
       } catch (err) {
         console.error("video range handling failed:", err);
-        return env.ASSETS.fetch(request);
+        const res = await env.ASSETS.fetch(request);
+        const h = new Headers(res.headers);
+        h.set("X-Video-Serve", "fallback");
+        return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
       }
     }
     return env.ASSETS.fetch(request);
@@ -40,26 +43,40 @@ async function serveVideo(request, env) {
   const full = await env.ASSETS.fetch(new Request(request.url, { method: request.method, headers: plain }));
 
   const headers = new Headers(full.headers);
-  const size = Number(full.headers.get("Content-Length"));
-  const sizeKnown = full.status === 200 && Number.isFinite(size) && size > 0;
-  if (sizeKnown) headers.set("Accept-Ranges", "bytes");
-  if (!range || !sizeKnown || !full.body) {
+  if (full.status !== 200 || !full.body) {
+    headers.set("X-Video-Serve", "passthrough");
     return new Response(full.body, { status: full.status, statusText: full.statusText, headers });
   }
 
-  const r = parseRange(range, size);
-  if (r === null) {
-    // Érthetetlen vagy több részből álló kérés: a teljes fájl megy ki (ezt a szabvány megengedi).
-    return new Response(full.body, { status: 200, headers });
+  // A fájlkiszolgáló a Workeren belül nem mindig ad Content-Length-et; ilyenkor beolvassuk
+  // a fájlt, hogy tudjuk a méretét (a videók néhány MB-osak, ez belefér a Worker memóriájába).
+  let size = Number(full.headers.get("Content-Length"));
+  let buffer = null;
+  if (!Number.isFinite(size) || size <= 0) {
+    buffer = await full.arrayBuffer();
+    size = buffer.byteLength;
   }
+  headers.set("Accept-Ranges", "bytes");
+
+  const r = range ? parseRange(range, size) : null;
   if (r === "unsatisfiable") {
-    await full.body.cancel();
-    return new Response(null, { status: 416, headers: { "Content-Range": `bytes */${size}`, "Accept-Ranges": "bytes" } });
+    if (!buffer) await full.body.cancel();
+    return new Response(null, { status: 416, headers: { "Content-Range": `bytes */${size}`, "Accept-Ranges": "bytes", "X-Video-Serve": "unsatisfiable" } });
+  }
+  if (r === null) {
+    // Nincs Range, vagy érthetetlen / több részből álló kérés: a teljes fájl megy ki (ezt a szabvány megengedi).
+    headers.set("X-Video-Serve", buffer ? "full-buffered" : "full");
+    return new Response(buffer ?? full.body, { status: 200, headers });
   }
 
   const length = r.end - r.start + 1;
   headers.set("Content-Range", `bytes ${r.start}-${r.end}/${size}`);
   headers.set("Content-Length", String(length));
+  if (buffer) {
+    headers.set("X-Video-Serve", "range-buffered");
+    return new Response(new Uint8Array(buffer, r.start, length), { status: 206, headers });
+  }
+  headers.set("X-Video-Serve", "range");
   const { readable, writable } = new FixedLengthStream(length);
   sliceStream(full.body, r.start, length).pipeTo(writable).catch((err) => console.error("video slice stream failed:", err));
   return new Response(readable, { status: 206, headers });
