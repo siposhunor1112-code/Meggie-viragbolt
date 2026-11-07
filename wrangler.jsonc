@@ -9,8 +9,9 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    // A Worker csak az oldal megnyitásakor fut (a többi fájl közvetlenül megy ki);
-    // nem létező címnél is lefut, mert ott nincs kiszolgálható fájl.
-    "run_worker_first": ["/", "/index.html"]
+    // A Worker csak az oldal megnyitásakor és a videóknál fut (a többi fájl közvetlenül megy ki);
+    // a videóknál a részletekben kért (Range) letöltést szolgálja ki, ami a Safarinak kell.
+    // Nem létező címnél is lefut, mert ott nincs kiszolgálható fájl.
+    "run_worker_first": ["/", "/index.html", "/assets/video/*"]
   }
 }
